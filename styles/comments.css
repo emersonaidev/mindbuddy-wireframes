@@ -1,16 +1,16 @@
 /* Comment System Styles */
 .comment-section {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
+    max-width: 240px;
     background: rgba(26, 26, 26, 0.95);
-    border-top: 1px solid #333;
-    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 8px;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
-    z-index: 10;
+    margin: 8px 0;
+    position: relative;
 }
 
 .comment-input {
@@ -22,30 +22,90 @@
     color: #fff;
     font-size: 13px;
     font-family: inherit;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    resize: none;
+    height: 32px;
+    min-height: 32px;
+    max-height: 120px;
+    overflow-y: hidden;
+    line-height: 1.2;
+}
+
+.comment-input.expanded {
+    height: 80px;
+    overflow-y: auto;
+}
+
+.comment-input.expanded::-webkit-scrollbar {
+    width: 4px;
+}
+
+.comment-input.expanded::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 2px;
+}
+
+.comment-input.expanded::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 2px;
+}
+
+.comment-input.expanded::-webkit-scrollbar-thumb:hover {
+    background: #666;
 }
 
 .comment-input:focus {
     outline: none;
-    border-color: #666;
+    border-color: #0ea5e9;
     background: #333;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
 }
 
 .comment-input::placeholder {
     color: #666;
 }
 
+.comment-input:invalid,
+.comment-input[data-error="true"] {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
+
+.comment-input:valid {
+    border-color: #444;
+}
+
+/* Character count and validation feedback */
+
+.comment-section::after {
+    content: attr(data-char-count);
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 11px;
+    color: #666;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.comment-section.focused::after {
+    opacity: 1;
+}
+
 .comment-send-btn {
-    padding: 8px 16px;
+    width: 32px;
+    height: 32px;
     background: #fff;
     color: #000;
     border: none;
     border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
-    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .comment-send-btn:hover {
@@ -57,10 +117,7 @@
     transform: translateY(0);
 }
 
-/* Adjust screen frame to accommodate comment section */
-.screen-frame.has-comment {
-    padding-bottom: 60px;
-}
+/* No need to adjust screen frame anymore since comments are outside */
 
 /* Comment Modal */
 .comment-modal {
@@ -295,41 +352,34 @@
 .export-controls {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-right: 12px;
-}
-
-.log-info {
-    padding: 8px 12px;
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 8px;
+    gap: 8px;
+    margin-left: auto;
+    padding-left: 16px;
+    border-left: 1px solid #333;
+    flex-shrink: 0;
 }
 
 .log-count {
     color: #ccc;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 500;
-}
-
-.export-buttons {
-    display: flex;
-    gap: 4px;
+    white-space: nowrap;
 }
 
 .export-btn {
-    padding: 8px 12px;
+    width: 32px;
+    height: 32px;
     background: #2a2a2a;
     border: 1px solid #444;
     border-radius: 8px;
     color: #fff;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .export-btn:hover {
@@ -342,21 +392,24 @@
     border-color: #ff4444;
 }
 
-/* Toast Notification */
+/* Professional Toast Notifications */
 .comment-toast {
     position: fixed;
     bottom: 24px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background: #333;
-    color: #fff;
     padding: 12px 24px;
     border-radius: 8px;
     font-size: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    font-weight: 500;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     opacity: 0;
-    transition: all 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10002;
+    max-width: 400px;
+    text-align: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .comment-toast.show {
@@ -364,43 +417,274 @@
     transform: translateX(-50%) translateY(0);
 }
 
+/* Toast Types */
+.toast-success {
+    background: rgba(34, 197, 94, 0.9);
+    color: white;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.toast-error {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.toast-warning {
+    background: rgba(245, 158, 11, 0.9);
+    color: white;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.toast-info {
+    background: rgba(59, 130, 246, 0.9);
+    color: white;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Export Preview Modal */
+.export-preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.export-preview-modal.show {
+    opacity: 1;
+}
+
+.export-preview-modal.closing {
+    opacity: 0;
+}
+
+.export-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.export-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.export-box {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    animation: exportFadeIn 0.3s ease-out;
+}
+
+@keyframes exportFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.export-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 1px solid #333;
+}
+
+.export-header h3 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.export-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.export-close:hover {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.export-content {
+    padding: 24px;
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.export-info {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 8px;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.export-textarea {
+    flex: 1;
+    min-height: 300px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-family: 'SF Mono', Monaco, Consolas, monospace;
+    padding: 16px;
+    resize: none;
+    line-height: 1.5;
+    transition: all 0.2s;
+}
+
+.export-textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.export-textarea::-webkit-scrollbar {
+    width: 8px;
+}
+
+.export-textarea::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.export-textarea::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+.export-textarea::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+.export-actions {
+    padding: 24px;
+    border-top: 1px solid #333;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.export-download-btn,
+.export-cancel-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.export-download-btn {
+    background: #22c55e;
+    color: white;
+}
+
+.export-download-btn:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+}
+
+.export-cancel-btn {
+    background: #333;
+    color: #ccc;
+    border: 1px solid #555;
+}
+
+.export-cancel-btn:hover {
+    background: #444;
+    color: #fff;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .comment-section {
-        padding: 8px;
+        padding: 6px;
+        max-width: 100%;
     }
     
     .comment-input {
         font-size: 12px;
         padding: 6px 10px;
+        height: 28px;
+        min-height: 28px;
+    }
+    
+    .comment-input.expanded {
+        height: 60px;
     }
     
     .comment-send-btn {
+        width: 28px;
+        height: 28px;
         font-size: 12px;
-        padding: 6px 12px;
     }
     
     .export-controls {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-        width: 100%;
-        margin-right: 0;
-        margin-bottom: 12px;
+        border-left: none;
+        padding-left: 0;
+        margin-left: 0;
+        gap: 4px;
     }
     
-    .export-buttons {
-        justify-content: space-between;
+    .log-count {
+        display: none;
     }
     
     .export-btn {
+        width: 28px;
+        height: 28px;
         font-size: 12px;
-        padding: 6px 8px;
-    }
-    
-    .view-options {
-        flex-direction: column;
-        align-items: flex-end;
     }
 }
 

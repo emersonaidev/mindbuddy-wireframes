@@ -145,10 +145,10 @@
         /* Screen Grid */
         .screens-grid {
             display: grid;
-            gap: 40px;
+            gap: 0;
             max-width: 1600px;
             margin: 0 auto;
-            grid-template-columns: repeat(auto-fit, minmax(393px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             justify-items: center;
         }
         
@@ -157,14 +157,24 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            gap: 12px;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .screen-container:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         
         /* Screen Frame */
         .screen-frame {
-            width: 393px;
-            height: 852px;
-            border-radius: 48px;
+            width: 240px;
+            height: 520px;
+            border-radius: 29px;
             overflow: hidden;
             position: relative;
             background: #000;
@@ -172,6 +182,7 @@
                 0 20px 40px rgba(0,0,0,0.4),
                 0 0 0 1px rgba(255,255,255,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform: scale(1);
         }
         
         .screen-frame:hover {
@@ -188,6 +199,8 @@
             border: none;
             display: block;
             background: white;
+            transform: scale(0.61);
+            transform-origin: top left;
         }
         
         /* Loading state */
@@ -305,22 +318,23 @@
         /* Grid View Variations */
         .screens-grid.single {
             grid-template-columns: 1fr;
-            max-width: 500px;
+            max-width: 280px;
         }
         
         .screens-grid.double {
             grid-template-columns: repeat(2, 1fr);
-            max-width: 900px;
+            max-width: 560px;
         }
         
         .screens-grid.triple {
             grid-template-columns: repeat(3, 1fr);
-            max-width: 1300px;
+            max-width: 840px;
         }
         
         .screens-grid.quad {
             grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
+            gap: 0;
+            max-width: 1120px;
         }
         
         /* Responsive */
@@ -346,7 +360,12 @@
             }
             
             .screen-frame {
-                transform: scale(0.9);
+                width: 220px;
+                height: 477px;
+            }
+            
+            .screen-iframe {
+                transform: scale(0.56);
             }
             
             .view-options {
@@ -565,6 +584,19 @@
             const screenId = `screen-${Math.random().toString(36).substr(2, 9)}`;
             return `
                 <div class="screen-container">
+                    <div class="screen-info">
+                        <h3 class="screen-name">${screen.name}</h3>
+                    </div>
+                    <div class="comment-section" data-screen-name="${screen.name}" data-screen-path="${screen.path}">
+                        <textarea 
+                            class="comment-input" 
+                            placeholder="Add a comment..."
+                            data-screen-name="${screen.name}"
+                            data-screen-path="${screen.path}"
+                            rows="1"
+                        ></textarea>
+                        <button class="comment-send-btn">➤</button>
+                    </div>
                     <div class="screen-frame">
                         <div class="loading-container" id="loading-${screenId}">
                             <div class="loading-spinner"></div>
@@ -575,10 +607,6 @@
                             onload="document.getElementById('loading-${screenId}').style.display='none'"
                             onerror="document.getElementById('loading-${screenId}').innerHTML='<div class=\"error-message\">Failed to load screen</div>'"
                         ></iframe>
-                    </div>
-                    <div class="screen-info">
-                        <h3 class="screen-name">${screen.name}</h3>
-                        <p class="screen-path">${screen.path}</p>
                     </div>
                 </div>
             `;
@@ -613,8 +641,33 @@
                 }
             });
             
-            // Notify that screens are loaded
+            // Notify that screens are loaded and add comment listeners
             setTimeout(() => {
+                // Add event listeners to comment sections
+                const commentSections = document.querySelectorAll('.comment-section');
+                commentSections.forEach(section => {
+                    const input = section.querySelector('.comment-input');
+                    const sendBtn = section.querySelector('.comment-send-btn');
+                    const screenName = section.dataset.screenName;
+                    const screenPath = section.dataset.screenPath;
+                    
+                    const sendComment = () => {
+                        const comment = input.value.trim();
+                        if (comment && window.professionalCommentsManager) {
+                            window.professionalCommentsManager.addCommentToLog(screenName, screenPath, comment);
+                            input.value = '';
+                            input.blur();
+                        }
+                    };
+                    
+                    sendBtn.onclick = sendComment;
+                    input.addEventListener('keypress', (e) => {
+                        if (e.key === 'Enter') {
+                            sendComment();
+                        }
+                    });
+                });
+                
                 window.dispatchEvent(new Event('screensLoaded'));
             }, 100);
         }
@@ -650,6 +703,9 @@
         
         viewBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Don't allow clicks on disabled buttons
+                if (btn.disabled) return;
+                
                 const view = btn.dataset.view;
                 
                 // Update active button
@@ -672,6 +728,45 @@
         
         // Notify that screens are loaded
         window.dispatchEvent(new Event('screensLoaded'));
+        
+        // Handle responsive grid view buttons
+        function updateGridViewButtons() {
+            const viewportWidth = window.innerWidth;
+            const viewBtns = document.querySelectorAll('.view-btn');
+            
+            // Calculate how many columns can fit based on screen size
+            // Each screen is 240px + 25px gap, with 48px total padding
+            const availableWidth = viewportWidth - 48;
+            const screenWidth = 240;
+            const gap = 25;
+            const maxColumns = Math.floor((availableWidth + gap) / (screenWidth + gap));
+            
+            viewBtns.forEach((btn, index) => {
+                const columns = index + 1; // 1, 2, 3, 4 columns
+                if (columns > maxColumns) {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.3';
+                    btn.style.cursor = 'not-allowed';
+                } else {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.style.cursor = 'pointer';
+                }
+            });
+            
+            // If current active view is disabled, switch to the highest available
+            const activeBtn = document.querySelector('.view-btn.active');
+            if (activeBtn && activeBtn.disabled) {
+                const availableBtns = Array.from(viewBtns).filter(btn => !btn.disabled);
+                if (availableBtns.length > 0) {
+                    availableBtns[availableBtns.length - 1].click();
+                }
+            }
+        }
+        
+        // Update on load and resize
+        updateGridViewButtons();
+        window.addEventListener('resize', updateGridViewButtons);
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -730,8 +825,8 @@
         }
     </script>
     
-    <!-- Authentication and Comments Scripts -->
+    <!-- Authentication and Professional Comments Scripts -->
     <script src="auth.js"></script>
-    <script src="comments-simple.js"></script>
+    <script src="comments-manager.js"></script>
 </body>
 </html>
