@@ -612,6 +612,11 @@
                     }
                 }
             });
+            
+            // Notify that screens are loaded
+            setTimeout(() => {
+                window.dispatchEvent(new Event('screensLoaded'));
+            }, 100);
         }
         
         // Category navigation
@@ -664,6 +669,9 @@
         
         // Initialize with all screens
         populateScreens('all');
+        
+        // Notify that screens are loaded
+        window.dispatchEvent(new Event('screensLoaded'));
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {

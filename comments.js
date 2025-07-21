@@ -344,11 +344,59 @@ class CommentsManager {
     }
 
     init() {
-        // Wait for screens to load
+        // Add export button immediately
+        this.addExportButton();
+        
+        // Watch for screens to be added to the DOM
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.addedNodes.forEach((node) => {
+                    if (node.nodeType === 1 && node.classList && node.classList.contains('screen-container')) {
+                        this.addCommentButtonToScreen(node);
+                    }
+                });
+            });
+        });
+        
+        // Start observing
+        const grids = document.querySelectorAll('.screens-grid');
+        grids.forEach(grid => {
+            observer.observe(grid, { childList: true });
+        });
+        
+        // Also add buttons to any existing screens
         setTimeout(() => {
             this.addCommentButtons();
-            this.addExportButton();
-        }, 1000);
+        }, 100);
+    }
+    
+    addCommentButtonToScreen(container) {
+        // Check if button already exists
+        if (container.querySelector('.comment-btn')) return;
+        
+        const screenInfo = container.querySelector('.screen-info');
+        if (!screenInfo) return;
+        
+        const screenName = screenInfo.querySelector('.screen-name').textContent;
+        const screenPath = screenInfo.querySelector('.screen-path').textContent;
+        
+        // Add comment button
+        const commentBtn = document.createElement('button');
+        commentBtn.className = 'comment-btn';
+        commentBtn.innerHTML = '💬';
+        commentBtn.title = 'Add comment';
+        commentBtn.onclick = () => this.createCommentModal(screenPath, screenName);
+        
+        container.appendChild(commentBtn);
+        
+        // Add badge if there are comments
+        const count = this.getComments(screenPath).length;
+        if (count > 0) {
+            const badge = document.createElement('span');
+            badge.className = 'comment-badge';
+            badge.textContent = count;
+            commentBtn.appendChild(badge);
+        }
     }
 }
 
@@ -359,7 +407,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.authManager && window.authManager.authenticated) {
             clearInterval(checkAuth);
             window.commentsManager = new CommentsManager();
-            window.commentsManager.init();
+            
+            // Wait for screens to be loaded
+            window.addEventListener('screensLoaded', () => {
+                window.commentsManager.init();
+            });
+            
+            // Also initialize if screens are already loaded
+            if (document.querySelector('.screen-container')) {
+                window.commentsManager.init();
+            }
         }
     }, 100);
 });
