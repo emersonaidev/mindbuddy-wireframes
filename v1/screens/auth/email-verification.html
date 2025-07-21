@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Email Verification - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .verification-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content {
+            flex: 1;
+            padding: var(--space-xl);
+            padding-top: var(--space-3xl);
+            text-align: center;
+        }
+        
+        .icon-container {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mail-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .description {
+            color: var(--gray-600);
+            margin-bottom: var(--space-3xl);
+            line-height: 1.5;
+        }
+        
+        .email-display {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .code-inputs {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .code-input {
+            width: 50px;
+            height: 60px;
+            font-size: var(--font-2xl);
+            text-align: center;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            background: var(--gray-50);
+            font-weight: 600;
+        }
+        
+        .code-input:focus {
+            outline: none;
+            border-color: var(--gray-900);
+            background: var(--white);
+        }
+        
+        .resend-section {
+            margin-top: var(--space-xl);
+        }
+        
+        .resend-text {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .resend-link {
+            color: var(--gray-900);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .timer {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="verification-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Verify Email</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <div class="icon-container">
+                    <div class="mail-icon"></div>
+                </div>
+                
+                <h1 class="heading-2">Check your email</h1>
+                
+                <p class="description">
+                    We sent a verification code to your email address
+                </p>
+                
+                <div class="email-display">
+                    john.doe@example.com
+                </div>
+                
+                <!-- Code Input -->
+                <div class="code-inputs">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                    <input type="text" class="code-input" maxlength="1" placeholder="-">
+                </div>
+                
+                <button class="button button-primary button-full">
+                    Verify Email
+                </button>
+                
+                <!-- Resend Section -->
+                <div class="resend-section">
+                    <p class="resend-text">Didn't receive the code?</p>
+                    <a href="#" class="resend-link">Resend code</a>
+                    <p class="timer">Resend available in 0:45</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

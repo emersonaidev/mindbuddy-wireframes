@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Sign in with Apple - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .sso-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+        
+        .sso-sheet {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+            border-top-left-radius: var(--radius-xl);
+            border-top-right-radius: var(--radius-xl);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sheet-handle {
+            width: 36px;
+            height: 5px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            margin: var(--space-sm) auto;
+        }
+        
+        .sheet-header {
+            padding: var(--space-lg) var(--space-xl);
+            text-align: center;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .apple-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--black);
+            border-radius: var(--radius-lg);
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .apple-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+        }
+        
+        .sheet-title {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .sheet-subtitle {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+        
+        .sheet-content {
+            flex: 1;
+            padding: var(--space-xl);
+        }
+        
+        .app-info {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .app-name {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .app-description {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+        
+        .data-sharing {
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .data-title {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            color: var(--gray-700);
+        }
+        
+        .data-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .data-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            position: relative;
+        }
+        
+        .checkbox.checked {
+            background: var(--black);
+            border-color: var(--black);
+        }
+        
+        .checkbox.checked::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 12px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            left: 7px;
+            top: 2px;
+        }
+        
+        .data-label {
+            flex: 1;
+            font-size: var(--font-sm);
+        }
+        
+        .privacy-note {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .privacy-text {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .button-apple {
+            background: var(--black);
+            color: var(--white);
+        }
+        
+        .cancel-button {
+            background: var(--gray-100);
+            color: var(--gray-900);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="sso-container">
+            <div class="sso-sheet">
+                <!-- Handle -->
+                <div class="sheet-handle"></div>
+                
+                <!-- Header -->
+                <div class="sheet-header">
+                    <div class="apple-logo">
+                        <div class="apple-icon"></div>
+                    </div>
+                    <h2 class="sheet-title">Sign in with Apple</h2>
+                    <p class="sheet-subtitle">Use your Apple ID to sign in</p>
+                </div>
+                
+                <!-- Content -->
+                <div class="sheet-content">
+                    <div class="app-info">
+                        <h3 class="app-name">MindBuddy</h3>
+                        <p class="app-description">Stress monitoring & rewards</p>
+                    </div>
+                    
+                    <div class="data-sharing">
+                        <h4 class="data-title">Choose what to share:</h4>
+                        <div class="data-options">
+                            <div class="data-option">
+                                <div class="checkbox checked"></div>
+                                <label class="data-label">Share my email</label>
+                            </div>
+                            <div class="data-option">
+                                <div class="checkbox"></div>
+                                <label class="data-label">Hide my email</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="privacy-note">
+                        <p class="privacy-text">
+                            Apps that use Sign in with Apple are required to have a privacy policy. 
+                            Your Apple ID information will be shared with MindBuddy.
+                        </p>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="button button-full button-apple">
+                            Continue
+                        </button>
+                        <button class="button button-full cancel-button">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

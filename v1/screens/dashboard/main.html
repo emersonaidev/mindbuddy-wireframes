@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Dashboard - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .dashboard-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .dashboard-header {
+            padding: var(--space-lg);
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        
+        .user-greeting {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-xs);
+        }
+        
+        .page-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+        }
+        
+        .header-action {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-card {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .balance-label {
+            font-size: var(--font-sm);
+            opacity: 0.8;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .balance-amount {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .balance-change {
+            font-size: var(--font-sm);
+            opacity: 0.8;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .metric-card {
+            text-align: center;
+            position: relative;
+        }
+        
+        .metric-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: var(--radius-full);
+            border: 8px solid var(--gray-100);
+            position: relative;
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .metric-circle::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: var(--radius-full);
+            border: 8px solid var(--gray-900);
+            border-right-color: transparent;
+            border-bottom-color: transparent;
+            transform: rotate(45deg);
+        }
+        
+        .metric-value {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+        }
+        
+        .metric-unit {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .metric-label {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .metric-link {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+        
+        .activity-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .section-link {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-md);
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .activity-time {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .activity-amount {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="dashboard-container">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="header-top">
+                    <div>
+                        <div class="user-greeting">Good morning</div>
+                        <h1 class="page-title">Dashboard</h1>
+                    </div>
+                    <div class="header-action"></div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content" style="padding-bottom: 0;">
+                <div class="container" style="height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: var(--space-xl);">
+                    <!-- Token Balance -->
+                    <div class="main-card">
+                        <div class="balance-label">$MNDY Balance</div>
+                        <div class="balance-amount">174 $MNDY</div>
+                        <div class="balance-change">+7 earned today</div>
+                    </div>
+                    
+                    <!-- Metrics -->
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="card">
+                                <div class="metric-circle">
+                                    <div class="metric-value">72</div>
+                                    <div class="metric-unit">/ 100</div>
+                                </div>
+                                <div class="metric-label">Resilience Score</div>
+                                <a href="#" class="metric-link">What does this mean?</a>
+                            </div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="card">
+                                <div class="metric-circle">
+                                    <div class="metric-value">85%</div>
+                                </div>
+                                <div class="metric-label">Data Reputation</div>
+                                <a href="#" class="metric-link">How to improve</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Activity -->
+                    <div class="activity-section">
+                        <div class="section-header">
+                            <h2 class="section-title">Recent Activity</h2>
+                            <a href="#" class="section-link">See all</a>
+                        </div>
+                        
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon"></div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Sleep data synced</div>
+                                    <div class="activity-time">2 hours ago</div>
+                                </div>
+                                <div class="activity-amount">+3 $MNDY</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon"></div>
+                                <div class="activity-content">
+                                    <div class="activity-title">HRV data synced</div>
+                                    <div class="activity-time">5 hours ago</div>
+                                </div>
+                                <div class="activity-amount">+4 $MNDY</div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon"></div>
+                                <div class="activity-content">
+                                    <div class="activity-title">Daily check-in</div>
+                                    <div class="activity-time">Yesterday</div>
+                                </div>
+                                <div class="activity-amount">+2 $MNDY</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+</html>

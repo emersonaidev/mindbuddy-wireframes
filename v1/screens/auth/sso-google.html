@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Sign in with Google - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .sso-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+        
+        .sso-modal {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .close-button {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .close-icon {
+            font-size: 20px;
+            color: var(--gray-600);
+        }
+        
+        .sso-content {
+            flex: 1;
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .provider-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .provider-logo-inner {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .sso-title {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            text-align: center;
+        }
+        
+        .sso-description {
+            color: var(--gray-600);
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+            max-width: 280px;
+            line-height: 1.5;
+        }
+        
+        .account-list {
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .account-item:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
+        }
+        
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-md);
+        }
+        
+        .account-info {
+            flex: 1;
+        }
+        
+        .account-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .account-email {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .use-another {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            color: var(--gray-700);
+            text-decoration: none;
+            font-size: var(--font-sm);
+        }
+        
+        .plus-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="sso-container">
+            <div class="sso-modal">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h2 class="modal-title">Sign in with Google</h2>
+                    <div class="close-button">
+                        <span class="close-icon">×</span>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="sso-content">
+                    <div class="provider-logo">
+                        <div class="provider-logo-inner"></div>
+                    </div>
+                    
+                    <h3 class="sso-title">Choose an account</h3>
+                    
+                    <p class="sso-description">
+                        to continue to MindBuddy
+                    </p>
+                    
+                    <!-- Account List -->
+                    <div class="account-list">
+                        <div class="account-item">
+                            <div class="account-avatar"></div>
+                            <div class="account-info">
+                                <div class="account-name">John Doe</div>
+                                <div class="account-email">john.doe@gmail.com</div>
+                            </div>
+                        </div>
+                        
+                        <div class="account-item">
+                            <div class="account-avatar"></div>
+                            <div class="account-info">
+                                <div class="account-name">Work Account</div>
+                                <div class="account-email">john@company.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="use-another">
+                        <div class="plus-icon"></div>
+                        Use another account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Insights - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .insights-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+            overflow: hidden;
+        }
+        
+        .insights-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .period-selector {
+            display: flex;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: 2px;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .period-option {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            text-align: center;
+            border-radius: var(--radius-md);
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .period-option.active {
+            background: var(--white);
+            color: var(--gray-900);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .summary-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+        }
+        
+        .summary-label {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .summary-value {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .summary-change {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .change-positive {
+            color: var(--gray-700);
+        }
+        
+        .change-negative {
+            color: var(--gray-600);
+        }
+        
+        .chart-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .chart-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: var(--font-sm);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-400);
+        }
+        
+        .chart-container {
+            height: 200px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-grid {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .grid-line {
+            flex: 1;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .chart-bars {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 0 var(--space-md);
+        }
+        
+        .chart-bar {
+            width: 40px;
+            background: var(--gray-300);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        }
+        
+        .insights-list {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .insight-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .insight-item:last-child {
+            border-bottom: none;
+        }
+        
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .insight-content {
+            flex: 1;
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .insight-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .insight-action {
+            font-size: var(--font-sm);
+            color: var(--gray-900);
+            font-weight: 600;
+            margin-top: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="insights-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back"></div>
+                <div class="nav-title">Insights</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="insights-header">
+                <div class="period-selector">
+                    <div class="period-option">Day</div>
+                    <div class="period-option active">Week</div>
+                    <div class="period-option">Month</div>
+                    <div class="period-option">Year</div>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <div class="summary-label">Avg Resilience</div>
+                        <div class="summary-value">72</div>
+                        <div class="summary-change change-positive">↑ 8% from last week</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Tokens Earned</div>
+                        <div class="summary-value">42</div>
+                        <div class="summary-change change-positive">↑ 15% from last week</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Active Days</div>
+                        <div class="summary-value">6/7</div>
+                        <div class="summary-change">Same as last week</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-label">Sleep Quality</div>
+                        <div class="summary-value">82%</div>
+                        <div class="summary-change change-negative">↓ 3% from last week</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content" style="overflow-y: auto; -webkit-overflow-scrolling: touch;">
+                <!-- Resilience Chart -->
+                <div class="chart-section">
+                    <div class="chart-header">
+                        <h2 class="chart-title">Resilience Score</h2>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <div class="legend-dot" style="background: var(--gray-700);"></div>
+                                <span>This week</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-dot"></div>
+                                <span>Last week</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-grid">
+                            <div class="grid-line"></div>
+                            <div class="grid-line"></div>
+                            <div class="grid-line"></div>
+                            <div class="grid-line"></div>
+                        </div>
+                        <div class="chart-bars">
+                            <div class="chart-bar" style="height: 70%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 75%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 85%;"></div>
+                            <div class="chart-bar" style="height: 72%; background: var(--gray-700);"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Personalized Insights -->
+                <div class="insights-list">
+                    <h2 class="chart-title" style="margin-bottom: var(--space-lg);">Personalized Insights</h2>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon"></div>
+                        <div class="insight-content">
+                            <h3 class="insight-title">Your best resilience day is Tuesday</h3>
+                            <p class="insight-description">
+                                You consistently show higher resilience scores on Tuesdays, averaging 85 points compared to your weekly average of 72.
+                            </p>
+                            <p class="insight-action">Schedule important tasks on Tuesdays →</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon"></div>
+                        <div class="insight-content">
+                            <h3 class="insight-title">Sleep impacts your stress levels</h3>
+                            <p class="insight-description">
+                                When you sleep less than 7 hours, your next day's resilience score drops by an average of 15 points.
+                            </p>
+                            <p class="insight-action">Set a sleep reminder →</p>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-icon"></div>
+                        <div class="insight-content">
+                            <h3 class="insight-title">Morning walks boost your HRV</h3>
+                            <p class="insight-description">
+                                Days when you log morning activity show 20% higher HRV readings throughout the day.
+                            </p>
+                            <p class="insight-action">View activity trends →</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

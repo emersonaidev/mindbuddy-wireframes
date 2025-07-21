@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Withdraw $MNDY - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .withdraw-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .withdraw-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .balance-info {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .balance-label {
+            font-size: var(--font-sm);
+            opacity: 0.8;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .balance-amount {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .balance-usd {
+            font-size: var(--font-md);
+            opacity: 0.8;
+        }
+        
+        .withdraw-form {
+            padding: var(--space-xl);
+            background: var(--white);
+            flex: 1;
+        }
+        
+        .amount-input-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .amount-input-wrapper {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .amount-input {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            text-align: center;
+            padding: var(--space-lg);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            width: 100%;
+        }
+        
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--gray-900);
+        }
+        
+        .currency-label {
+            position: absolute;
+            right: var(--space-lg);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: var(--font-xl);
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+        
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-sm);
+        }
+        
+        .quick-amount {
+            padding: var(--space-sm);
+            background: var(--gray-100);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            font-size: var(--font-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quick-amount:hover {
+            background: var(--gray-200);
+        }
+        
+        .quick-amount.active {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        .destination-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .wallet-option {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-md);
+            cursor: pointer;
+        }
+        
+        .wallet-option.selected {
+            border-color: var(--gray-900);
+            background: var(--gray-50);
+        }
+        
+        .wallet-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-md);
+        }
+        
+        .wallet-info {
+            flex: 1;
+        }
+        
+        .wallet-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .wallet-address {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            font-family: monospace;
+        }
+        
+        .radio-indicator {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-400);
+            border-radius: var(--radius-full);
+            position: relative;
+        }
+        
+        .wallet-option.selected .radio-indicator {
+            border-color: var(--gray-900);
+        }
+        
+        .wallet-option.selected .radio-indicator::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+        }
+        
+        .add-wallet {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            color: var(--gray-700);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .plus-icon {
+            font-size: var(--font-xl);
+        }
+        
+        .fee-info {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .fee-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-sm);
+        }
+        
+        .fee-row:last-child {
+            margin-bottom: 0;
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--gray-200);
+            font-weight: 600;
+        }
+        
+        .fee-label {
+            color: var(--gray-600);
+        }
+        
+        .button-container {
+            position: sticky;
+            bottom: 0;
+            background: var(--white);
+            padding: var(--space-xl);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .withdraw-note {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-align: center;
+            margin-top: var(--space-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="withdraw-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Withdraw</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="withdraw-header">
+                <div class="balance-info">
+                    <div class="balance-label">Available Balance</div>
+                    <div class="balance-amount">174 $MNDY</div>
+                    <div class="balance-usd">≈ $87.00 USD</div>
+                </div>
+            </div>
+            
+            <!-- Form -->
+            <div class="withdraw-form">
+                <!-- Amount Input -->
+                <div class="amount-input-section">
+                    <h2 class="section-title">Amount to withdraw</h2>
+                    
+                    <div class="amount-input-wrapper">
+                        <input type="text" class="amount-input" placeholder="0" value="50">
+                        <span class="currency-label">$MNDY</span>
+                    </div>
+                    
+                    <div class="quick-amounts">
+                        <button class="quick-amount">25</button>
+                        <button class="quick-amount active">50</button>
+                        <button class="quick-amount">100</button>
+                        <button class="quick-amount">Max</button>
+                    </div>
+                </div>
+                
+                <!-- Destination -->
+                <div class="destination-section">
+                    <h2 class="section-title">Send to</h2>
+                    
+                    <div class="wallet-option selected">
+                        <div class="wallet-icon"></div>
+                        <div class="wallet-info">
+                            <div class="wallet-name">MetaMask Wallet</div>
+                            <div class="wallet-address">0x742d...3fC8</div>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    
+                    <div class="wallet-option">
+                        <div class="wallet-icon"></div>
+                        <div class="wallet-info">
+                            <div class="wallet-name">Coinbase Wallet</div>
+                            <div class="wallet-address">0x8B4e...9aD2</div>
+                        </div>
+                        <div class="radio-indicator"></div>
+                    </div>
+                    
+                    <div class="add-wallet">
+                        <span class="plus-icon">+</span>
+                        <span>Add new wallet</span>
+                    </div>
+                </div>
+                
+                <!-- Fee Information -->
+                <div class="fee-info">
+                    <div class="fee-row">
+                        <span class="fee-label">Amount</span>
+                        <span>50 $MNDY</span>
+                    </div>
+                    <div class="fee-row">
+                        <span class="fee-label">Network fee</span>
+                        <span>2 $MNDY</span>
+                    </div>
+                    <div class="fee-row">
+                        <span class="fee-label">You'll receive</span>
+                        <span>48 $MNDY</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Button -->
+            <div class="button-container">
+                <button class="button button-primary button-full">
+                    Review Withdrawal
+                </button>
+                <p class="withdraw-note">
+                    Withdrawals typically process within 2-3 business days
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

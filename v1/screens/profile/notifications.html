@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Notifications - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .notifications-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .master-toggle-section {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+            margin-bottom: var(--space-md);
+        }
+        
+        .master-toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .master-label {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 28px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+        }
+        
+        .toggle.active {
+            background: var(--gray-900);
+        }
+        
+        .toggle-handle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            transition: transform 0.2s;
+        }
+        
+        .toggle.active .toggle-handle {
+            transform: translateX(20px);
+        }
+        
+        .notification-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-header {
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .section-title {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-info {
+            flex: 1;
+            margin-right: var(--space-lg);
+        }
+        
+        .notification-title {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .notification-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+        
+        .time-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+        }
+        
+        .time-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+        
+        .frequency-options {
+            display: flex;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+        
+        .frequency-chip {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .frequency-chip.active {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        .quiet-hours {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl);
+        }
+        
+        .quiet-hours-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .quiet-hours-title {
+            font-weight: 600;
+        }
+        
+        .time-range {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .time-input {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            text-align: center;
+            width: 80px;
+        }
+        
+        .time-separator {
+            color: var(--gray-600);
+        }
+        
+        .preview-section {
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .preview-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            font-weight: 500;
+        }
+        
+        .preview-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+        }
+        
+        .footer-note {
+            padding: 0 var(--space-xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="notifications-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Notifications</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Master Toggle -->
+            <div class="master-toggle-section">
+                <div class="master-toggle-row">
+                    <span class="master-label">Allow Notifications</span>
+                    <div class="toggle active">
+                        <div class="toggle-handle"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content" style="overflow-y: auto;">
+                <!-- Health Insights -->
+                <div class="notification-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Health Insights</h2>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Daily Summary</div>
+                            <div class="notification-description">
+                                Your health metrics and earnings for the day
+                            </div>
+                            <div class="time-selector">
+                                <div class="time-icon"></div>
+                                <span>8:00 PM daily</span>
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Stress Alerts</div>
+                            <div class="notification-description">
+                                When your stress levels are elevated
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Sleep Reminders</div>
+                            <div class="notification-description">
+                                Bedtime reminder based on your sleep goal
+                            </div>
+                            <div class="time-selector">
+                                <div class="time-icon"></div>
+                                <span>10:30 PM daily</span>
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rewards & Achievements -->
+                <div class="notification-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Rewards & Achievements</h2>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Token Earnings</div>
+                            <div class="notification-description">
+                                When you earn $MNDY tokens
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Milestones</div>
+                            <div class="notification-description">
+                                Achievement unlocks and streak milestones
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Weekly Progress</div>
+                            <div class="notification-description">
+                                Your weekly health and earnings report
+                            </div>
+                            <div class="frequency-options">
+                                <div class="frequency-chip">Monday</div>
+                                <div class="frequency-chip active">Sunday</div>
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System -->
+                <div class="notification-section">
+                    <div class="section-header">
+                        <h2 class="section-title">System</h2>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Sync Status</div>
+                            <div class="notification-description">
+                                Device connection issues or sync failures
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">Security Alerts</div>
+                            <div class="notification-description">
+                                New sign-ins and security updates
+                            </div>
+                        </div>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-title">App Updates</div>
+                            <div class="notification-description">
+                                New features and important changes
+                            </div>
+                        </div>
+                        <div class="toggle">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quiet Hours -->
+                <div class="quiet-hours">
+                    <div class="quiet-hours-header">
+                        <span class="quiet-hours-title">Quiet Hours</span>
+                        <div class="toggle active">
+                            <div class="toggle-handle"></div>
+                        </div>
+                    </div>
+                    <div class="time-range">
+                        <input type="text" class="time-input" value="11:00 PM">
+                        <span class="time-separator">to</span>
+                        <input type="text" class="time-input" value="7:00 AM">
+                    </div>
+                </div>
+                
+                <!-- Preview -->
+                <div class="preview-section">
+                    <button class="preview-button">
+                        <div class="preview-icon"></div>
+                        Preview Notification
+                    </button>
+                </div>
+                
+                <!-- Footer Note -->
+                <div class="footer-note">
+                    <p class="footer-text">
+                        You can manage system notification settings in your device's Settings app
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Profile - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .profile-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .profile-header {
+            background: var(--white);
+            padding: var(--space-xl);
+            padding-bottom: var(--space-2xl);
+            border-bottom: 1px solid var(--gray-100);
+            text-align: center;
+        }
+        
+        .avatar-container {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .avatar-initials {
+            font-size: var(--font-2xl);
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+        
+        .user-name {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .user-email {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+        
+        .menu-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+        }
+        
+        .menu-title {
+            padding: var(--space-md) var(--space-xl);
+            font-size: var(--font-xs);
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .menu-list {
+            list-style: none;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .menu-icon-inner {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .menu-content {
+            flex: 1;
+        }
+        
+        .menu-label {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .menu-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .menu-arrow {
+            color: var(--gray-400);
+            font-size: 20px;
+        }
+        
+        .menu-badge {
+            background: var(--gray-900);
+            color: var(--white);
+            font-size: var(--font-xs);
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: var(--radius-full);
+            margin-right: var(--space-sm);
+        }
+        
+        .logout-section {
+            padding: var(--space-xl);
+        }
+        
+        .logout-button {
+            background: transparent;
+            color: var(--gray-900);
+            border: 1px solid var(--gray-300);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="profile-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back"></div>
+                <div class="nav-title">Profile</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="avatar-container">
+                    <span class="avatar-initials">JD</span>
+                </div>
+                <h1 class="user-name">John Doe</h1>
+                <p class="user-email">john.doe@example.com</p>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-value">174</div>
+                        <div class="stat-label">$MNDY</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Reputation</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Days Active</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Account Section -->
+                <div class="menu-section">
+                    <h2 class="menu-title">Account</h2>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Personal Information</div>
+                                    <div class="menu-description">Name, email, phone</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Security</div>
+                                    <div class="menu-description">Password, 2FA, devices</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Subscription</div>
+                                    <div class="menu-description">Free Plan</div>
+                                </div>
+                            </div>
+                            <span class="menu-badge">Upgrade</span>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Health & Privacy Section -->
+                <div class="menu-section">
+                    <h2 class="menu-title">Health & Privacy</h2>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Connected Devices</div>
+                                    <div class="menu-description">Apple Watch, Health app</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Data Permissions</div>
+                                    <div class="menu-description">Manage what you share</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Export My Data</div>
+                                    <div class="menu-description">Download your information</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Support Section -->
+                <div class="menu-section">
+                    <h2 class="menu-title">Support</h2>
+                    <ul class="menu-list">
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Help Center</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Terms & Conditions</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                        
+                        <li class="menu-item">
+                            <div class="menu-left">
+                                <div class="menu-icon">
+                                    <div class="menu-icon-inner"></div>
+                                </div>
+                                <div class="menu-content">
+                                    <div class="menu-label">Privacy Policy</div>
+                                </div>
+                            </div>
+                            <span class="menu-arrow">›</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Logout -->
+                <div class="logout-section">
+                    <button class="button button-full logout-button">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

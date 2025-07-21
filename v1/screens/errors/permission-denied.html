@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Permission Required - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .permission-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+        
+        .permission-header {
+            padding: var(--space-3xl) var(--space-xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .permission-illustration {
+            width: 120px;
+            height: 120px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .lock-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-400);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+        
+        .lock-icon::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            border: 4px solid var(--gray-400);
+            border-bottom: none;
+            border-radius: 20px 20px 0 0;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .permission-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .permission-subtitle {
+            font-size: var(--font-md);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .permission-content {
+            flex: 1;
+            padding: var(--space-xl);
+            overflow-y: auto;
+        }
+        
+        .permission-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .permission-item {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+            align-items: flex-start;
+        }
+        
+        .permission-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .permission-icon-inner {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .permission-info {
+            flex: 1;
+        }
+        
+        .permission-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .permission-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+        
+        .steps-section {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+        
+        .steps-title {
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-sm);
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            font-size: var(--font-sm);
+            line-height: 1.4;
+            padding-top: 2px;
+        }
+        
+        .button-container {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .settings-note {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-align: center;
+            margin-top: var(--space-md);
+        }
+        
+        .trust-banner {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .shield-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-400);
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+        }
+        
+        .trust-text {
+            font-size: var(--font-sm);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="permission-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Permissions</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="permission-header">
+                <div class="permission-illustration">
+                    <div class="lock-icon"></div>
+                </div>
+                <h1 class="permission-title">Health Access Required</h1>
+                <p class="permission-subtitle">
+                    MindBuddy needs permission to read your health data to track wellness and reward you with $MNDY tokens.
+                </p>
+            </div>
+            
+            <!-- Content -->
+            <div class="permission-content">
+                <!-- What We Access -->
+                <div class="permission-section">
+                    <h2 class="section-title">What we need access to:</h2>
+                    
+                    <div class="permission-item">
+                        <div class="permission-icon">
+                            <div class="permission-icon-inner"></div>
+                        </div>
+                        <div class="permission-info">
+                            <div class="permission-name">Heart Rate & HRV</div>
+                            <div class="permission-description">
+                                Monitor stress levels and cardiovascular health throughout the day
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-icon">
+                            <div class="permission-icon-inner"></div>
+                        </div>
+                        <div class="permission-info">
+                            <div class="permission-name">Sleep Analysis</div>
+                            <div class="permission-description">
+                                Track sleep quality and duration to understand recovery patterns
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-item">
+                        <div class="permission-icon">
+                            <div class="permission-icon-inner"></div>
+                        </div>
+                        <div class="permission-info">
+                            <div class="permission-name">Activity Data</div>
+                            <div class="permission-description">
+                                Count steps, calories, and exercise minutes for daily goals
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trust Banner -->
+                <div class="trust-banner">
+                    <div class="shield-icon"></div>
+                    <p class="trust-text">
+                        Your health data is encrypted and never shared. You can revoke access anytime.
+                    </p>
+                </div>
+                
+                <!-- How to Enable -->
+                <div class="steps-section">
+                    <h3 class="steps-title">How to enable:</h3>
+                    
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Tap "Open Settings" below</div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Find MindBuddy in your apps list</div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Tap "Health" and enable all categories</div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Return to MindBuddy to start earning</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Bottom Button -->
+            <div class="button-container">
+                <button class="button button-primary button-full">
+                    Open Settings
+                </button>
+                <p class="settings-note">
+                    You'll be redirected to your device settings
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

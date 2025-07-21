@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Loading - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .loading-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .loading-content {
+            max-width: 280px;
+        }
+        
+        /* Main Loading Animation */
+        .loading-animation {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto var(--space-2xl);
+            position: relative;
+        }
+        
+        .spinner-ring {
+            position: absolute;
+            inset: 0;
+            border: 3px solid var(--gray-200);
+            border-radius: var(--radius-full);
+        }
+        
+        .spinner-ring::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 3px solid transparent;
+            border-top-color: var(--gray-700);
+            border-radius: var(--radius-full);
+            animation: spin 1.5s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-icon {
+            position: absolute;
+            inset: 30%;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .pulse-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        
+        /* Alternative Loading States */
+        .dots-animation {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+        
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        /* Progress Bar Style */
+        .progress-animation {
+            width: 200px;
+            height: 4px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-2xl);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            animation: progress 2s ease-in-out infinite;
+        }
+        
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+        
+        /* Loading Text */
+        .loading-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .loading-message {
+            font-size: var(--font-md);
+            color: var(--gray-600);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .loading-status {
+            font-size: var(--font-sm);
+            color: var(--gray-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+        
+        .status-indicator {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            animation: blink 1s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Different Loading States */
+        .skeleton-container {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        
+        .skeleton-card {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        .skeleton-line {
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: var(--radius-sm);
+            margin-bottom: var(--space-sm);
+            animation: shimmer 1.5s ease-in-out infinite;
+        }
+        
+        .skeleton-line:last-child {
+            margin-bottom: 0;
+        }
+        
+        .skeleton-line.short {
+            width: 60%;
+        }
+        
+        .skeleton-line.medium {
+            width: 80%;
+        }
+        
+        @keyframes shimmer {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        /* Specific Loading States */
+        .sync-animation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .device-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gray-200);
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+        
+        .sync-arrows {
+            font-size: 24px;
+            color: var(--gray-400);
+            animation: sync-rotate 2s ease-in-out infinite;
+        }
+        
+        @keyframes sync-rotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="loading-container">
+            <div class="loading-content">
+                <!-- Main Spinner Loading -->
+                <div class="loading-animation">
+                    <div class="spinner-ring"></div>
+                    <div class="loading-icon">
+                        <div class="pulse-dot"></div>
+                    </div>
+                </div>
+                
+                <h1 class="loading-title">Loading</h1>
+                <p class="loading-message">Please wait while we fetch your data</p>
+                
+                <div class="loading-status">
+                    <span class="status-indicator"></span>
+                    <span>Connecting to server...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alternative: Dots Loading -->
+    <div class="screen" style="display: none;">
+        <div class="loading-container">
+            <div class="loading-content">
+                <div class="dots-animation">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                
+                <h1 class="loading-title">Just a moment</h1>
+                <p class="loading-message">We're preparing your dashboard</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alternative: Progress Bar Loading -->
+    <div class="screen" style="display: none;">
+        <div class="loading-container">
+            <div class="loading-content">
+                <h1 class="loading-title">Syncing Health Data</h1>
+                <p class="loading-message">This may take a few seconds</p>
+                
+                <div class="progress-animation">
+                    <div class="progress-fill"></div>
+                </div>
+                
+                <div class="loading-status">Processing 2,847 data points...</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alternative: Skeleton Loading -->
+    <div class="screen" style="display: none;">
+        <div class="nav-header">
+            <div class="nav-back"></div>
+            <div class="nav-title">Dashboard</div>
+            <div class="nav-action"></div>
+        </div>
+        
+        <div class="content">
+            <div class="skeleton-container">
+                <div class="skeleton-card">
+                    <div class="skeleton-line short"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line medium"></div>
+                </div>
+                
+                <div class="skeleton-card">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                </div>
+                
+                <div class="skeleton-card">
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line short"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alternative: Device Sync Loading -->
+    <div class="screen" style="display: none;">
+        <div class="loading-container">
+            <div class="loading-content">
+                <div class="sync-animation">
+                    <div class="device-icon"></div>
+                    <div class="sync-arrows">⇄</div>
+                    <div class="device-icon"></div>
+                </div>
+                
+                <h1 class="loading-title">Syncing Devices</h1>
+                <p class="loading-message">Connecting to your Apple Watch</p>
+                
+                <div class="loading-status">
+                    <span class="status-indicator"></span>
+                    <span>Establishing connection...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

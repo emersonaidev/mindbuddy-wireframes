@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Sleep Analysis - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .sleep-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+            overflow: hidden;
+        }
+        
+        .sleep-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .sleep-header {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-xl);
+            padding-bottom: var(--space-2xl);
+        }
+        
+        .sleep-summary {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .sleep-duration {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .sleep-quality {
+            font-size: var(--font-lg);
+            opacity: 0.8;
+        }
+        
+        .sleep-times {
+            display: flex;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+        }
+        
+        .time-item {
+            text-align: center;
+        }
+        
+        .time-label {
+            font-size: var(--font-xs);
+            opacity: 0.7;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .time-value {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .sleep-graph {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            margin-bottom: var(--space-md);
+        }
+        
+        .graph-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .sleep-stages {
+            height: 180px;
+            position: relative;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .stage-row {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 25%;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+        }
+        
+        .stage-label {
+            position: absolute;
+            left: var(--space-sm);
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .stage-bars {
+            position: absolute;
+            left: 60px;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .stage-bar {
+            flex: 1;
+            margin: 0 1px;
+        }
+        
+        .bar-awake {
+            background: var(--gray-800);
+            height: 100%;
+        }
+        
+        .bar-rem {
+            background: var(--gray-600);
+            height: 75%;
+        }
+        
+        .bar-light {
+            background: var(--gray-400);
+            height: 50%;
+        }
+        
+        .bar-deep {
+            background: var(--gray-300);
+            height: 25%;
+        }
+        
+        .time-axis {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-sm);
+            padding: 0 60px;
+        }
+        
+        .time-marker {
+            font-size: var(--font-xs);
+            color: var(--gray-500);
+        }
+        
+        .sleep-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            padding: 0 var(--space-xl) var(--space-xl);
+        }
+        
+        .metric-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+        
+        .metric-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .metric-value {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .metric-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .sleep-insights {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .insights-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .insight-item {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .insight-item:last-child {
+            border-bottom: none;
+        }
+        
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .insight-content {
+            flex: 1;
+        }
+        
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .insight-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="sleep-container">
+            <!-- Navigation -->
+            <div class="nav-header" style="background: var(--gray-900); border-bottom: none;">
+                <div class="nav-back" style="color: white;">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title" style="color: white;">Sleep Analysis</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="sleep-header">
+                <div class="sleep-summary">
+                    <div class="sleep-duration">7h 24m</div>
+                    <div class="sleep-quality">82% Sleep Quality</div>
+                </div>
+                
+                <div class="sleep-times">
+                    <div class="time-item">
+                        <div class="time-label">Bedtime</div>
+                        <div class="time-value">11:15 PM</div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-label">Fell Asleep</div>
+                        <div class="time-value">11:28 PM</div>
+                    </div>
+                    <div class="time-item">
+                        <div class="time-label">Wake Up</div>
+                        <div class="time-value">6:52 AM</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scrollable Content -->
+            <div class="sleep-content">
+            <!-- Sleep Stages Graph -->
+            <div class="sleep-graph">
+                <h2 class="graph-title">Sleep Stages</h2>
+                
+                <div class="sleep-stages">
+                    <div class="stage-row" style="top: 0%;">
+                        <span class="stage-label">Awake</span>
+                    </div>
+                    <div class="stage-row" style="top: 25%;">
+                        <span class="stage-label">REM</span>
+                    </div>
+                    <div class="stage-row" style="top: 50%;">
+                        <span class="stage-label">Light</span>
+                    </div>
+                    <div class="stage-row" style="top: 75%; border-bottom: none;">
+                        <span class="stage-label">Deep</span>
+                    </div>
+                    
+                    <div class="stage-bars">
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-deep"></div>
+                        <div class="stage-bar bar-deep"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-rem"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-deep"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-rem"></div>
+                        <div class="stage-bar bar-awake"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-rem"></div>
+                        <div class="stage-bar bar-light"></div>
+                        <div class="stage-bar bar-awake"></div>
+                    </div>
+                </div>
+                
+                <div class="time-axis">
+                    <span class="time-marker">11PM</span>
+                    <span class="time-marker">1AM</span>
+                    <span class="time-marker">3AM</span>
+                    <span class="time-marker">5AM</span>
+                    <span class="time-marker">7AM</span>
+                </div>
+            </div>
+            
+            <!-- Sleep Metrics -->
+            <div class="sleep-metrics">
+                <div class="metric-card">
+                    <div class="metric-icon"></div>
+                    <div class="metric-value">1h 45m</div>
+                    <div class="metric-label">Deep Sleep</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon"></div>
+                    <div class="metric-value">1h 30m</div>
+                    <div class="metric-label">REM Sleep</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon"></div>
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Awakenings</div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon"></div>
+                    <div class="metric-value">92%</div>
+                    <div class="metric-label">Sleep Efficiency</div>
+                </div>
+            </div>
+            
+            <!-- Sleep Insights -->
+            <div class="sleep-insights">
+                <h2 class="insights-title">Sleep Insights</h2>
+                
+                <div class="insight-item">
+                    <div class="insight-icon"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Good sleep duration</h3>
+                        <p class="insight-description">
+                            You got 7h 24m of sleep, which is within the recommended 7-9 hours for adults.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-icon"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Consistent bedtime</h3>
+                        <p class="insight-description">
+                            Your bedtime has been consistent this week, varying by less than 30 minutes.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-icon"></div>
+                    <div class="insight-content">
+                        <h3 class="insight-title">Room for improvement</h3>
+                        <p class="insight-description">
+                            Try to reduce screen time 1 hour before bed to improve sleep quality.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

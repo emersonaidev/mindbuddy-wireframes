@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Personal Information - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .personal-info-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .info-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .avatar-section {
+            background: var(--white);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto var(--space-lg);
+        }
+        
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .avatar-initials {
+            font-size: var(--font-3xl);
+            font-weight: 600;
+            color: var(--gray-600);
+        }
+        
+        .avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            border: 3px solid var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .edit-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--white);
+            border-radius: var(--radius-xs);
+        }
+        
+        .change-photo {
+            color: var(--gray-700);
+            font-weight: 600;
+            font-size: var(--font-sm);
+        }
+        
+        .info-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .info-field {
+            margin-bottom: var(--space-lg);
+        }
+        
+        .info-field:last-child {
+            margin-bottom: 0;
+        }
+        
+        .field-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .field-value {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .field-text {
+            font-weight: 500;
+        }
+        
+        .field-action {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+        
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-xs);
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .verified-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+        
+        .date-picker {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .date-input {
+            flex: 1;
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .button-container {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .save-note {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-align: center;
+            margin-top: var(--space-md);
+        }
+        
+        .delete-section {
+            margin-top: var(--space-2xl);
+            padding: var(--space-lg) var(--space-xl);
+            background: var(--white);
+        }
+        
+        .delete-button {
+            background: transparent;
+            color: #DC2626;
+            border: 1px solid #DC2626;
+            font-weight: 600;
+        }
+        
+        .delete-warning {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-align: center;
+            margin-top: var(--space-md);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="personal-info-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Personal Information</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="info-content">
+                <!-- Avatar Section -->
+                <div class="avatar-section">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-image">
+                            <span class="avatar-initials">JD</span>
+                        </div>
+                        <div class="avatar-edit">
+                            <div class="edit-icon"></div>
+                        </div>
+                    </div>
+                    <button class="change-photo">Change Photo</button>
+                </div>
+                
+                <!-- Basic Information -->
+                <div class="info-section">
+                    <h2 class="section-title">Basic Information</h2>
+                    
+                    <div class="info-field">
+                        <label class="field-label">First Name</label>
+                        <div class="field-value">
+                            <span class="field-text">John</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Last Name</label>
+                        <div class="field-value">
+                            <span class="field-text">Doe</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Date of Birth</label>
+                        <div class="date-picker">
+                            <input type="text" class="date-input" value="01" placeholder="DD">
+                            <input type="text" class="date-input" value="15" placeholder="MM">
+                            <input type="text" class="date-input" value="1990" placeholder="YYYY">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="info-section">
+                    <h2 class="section-title">Contact Information</h2>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Email Address</label>
+                        <div class="field-value">
+                            <span class="field-text">john.doe@example.com</span>
+                            <span class="verified-badge">
+                                <span class="verified-icon"></span>
+                                Verified
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Phone Number</label>
+                        <div class="field-value">
+                            <span class="field-text">+1 (555) 123-4567</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Health Profile -->
+                <div class="info-section">
+                    <h2 class="section-title">Health Profile</h2>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Height</label>
+                        <div class="field-value">
+                            <span class="field-text">5'10" (178 cm)</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Weight</label>
+                        <div class="field-value">
+                            <span class="field-text">165 lbs (75 kg)</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                    
+                    <div class="info-field">
+                        <label class="field-label">Activity Level</label>
+                        <div class="field-value">
+                            <span class="field-text">Moderately Active</span>
+                            <span class="field-action">Edit</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Delete Account -->
+                <div class="delete-section">
+                    <button class="button button-full delete-button">
+                        Delete Account
+                    </button>
+                    <p class="delete-warning">
+                        This action cannot be undone. All your data will be permanently deleted.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="button-container">
+                <button class="button button-primary button-full">
+                    Save Changes
+                </button>
+                <p class="save-note">
+                    Changes will sync across all your devices
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

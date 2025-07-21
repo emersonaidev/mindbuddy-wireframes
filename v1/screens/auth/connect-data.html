@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Connect Your Data - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .connect-data-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            padding: var(--space-xl);
+            padding-top: var(--space-2xl);
+        }
+        
+        .page-header {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .info-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .info-card {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border: 1px solid var(--gray-100);
+        }
+        
+        .info-card-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .info-card-text {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .platform-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        
+        .platform-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .platform-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-200);
+            border-radius: var(--radius-md);
+        }
+        
+        .platform-details {
+            flex: 1;
+        }
+        
+        .platform-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .platform-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .chevron {
+            width: 20px;
+            height: 20px;
+            color: var(--gray-400);
+        }
+        
+        .helper-text {
+            text-align: center;
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+            margin-top: var(--space-lg);
+            line-height: 1.5;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .progress-dot.active {
+            background: var(--gray-900);
+            width: 24px;
+        }
+        
+        .bottom-actions {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="connect-data-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title"></div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="heading-1">Connect your data</h1>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="progress-dots">
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                </div>
+                
+                <!-- Info Cards -->
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-card-title">
+                            <div class="info-icon"></div>
+                            <span>Health Data Access</span>
+                        </div>
+                        <p class="info-card-text">
+                            We need permission to read your health and phone data via Apple Health or your device.
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-card-title">
+                            <div class="info-icon"></div>
+                            <span>Privacy Control</span>
+                        </div>
+                        <p class="info-card-text">
+                            You'll stay in control and can change what you share later.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Platform Selection -->
+                <div class="platform-card">
+                    <div class="platform-info">
+                        <div class="platform-icon"></div>
+                        <div class="platform-details">
+                            <div class="platform-name">Apple Health</div>
+                            <div class="platform-description">Connect to sync your health metrics</div>
+                        </div>
+                    </div>
+                    <div class="chevron">›</div>
+                </div>
+                
+                <p class="helper-text">
+                    You can customise what you share in the next step.
+                </p>
+            </div>
+            
+            <!-- Actions -->
+            <div class="bottom-actions">
+                <button class="button button-primary button-full">
+                    Connect to Apple Health
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Subscription - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .subscription-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .subscription-header {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-2xl) var(--space-xl);
+            text-align: center;
+        }
+        
+        .current-plan {
+            font-size: var(--font-sm);
+            opacity: 0.8;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .plan-name {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .plan-tagline {
+            font-size: var(--font-md);
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .plans-section {
+            padding: var(--space-xl);
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .plan-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .plan-card.featured {
+            border: 2px solid var(--gray-900);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: var(--space-lg);
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: var(--font-xs);
+            font-weight: 600;
+        }
+        
+        .plan-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .plan-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .plan-price {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .plan-period {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .plan-savings {
+            display: inline-block;
+            background: var(--gray-100);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-xs);
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-top: var(--space-sm);
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-sm) 0;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .feature-icon::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 10px;
+            border: solid var(--white);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            left: 6px;
+            top: 3px;
+        }
+        
+        .feature-text {
+            font-size: var(--font-sm);
+            line-height: 1.4;
+        }
+        
+        .feature-highlight {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+        
+        .select-button {
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .select-button.current {
+            background: var(--gray-200);
+            color: var(--gray-600);
+            cursor: default;
+        }
+        
+        .comparison-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-top: var(--space-xl);
+        }
+        
+        .comparison-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            text-align: center;
+        }
+        
+        .comparison-table {
+            width: 100%;
+        }
+        
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: var(--font-sm);
+        }
+        
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+        
+        .comparison-header {
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-cell {
+            text-align: center;
+        }
+        
+        .comparison-feature {
+            text-align: left;
+            color: var(--gray-700);
+        }
+        
+        .check-mark {
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+        
+        .cross-mark {
+            color: var(--gray-400);
+        }
+        
+        .footer-section {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .footer-link {
+            color: var(--gray-700);
+            font-size: var(--font-sm);
+            text-decoration: none;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 24px;
+            background: var(--gray-200);
+            border-radius: var(--radius-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="subscription-container">
+            <!-- Navigation -->
+            <div class="nav-header" style="background: var(--gray-900); border-bottom: none;">
+                <div class="nav-back" style="color: white;">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title" style="color: white;">Subscription</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="subscription-header">
+                <div class="current-plan">Your current plan</div>
+                <h1 class="plan-name">Free Plan</h1>
+                <p class="plan-tagline">Upgrade to unlock advanced insights and earn more $MNDY</p>
+            </div>
+            
+            <!-- Plans -->
+            <div class="plans-section">
+                <!-- Premium Monthly -->
+                <div class="plan-card">
+                    <div class="plan-header">
+                        <h2 class="plan-title">Premium Monthly</h2>
+                        <div class="plan-price">$9.99</div>
+                        <div class="plan-period">per month</div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">
+                                <span class="feature-highlight">2x $MNDY earnings</span> on all activities
+                            </span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Advanced health insights & AI recommendations</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Unlimited device connections</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Priority customer support</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Export detailed health reports</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="select-button">Start Free Trial</button>
+                </div>
+                
+                <!-- Premium Annual -->
+                <div class="plan-card featured">
+                    <span class="popular-badge">Most Popular</span>
+                    <div class="plan-header">
+                        <h2 class="plan-title">Premium Annual</h2>
+                        <div class="plan-price">$79.99</div>
+                        <div class="plan-period">per year</div>
+                        <div class="plan-savings">Save 33% ($40)</div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">
+                                Everything in Monthly, plus:
+                            </span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">
+                                <span class="feature-highlight">Exclusive challenges</span> with bonus rewards
+                            </span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Early access to new features</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Annual health report & trends</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">
+                                <span class="feature-highlight">100 bonus $MNDY</span> on signup
+                            </span>
+                        </li>
+                    </ul>
+                    
+                    <button class="select-button">Start Free Trial</button>
+                </div>
+                
+                <!-- Comparison Table -->
+                <div class="comparison-section">
+                    <h3 class="comparison-title">Plan Comparison</h3>
+                    
+                    <div class="comparison-table">
+                        <div class="comparison-row">
+                            <div></div>
+                            <div class="comparison-header">Free</div>
+                            <div class="comparison-header">Premium</div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-feature">Daily $MNDY earnings</div>
+                            <div class="comparison-cell">Up to 10</div>
+                            <div class="comparison-cell">Up to 20</div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-feature">Health insights</div>
+                            <div class="comparison-cell">Basic</div>
+                            <div class="comparison-cell">Advanced</div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-feature">Connected devices</div>
+                            <div class="comparison-cell">2</div>
+                            <div class="comparison-cell">Unlimited</div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-feature">Data export</div>
+                            <div class="comparison-cell"><span class="cross-mark">✗</span></div>
+                            <div class="comparison-cell"><span class="check-mark">✓</span></div>
+                        </div>
+                        
+                        <div class="comparison-row">
+                            <div class="comparison-feature">AI recommendations</div>
+                            <div class="comparison-cell"><span class="cross-mark">✗</span></div>
+                            <div class="comparison-cell"><span class="check-mark">✓</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Plan Info -->
+                <div class="plan-card" style="background: var(--gray-100); margin-top: var(--space-xl);">
+                    <div class="plan-header">
+                        <h2 class="plan-title">Free Plan</h2>
+                        <div class="plan-period">Your current plan</div>
+                    </div>
+                    
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Basic health tracking</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Earn up to 10 $MNDY daily</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span class="feature-text">Connect up to 2 devices</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="select-button current">Current Plan</button>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer-section">
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Terms</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                    <a href="#" class="footer-link">Restore Purchase</a>
+                </div>
+                
+                <div class="payment-methods">
+                    <div class="payment-icon"></div>
+                    <div class="payment-icon"></div>
+                    <div class="payment-icon"></div>
+                    <div class="payment-icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

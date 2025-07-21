@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>How It Works - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .how-it-works-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            padding: var(--space-xl);
+            padding-top: var(--space-2xl);
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .step-card {
+            display: flex;
+            gap: var(--space-md);
+            padding: var(--space-lg);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-100);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-lg);
+        }
+        
+        .step-description {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .progress-dot.active {
+            background: var(--gray-900);
+            width: 24px;
+        }
+        
+        .bottom-actions {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .skip-button {
+            text-align: center;
+            margin-top: var(--space-md);
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="how-it-works-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title"></div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="heading-1">How it works</h1>
+                </div>
+                
+                <!-- Steps -->
+                <div class="steps-list">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Collect real-world data</h3>
+                            <p class="step-description">
+                                We connect to your phone or wearable to track signals like HRV and sleep.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Earn $MNDY tokens</h3>
+                            <p class="step-description">
+                                Get rewarded for consistently sharing high-quality stress data.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Enrich research</h3>
+                            <p class="step-description">
+                                Your signals contribute to the world's largest real-world stress dataset.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="progress-dots">
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="bottom-actions">
+                <button class="button button-primary button-full">Next</button>
+                <div class="skip-button">Skip</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

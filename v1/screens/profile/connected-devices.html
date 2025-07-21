@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Connected Devices - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .devices-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .devices-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+        }
+        
+        .sync-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+        }
+        
+        .sync-info {
+            flex: 1;
+        }
+        
+        .sync-title {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .sync-time {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .sync-button {
+            padding: var(--space-sm) var(--space-md);
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-md);
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+        
+        .device-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+        }
+        
+        .device-header {
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .device-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .device-subtitle {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .device-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .device-item:last-child {
+            border-bottom: none;
+        }
+        
+        .device-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .device-icon-inner {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .device-info {
+            flex: 1;
+        }
+        
+        .device-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .device-details {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .device-status {
+            text-align: right;
+        }
+        
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-xs);
+        }
+        
+        .status-text {
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+        
+        .status-subtext {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .permission-grid {
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .permission-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .permission-item:last-child {
+            border-bottom: none;
+        }
+        
+        .permission-label {
+            font-weight: 500;
+        }
+        
+        .permission-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 28px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+        }
+        
+        .toggle.active {
+            background: var(--gray-900);
+        }
+        
+        .toggle-handle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            transition: transform 0.2s;
+        }
+        
+        .toggle.active .toggle-handle {
+            transform: translateX(20px);
+        }
+        
+        .add-device-section {
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .add-device-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+        }
+        
+        .plus-icon {
+            font-size: var(--font-xl);
+        }
+        
+        .info-card {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl);
+            text-align: center;
+        }
+        
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-md);
+        }
+        
+        .info-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .info-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="devices-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Connected Devices</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Sync Status -->
+            <div class="devices-header">
+                <div class="sync-status">
+                    <div class="sync-icon"></div>
+                    <div class="sync-info">
+                        <div class="sync-title">All devices synced</div>
+                        <div class="sync-time">Last sync: 5 minutes ago</div>
+                    </div>
+                    <button class="sync-button">Sync Now</button>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content" style="overflow-y: auto;">
+                <!-- Primary Device -->
+                <div class="device-section">
+                    <div class="device-header">
+                        <h2 class="device-title">Primary Data Source</h2>
+                        <p class="device-subtitle">Your main health data provider</p>
+                    </div>
+                    
+                    <div class="device-item">
+                        <div class="device-icon">
+                            <div class="device-icon-inner"></div>
+                        </div>
+                        <div class="device-info">
+                            <div class="device-name">Apple Watch Series 9</div>
+                            <div class="device-details">Firmware 10.2 • Paired via iPhone</div>
+                        </div>
+                        <div class="device-status">
+                            <div>
+                                <span class="status-dot"></span>
+                                <span class="status-text">Connected</span>
+                            </div>
+                            <div class="status-subtext">Primary</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Other Devices -->
+                <div class="device-section">
+                    <div class="device-header">
+                        <h2 class="device-title">Other Connected Devices</h2>
+                        <p class="device-subtitle">Additional data sources</p>
+                    </div>
+                    
+                    <div class="device-item">
+                        <div class="device-icon">
+                            <div class="device-icon-inner"></div>
+                        </div>
+                        <div class="device-info">
+                            <div class="device-name">iPhone 15 Pro</div>
+                            <div class="device-details">iOS 17.2 • Health app connected</div>
+                        </div>
+                        <div class="device-status">
+                            <div>
+                                <span class="status-dot"></span>
+                                <span class="status-text">Connected</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="device-item">
+                        <div class="device-icon">
+                            <div class="device-icon-inner"></div>
+                        </div>
+                        <div class="device-info">
+                            <div class="device-name">Oura Ring Gen3</div>
+                            <div class="device-details">Sleep & recovery data</div>
+                        </div>
+                        <div class="device-status">
+                            <div>
+                                <span class="status-dot" style="background: var(--gray-400);"></span>
+                                <span class="status-text">Disconnected</span>
+                            </div>
+                            <div class="status-subtext">Reconnect</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Permissions -->
+                <div class="device-section">
+                    <div class="device-header">
+                        <h2 class="device-title">Data Permissions</h2>
+                        <p class="device-subtitle">Control what health data MindBuddy can access</p>
+                    </div>
+                    
+                    <div class="permission-grid">
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Heart Rate</div>
+                                <div class="permission-description">Real-time and historical data</div>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Heart Rate Variability</div>
+                                <div class="permission-description">Stress and recovery metrics</div>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Sleep Analysis</div>
+                                <div class="permission-description">Sleep stages and quality</div>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Activity & Steps</div>
+                                <div class="permission-description">Movement and exercise data</div>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Blood Pressure</div>
+                                <div class="permission-description">When available</div>
+                            </div>
+                            <div class="toggle">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div>
+                                <div class="permission-label">Mindfulness Minutes</div>
+                                <div class="permission-description">Meditation and breathing data</div>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-handle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add Device -->
+                <div class="add-device-section">
+                    <button class="add-device-button">
+                        <span class="plus-icon">+</span>
+                        Add New Device
+                    </button>
+                </div>
+                
+                <!-- Info Card -->
+                <div class="info-card">
+                    <div class="info-icon"></div>
+                    <h3 class="info-title">Your data is secure</h3>
+                    <p class="info-text">
+                        All health data is encrypted end-to-end and never shared without your permission.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

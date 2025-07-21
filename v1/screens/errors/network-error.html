@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Network Error - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .error-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .error-content {
+            max-width: 320px;
+        }
+        
+        .error-illustration {
+            width: 200px;
+            height: 200px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-2xl);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cloud-icon {
+            width: 100px;
+            height: 60px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .cloud-icon::before {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            left: -20px;
+            top: 10px;
+        }
+        
+        .cloud-icon::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            right: -25px;
+            top: 5px;
+        }
+        
+        .disconnect-line {
+            position: absolute;
+            width: 120px;
+            height: 3px;
+            background: var(--gray-600);
+            transform: rotate(-45deg);
+        }
+        
+        .error-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .error-message {
+            font-size: var(--font-md);
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .troubleshooting {
+            margin-top: var(--space-3xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .troubleshooting-title {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: var(--space-md);
+        }
+        
+        .troubleshooting-list {
+            text-align: left;
+            list-style: none;
+        }
+        
+        .troubleshooting-item {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            padding: var(--space-sm) 0;
+            padding-left: var(--space-xl);
+            position: relative;
+        }
+        
+        .troubleshooting-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gray-400);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-2xl);
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="error-container">
+            <div class="error-content">
+                <!-- Illustration -->
+                <div class="error-illustration">
+                    <div class="cloud-icon"></div>
+                    <div class="disconnect-line"></div>
+                </div>
+                
+                <!-- Error Message -->
+                <h1 class="error-title">No Connection</h1>
+                <p class="error-message">
+                    Unable to connect to MindBuddy servers. Please check your internet connection and try again.
+                </p>
+                
+                <!-- Actions -->
+                <div class="error-actions">
+                    <button class="button button-primary button-full">
+                        Try Again
+                    </button>
+                    <button class="button button-full secondary-button">
+                        Work Offline
+                    </button>
+                </div>
+                
+                <!-- Troubleshooting -->
+                <div class="troubleshooting">
+                    <h2 class="troubleshooting-title">Things to check:</h2>
+                    <ul class="troubleshooting-list">
+                        <li class="troubleshooting-item">Make sure Wi-Fi or cellular data is turned on</li>
+                        <li class="troubleshooting-item">Try moving to a location with better signal</li>
+                        <li class="troubleshooting-item">Check if other apps can connect</li>
+                        <li class="troubleshooting-item">Restart your device if the problem persists</li>
+                    </ul>
+                </div>
+                
+                <!-- Status -->
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>Checking connection...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

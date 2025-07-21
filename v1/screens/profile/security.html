@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Security - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .security-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+            overflow: hidden;
+        }
+        
+        .security-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: var(--space-lg);
+        }
+        
+        .security-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .section-subtitle {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .status-badge {
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            font-size: var(--font-xs);
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: var(--gray-900);
+            color: var(--white);
+        }
+        
+        .security-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .security-option:last-child {
+            border-bottom: none;
+        }
+        
+        .option-info {
+            flex: 1;
+        }
+        
+        .option-title {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .option-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .option-action {
+            color: var(--gray-700);
+            font-weight: 500;
+            font-size: var(--font-sm);
+        }
+        
+        .password-strength {
+            margin-top: var(--space-lg);
+        }
+        
+        .strength-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .strength-bar {
+            height: 8px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            background: var(--gray-600);
+            width: 60%;
+            transition: width 0.3s;
+        }
+        
+        .strength-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-sm);
+        }
+        
+        .device-list {
+            margin-top: var(--space-lg);
+        }
+        
+        .device-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .device-item:last-child {
+            border-bottom: none;
+        }
+        
+        .device-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .device-icon-inner {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .device-info {
+            flex: 1;
+        }
+        
+        .device-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .device-details {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .current-device {
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+        
+        .device-action {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .login-activity {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+        
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            font-size: var(--font-sm);
+        }
+        
+        .activity-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .activity-label {
+            color: var(--gray-600);
+        }
+        
+        .activity-value {
+            font-weight: 500;
+        }
+        
+        .warning-banner {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin: var(--space-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .warning-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .warning-text {
+            font-size: var(--font-sm);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="security-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Security</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="security-content">
+                <!-- Password -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Password</h2>
+                            <p class="section-subtitle">Last changed 3 months ago</p>
+                        </div>
+                    </div>
+                    
+                    <div class="security-option">
+                        <div class="option-info">
+                            <div class="option-title">Change Password</div>
+                            <div class="option-description">Use a strong, unique password</div>
+                        </div>
+                        <span class="option-action">Change</span>
+                    </div>
+                    
+                    <div class="password-strength">
+                        <div class="strength-label">Password Strength</div>
+                        <div class="strength-bar">
+                            <div class="strength-fill"></div>
+                        </div>
+                        <div class="strength-text">Moderate • Consider adding symbols</div>
+                    </div>
+                </div>
+                
+                <!-- Two-Factor Authentication -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Two-Factor Authentication</h2>
+                            <p class="section-subtitle">Extra layer of security</p>
+                        </div>
+                        <span class="status-badge status-active">Active</span>
+                    </div>
+                    
+                    <div class="security-option">
+                        <div class="option-info">
+                            <div class="option-title">Authenticator App</div>
+                            <div class="option-description">Google Authenticator</div>
+                        </div>
+                        <span class="option-action">Manage</span>
+                    </div>
+                    
+                    <div class="security-option">
+                        <div class="option-info">
+                            <div class="option-title">SMS Backup</div>
+                            <div class="option-description">+1 ••• •••• 4567</div>
+                        </div>
+                        <span class="option-action">Update</span>
+                    </div>
+                    
+                    <div class="security-option">
+                        <div class="option-info">
+                            <div class="option-title">Recovery Codes</div>
+                            <div class="option-description">3 of 10 codes remaining</div>
+                        </div>
+                        <span class="option-action">View</span>
+                    </div>
+                </div>
+                
+                <!-- Active Sessions -->
+                <div class="security-section">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Active Sessions</h2>
+                            <p class="section-subtitle">Devices currently signed in</p>
+                        </div>
+                    </div>
+                    
+                    <div class="device-list">
+                        <div class="device-item">
+                            <div class="device-icon">
+                                <div class="device-icon-inner"></div>
+                            </div>
+                            <div class="device-info">
+                                <div class="device-name">iPhone 15 Pro</div>
+                                <div class="device-details">
+                                    <span class="current-device">Current device</span> • San Francisco
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="device-item">
+                            <div class="device-icon">
+                                <div class="device-icon-inner"></div>
+                            </div>
+                            <div class="device-info">
+                                <div class="device-name">MacBook Pro</div>
+                                <div class="device-details">Last active 2 hours ago • San Francisco</div>
+                            </div>
+                            <span class="device-action">Remove</span>
+                        </div>
+                        
+                        <div class="device-item">
+                            <div class="device-icon">
+                                <div class="device-icon-inner"></div>
+                            </div>
+                            <div class="device-info">
+                                <div class="device-name">iPad Air</div>
+                                <div class="device-details">Last active 5 days ago • San Francisco</div>
+                            </div>
+                            <span class="device-action">Remove</span>
+                        </div>
+                    </div>
+                    
+                    <button class="button button-secondary button-full" style="margin-top: var(--space-lg);">
+                        Sign Out All Other Sessions
+                    </button>
+                </div>
+                
+                <!-- Login Activity -->
+                <div class="security-section">
+                    <h2 class="section-title">Recent Login Activity</h2>
+                    
+                    <div class="login-activity">
+                        <div class="activity-item">
+                            <span class="activity-label">Last successful login</span>
+                            <span class="activity-value">Today, 9:15 AM</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-label">Failed login attempts</span>
+                            <span class="activity-value">None</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="activity-label">Password reset requests</span>
+                            <span class="activity-value">None</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Security Warning -->
+                <div class="warning-banner">
+                    <div class="warning-icon"></div>
+                    <p class="warning-text">
+                        Keep your account secure by using a unique password and enabling two-factor authentication.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

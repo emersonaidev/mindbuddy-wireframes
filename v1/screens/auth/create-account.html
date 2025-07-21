@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Create Account - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .create-account-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-content {
+            flex: 1;
+            padding: var(--space-xl);
+            padding-top: var(--space-2xl);
+        }
+        
+        .page-header {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .wallet-section {
+            margin-top: var(--space-xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--gray-100);
+        }
+        
+        .wallet-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            text-align: left;
+        }
+        
+        .wallet-info {
+            flex: 1;
+        }
+        
+        .wallet-label {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .wallet-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .wallet-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-400);
+        }
+        
+        .password-requirements {
+            margin-top: var(--space-md);
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            font-size: var(--font-sm);
+        }
+        
+        .requirement-list {
+            list-style: none;
+            margin-top: var(--space-sm);
+        }
+        
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-xs) 0;
+            color: var(--gray-600);
+        }
+        
+        .requirement-icon {
+            width: 16px;
+            height: 16px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .requirement.met .requirement-icon {
+            background: var(--gray-700);
+        }
+        
+        .terms-checkbox {
+            display: flex;
+            gap: var(--space-md);
+            margin: var(--space-xl) 0;
+            align-items: flex-start;
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-400);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .checkbox.checked {
+            background: var(--gray-900);
+            border-color: var(--gray-900);
+        }
+        
+        .terms-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .terms-text a {
+            color: var(--gray-900);
+            text-decoration: none;
+        }
+        
+        .show-password {
+            position: absolute;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            cursor: pointer;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .progress-dot.active {
+            background: var(--gray-900);
+            width: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="create-account-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title"></div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="form-content">
+                <div class="page-header">
+                    <h1 class="heading-1">Create your account</h1>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="progress-dots">
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                </div>
+                
+                <!-- Account Form -->
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Email address</label>
+                        <input type="email" class="form-input" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" placeholder="Create a password">
+                            <span class="show-password">Show</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Confirm password</label>
+                        <div class="input-wrapper">
+                            <input type="password" class="form-input" placeholder="Confirm your password">
+                            <span class="show-password">Show</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Password Requirements -->
+                    <div class="password-requirements">
+                        <div class="caption">Password must have:</div>
+                        <ul class="requirement-list">
+                            <li class="requirement">
+                                <div class="requirement-icon"></div>
+                                <span>At least 8 characters</span>
+                            </li>
+                            <li class="requirement">
+                                <div class="requirement-icon"></div>
+                                <span>One uppercase letter</span>
+                            </li>
+                            <li class="requirement">
+                                <div class="requirement-icon"></div>
+                                <span>One number</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Optional Wallet -->
+                    <div class="wallet-section">
+                        <button type="button" class="wallet-button">
+                            <div class="wallet-info">
+                                <div class="wallet-label">Link wallet (optional)</div>
+                                <div class="wallet-description">Connect your crypto wallet to withdraw tokens</div>
+                            </div>
+                            <div class="wallet-icon"></div>
+                        </button>
+                    </div>
+                    
+                    <!-- Terms -->
+                    <div class="terms-checkbox">
+                        <div class="checkbox"></div>
+                        <div class="terms-text">
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="button button-primary button-full">
+                        Continue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

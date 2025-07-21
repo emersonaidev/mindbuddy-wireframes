@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Health Data - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .health-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .health-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-md);
+        }
+        
+        .sync-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+        
+        .health-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .summary-card {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            text-align: center;
+            border: 1px solid var(--gray-100);
+        }
+        
+        .summary-value {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .summary-label {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .metrics-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+        }
+        
+        .section-header {
+            padding: var(--space-md) var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .section-link {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-decoration: none;
+        }
+        
+        .metric-list {
+            list-style: none;
+        }
+        
+        .metric-item {
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        
+        .metric-item:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .metric-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .metric-icon-inner {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .metric-details {
+            flex: 1;
+        }
+        
+        .metric-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .metric-latest {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .metric-value-group {
+            text-align: right;
+        }
+        
+        .metric-value {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .metric-unit {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .metric-trend {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .chart-preview {
+            height: 120px;
+            background: var(--gray-50);
+            margin: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(180deg, var(--gray-200) 0%, var(--gray-100) 100%);
+            clip-path: polygon(
+                0% 80%,
+                10% 70%,
+                20% 75%,
+                30% 65%,
+                40% 60%,
+                50% 55%,
+                60% 50%,
+                70% 45%,
+                80% 40%,
+                90% 35%,
+                100% 30%,
+                100% 100%,
+                0% 100%
+            );
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--space-3xl) var(--space-xl);
+        }
+        
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-lg);
+        }
+        
+        .empty-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .empty-description {
+            color: var(--gray-600);
+            margin-bottom: var(--space-xl);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="health-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Health Data</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="health-header">
+                <div class="sync-status">
+                    <div class="sync-icon"></div>
+                    <span>Last synced 5 minutes ago</span>
+                </div>
+                
+                <div class="health-summary">
+                    <div class="summary-card">
+                        <div class="summary-value">68</div>
+                        <div class="summary-label">Avg Heart Rate</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">42ms</div>
+                        <div class="summary-label">HRV</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">7h 24m</div>
+                        <div class="summary-label">Sleep</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-value">8,420</div>
+                        <div class="summary-label">Steps</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Heart & Vitals -->
+                <div class="metrics-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Heart & Vitals</h2>
+                        <a href="#" class="section-link">See all</a>
+                    </div>
+                    
+                    <ul class="metric-list">
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Heart Rate</div>
+                                    <div class="metric-latest">Updated 5 min ago</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">68 <span class="metric-unit">bpm</span></div>
+                                <div class="metric-trend">↓ 4% from avg</div>
+                            </div>
+                        </li>
+                        
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Heart Rate Variability</div>
+                                    <div class="metric-latest">Updated 2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">42 <span class="metric-unit">ms</span></div>
+                                <div class="metric-trend">↑ 8% from avg</div>
+                            </div>
+                        </li>
+                        
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Blood Pressure</div>
+                                    <div class="metric-latest">Updated yesterday</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">120/80</div>
+                                <div class="metric-trend">Normal</div>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="chart-preview">
+                        <div class="chart-line"></div>
+                    </div>
+                </div>
+                
+                <!-- Activity -->
+                <div class="metrics-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Activity</h2>
+                        <a href="#" class="section-link">See all</a>
+                    </div>
+                    
+                    <ul class="metric-list">
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Steps</div>
+                                    <div class="metric-latest">Today</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">8,420</div>
+                                <div class="metric-trend">68% of goal</div>
+                            </div>
+                        </li>
+                        
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Active Calories</div>
+                                    <div class="metric-latest">Today</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">342 <span class="metric-unit">cal</span></div>
+                                <div class="metric-trend">↑ 12% from avg</div>
+                            </div>
+                        </li>
+                        
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Exercise Minutes</div>
+                                    <div class="metric-latest">Today</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">45 <span class="metric-unit">min</span></div>
+                                <div class="metric-trend">Goal reached</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Sleep -->
+                <div class="metrics-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Sleep</h2>
+                        <a href="#" class="section-link">See all</a>
+                    </div>
+                    
+                    <ul class="metric-list">
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Sleep Duration</div>
+                                    <div class="metric-latest">Last night</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">7h 24m</div>
+                                <div class="metric-trend">Good</div>
+                            </div>
+                        </li>
+                        
+                        <li class="metric-item">
+                            <div class="metric-info">
+                                <div class="metric-icon">
+                                    <div class="metric-icon-inner"></div>
+                                </div>
+                                <div class="metric-details">
+                                    <div class="metric-name">Sleep Quality</div>
+                                    <div class="metric-latest">Last night</div>
+                                </div>
+                            </div>
+                            <div class="metric-value-group">
+                                <div class="metric-value">82%</div>
+                                <div class="metric-trend">↑ 5% from avg</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

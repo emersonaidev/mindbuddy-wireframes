@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Choose What to Share - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .choose-data-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .page-header {
+            padding: var(--space-xl);
+            padding-top: var(--space-2xl);
+            padding-bottom: 0;
+        }
+        
+        .page-description {
+            padding: 0 var(--space-xl);
+            margin-bottom: var(--space-xl);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .info-banner {
+            margin: 0 var(--space-xl) var(--space-lg);
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+        
+        .data-section {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .section-header {
+            padding: var(--space-md) var(--space-xl);
+            background: var(--gray-50);
+            font-weight: 600;
+            font-size: var(--font-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-700);
+        }
+        
+        .toggle-list {
+            background: var(--white);
+        }
+        
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .toggle-item:last-child {
+            border-bottom: none;
+        }
+        
+        .toggle-label {
+            font-weight: 500;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-lg) 0;
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .progress-dot.active {
+            background: var(--gray-900);
+            width: 24px;
+        }
+        
+        .bottom-actions {
+            padding: var(--space-xl);
+            background: var(--white);
+            border-top: 1px solid var(--gray-100);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="choose-data-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title"></div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h1 class="heading-1">Choose what to share</h1>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="progress-dots">
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot active"></div>
+                </div>
+                
+                <p class="page-description">
+                    You're in control. Select which data types you want to share with MindBuddy.
+                </p>
+                
+                <div class="info-banner">
+                    Sharing more data improves your Resilience Score accuracy and increases your $MNDY earnings.
+                </div>
+                
+                <!-- Biometric Data -->
+                <div class="data-section">
+                    <div class="section-header">Biometric Data</div>
+                    <div class="toggle-list">
+                        <div class="toggle-item">
+                            <span class="toggle-label">Heart rate & HRV</span>
+                            <div class="toggle active">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Sleep quality</span>
+                            <div class="toggle active">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Body temperature</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Respiratory rate</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Behavioural Data -->
+                <div class="data-section">
+                    <div class="section-header">Behavioural Data</div>
+                    <div class="toggle-list">
+                        <div class="toggle-item">
+                            <span class="toggle-label">Screentime</span>
+                            <div class="toggle active">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">App usage</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Movement & exercise</span>
+                            <div class="toggle active">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Social media frequency</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contextual Data -->
+                <div class="data-section">
+                    <div class="section-header">Contextual Data</div>
+                    <div class="toggle-list">
+                        <div class="toggle-item">
+                            <span class="toggle-label">Location patterns</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Transport mode</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Weather conditions</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Ambient noise</span>
+                            <div class="toggle">
+                                <div class="toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Actions -->
+            <div class="bottom-actions">
+                <button class="button button-primary button-full">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

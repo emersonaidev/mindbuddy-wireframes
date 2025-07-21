@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Exchange $MNDY - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .exchange-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .exchange-content {
+            flex: 1;
+            padding: var(--space-xl);
+        }
+        
+        .exchange-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .swap-section {
+            position: relative;
+        }
+        
+        .token-section {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+        }
+        
+        .token-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        
+        .token-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        .balance-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .token-input-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .token-amount {
+            flex: 1;
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        
+        .token-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+        }
+        
+        .token-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+        }
+        
+        .token-symbol {
+            font-weight: 600;
+        }
+        
+        .dropdown-arrow {
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+        
+        .swap-button-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .swap-button {
+            width: 48px;
+            height: 48px;
+            background: var(--white);
+            border: 3px solid var(--gray-100);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .swap-icon {
+            font-size: var(--font-xl);
+            transform: rotate(90deg);
+        }
+        
+        .rate-info {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-lg);
+        }
+        
+        .rate-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-sm);
+        }
+        
+        .rate-label {
+            color: var(--gray-600);
+        }
+        
+        .rate-value {
+            font-weight: 500;
+        }
+        
+        .platform-list {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .platform-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-lg);
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .platform-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .platform-item:last-child {
+            border-bottom: none;
+        }
+        
+        .platform-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-md);
+        }
+        
+        .platform-info {
+            flex: 1;
+        }
+        
+        .platform-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .platform-rate {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .platform-arrow {
+            color: var(--gray-400);
+            font-size: 20px;
+        }
+        
+        .info-banner {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin: var(--space-xl);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-400);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .info-text {
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="exchange-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Exchange</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="exchange-content">
+                <!-- Exchange Card -->
+                <div class="exchange-card">
+                    <div class="swap-section">
+                        <!-- From Token -->
+                        <div class="token-section">
+                            <div class="token-header">
+                                <span class="token-label">From</span>
+                                <span class="balance-text">Balance: 174 $MNDY</span>
+                            </div>
+                            <div class="token-input-row">
+                                <input type="text" class="token-amount" placeholder="0" value="100">
+                                <div class="token-selector">
+                                    <div class="token-icon"></div>
+                                    <span class="token-symbol">$MNDY</span>
+                                    <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Swap Button -->
+                        <div class="swap-button-container">
+                            <div class="swap-button">
+                                <span class="swap-icon">⇅</span>
+                            </div>
+                        </div>
+                        
+                        <!-- To Token -->
+                        <div class="token-section">
+                            <div class="token-header">
+                                <span class="token-label">To</span>
+                                <span class="balance-text">≈ $50.00</span>
+                            </div>
+                            <div class="token-input-row">
+                                <input type="text" class="token-amount" placeholder="0" value="0.025" readonly>
+                                <div class="token-selector">
+                                    <div class="token-icon"></div>
+                                    <span class="token-symbol">ETH</span>
+                                    <span class="dropdown-arrow">▼</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rate Info -->
+                        <div class="rate-info">
+                            <div class="rate-row">
+                                <span class="rate-label">Exchange rate</span>
+                                <span class="rate-value">1 $MNDY = 0.00025 ETH</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Available Platforms -->
+                <h2 class="section-title" style="font-size: var(--font-lg); font-weight: 600; margin-bottom: var(--space-lg);">
+                    Available on these platforms
+                </h2>
+                
+                <div class="platform-list">
+                    <div class="platform-item">
+                        <div class="platform-icon"></div>
+                        <div class="platform-info">
+                            <div class="platform-name">Uniswap</div>
+                            <div class="platform-rate">Best rate • 0.00025 ETH</div>
+                        </div>
+                        <span class="platform-arrow">›</span>
+                    </div>
+                    
+                    <div class="platform-item">
+                        <div class="platform-icon"></div>
+                        <div class="platform-info">
+                            <div class="platform-name">PancakeSwap</div>
+                            <div class="platform-rate">0.00024 ETH • Lower fees</div>
+                        </div>
+                        <span class="platform-arrow">›</span>
+                    </div>
+                    
+                    <div class="platform-item">
+                        <div class="platform-icon"></div>
+                        <div class="platform-info">
+                            <div class="platform-name">SushiSwap</div>
+                            <div class="platform-rate">0.00023 ETH</div>
+                        </div>
+                        <span class="platform-arrow">›</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Info Banner -->
+            <div class="info-banner">
+                <div class="info-icon"></div>
+                <p class="info-text">
+                    Exchange rates are estimates. Final rates depend on network conditions and platform fees.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

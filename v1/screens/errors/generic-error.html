@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Error - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .error-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .error-content {
+            max-width: 320px;
+        }
+        
+        .error-illustration {
+            width: 160px;
+            height: 160px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-2xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .error-icon {
+            font-size: 80px;
+            color: var(--gray-400);
+            font-weight: 700;
+        }
+        
+        .error-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 48px;
+            height: 48px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            border: 4px solid var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .exclamation {
+            width: 4px;
+            height: 20px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            position: relative;
+        }
+        
+        .exclamation::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+        }
+        
+        .error-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .error-message {
+            font-size: var(--font-md);
+            color: var(--gray-600);
+            line-height: 1.5;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .error-code {
+            font-family: monospace;
+            font-size: var(--font-sm);
+            color: var(--gray-500);
+            margin-bottom: var(--space-3xl);
+        }
+        
+        .error-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .contact-section {
+            margin-top: var(--space-3xl);
+            padding-top: var(--space-xl);
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .contact-title {
+            font-size: var(--font-sm);
+            font-weight: 600;
+            color: var(--gray-600);
+            margin-bottom: var(--space-md);
+        }
+        
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+        }
+        
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            color: var(--gray-700);
+            font-size: var(--font-sm);
+        }
+        
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-icon-inner {
+            width: 24px;
+            height: 24px;
+            background: var(--gray-400);
+            border-radius: var(--radius-sm);
+        }
+        
+        .error-details {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-top: var(--space-2xl);
+            text-align: left;
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            max-height: 120px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .error-details.show {
+            display: block;
+        }
+        
+        .detail-row {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+        
+        .detail-value {
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .show-details {
+            background: none;
+            border: none;
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: var(--space-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="error-container">
+            <div class="error-content">
+                <!-- Illustration -->
+                <div class="error-illustration">
+                    <div class="error-icon">!</div>
+                    <div class="error-badge">
+                        <div class="exclamation"></div>
+                    </div>
+                </div>
+                
+                <!-- Error Message -->
+                <h1 class="error-title">Something went wrong</h1>
+                <p class="error-message">
+                    We encountered an unexpected error. Don't worry, your data is safe. Please try again.
+                </p>
+                
+                <p class="error-code">Error Code: ERR_500_INTERNAL</p>
+                
+                <!-- Actions -->
+                <div class="error-actions">
+                    <button class="button button-primary button-full">
+                        Try Again
+                    </button>
+                    <button class="button button-full secondary-button">
+                        Go to Dashboard
+                    </button>
+                </div>
+                
+                <!-- Error Details (Hidden by default) -->
+                <button class="show-details">Show technical details</button>
+                
+                <div class="error-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Time:</span>
+                        <span class="detail-value">2025-01-21 14:32:45 UTC</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Request ID:</span>
+                        <span class="detail-value">req_xKd9Lm2nP4</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value">500 Internal Server Error</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Message:</span>
+                        <span class="detail-value">Failed to process health data sync</span>
+                    </div>
+                </div>
+                
+                <!-- Contact Support -->
+                <div class="contact-section">
+                    <h2 class="contact-title">Still having issues?</h2>
+                    <div class="contact-options">
+                        <a href="#" class="contact-link">
+                            <div class="contact-icon">
+                                <div class="contact-icon-inner"></div>
+                            </div>
+                            <span>Help Center</span>
+                        </a>
+                        <a href="#" class="contact-link">
+                            <div class="contact-icon">
+                                <div class="contact-icon-inner"></div>
+                            </div>
+                            <span>Contact Us</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

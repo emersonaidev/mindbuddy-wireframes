@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Earn More $MNDY - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .earn-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .earn-header {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .header-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .header-subtitle {
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .earnings-overview {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .daily-potential {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+        
+        .potential-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .potential-value {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .potential-usd {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .earning-categories {
+            padding: var(--space-xl);
+        }
+        
+        .category-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .category-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .category-badge {
+            font-size: var(--font-xs);
+            font-weight: 600;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            color: var(--gray-700);
+        }
+        
+        .earning-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .earning-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .earning-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-2xl);
+        }
+        
+        .earning-content {
+            flex: 1;
+        }
+        
+        .earning-title {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .earning-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.4;
+        }
+        
+        .earning-reward {
+            text-align: right;
+        }
+        
+        .reward-amount {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .reward-frequency {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .progress-bar {
+            margin-top: var(--space-md);
+            height: 8px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gray-700);
+            transition: width 0.3s;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-sm);
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .bonus-section {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl);
+            text-align: center;
+        }
+        
+        .bonus-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-2xl);
+        }
+        
+        .bonus-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .bonus-description {
+            opacity: 0.8;
+            margin-bottom: var(--space-lg);
+            line-height: 1.4;
+        }
+        
+        .bonus-button {
+            background: var(--white);
+            color: var(--gray-900);
+            padding: var(--space-sm) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+        }
+        
+        .tip-card {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .tip-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .tip-text {
+            font-size: var(--font-sm);
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="earn-container">
+            <!-- Navigation -->
+            <div class="nav-header" style="background: var(--gray-900); border-bottom: none;">
+                <div class="nav-back" style="color: white;">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title" style="color: white;">Earn More</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="earn-header">
+                <h1 class="header-title">Maximize Your Earnings</h1>
+                <p class="header-subtitle">
+                    Discover all the ways to earn $MNDY tokens and boost your rewards
+                </p>
+            </div>
+            
+            <!-- Earnings Overview -->
+            <div class="earnings-overview">
+                <div class="daily-potential">
+                    <div class="potential-label">Daily earning potential</div>
+                    <div class="potential-value">Up to 25 $MNDY</div>
+                    <div class="potential-usd">≈ $12.50 per day</div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content" style="overflow-y: auto;">
+                <div class="earning-categories">
+                    <!-- Daily Activities -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <h2 class="category-title">Daily Activities</h2>
+                            <span class="category-badge">Every Day</span>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">💤</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">Sleep Tracking</h3>
+                                    <p class="earning-description">
+                                        Log 7-9 hours of quality sleep each night
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">3-5</div>
+                                    <div class="reward-frequency">$MNDY/day</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>7h 24m tracked</span>
+                                <span>70% complete</span>
+                            </div>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">❤️</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">Heart Rate Variability</h3>
+                                    <p class="earning-description">
+                                        Maintain healthy HRV levels throughout the day
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">2-4</div>
+                                    <div class="reward-frequency">$MNDY/day</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">👟</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">Step Goal</h3>
+                                    <p class="earning-description">
+                                        Reach your daily step goal (10,000 steps)
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">3</div>
+                                    <div class="reward-frequency">$MNDY/day</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 84%;"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>8,420 steps</span>
+                                <span>84% complete</span>
+                            </div>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">✓</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">Daily Check-in</h3>
+                                    <p class="earning-description">
+                                        Open the app and sync your data daily
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">2</div>
+                                    <div class="reward-frequency">$MNDY/day</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Weekly Bonuses -->
+                    <div class="category-section">
+                        <div class="category-header">
+                            <h2 class="category-title">Weekly Bonuses</h2>
+                            <span class="category-badge">Bonus</span>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">🔥</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">7-Day Streak</h3>
+                                    <p class="earning-description">
+                                        Complete all daily activities for 7 consecutive days
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">15</div>
+                                    <div class="reward-frequency">$MNDY/week</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="earning-card">
+                            <div class="earning-row">
+                                <div class="earning-icon">🏆</div>
+                                <div class="earning-content">
+                                    <h3 class="earning-title">Perfect Week</h3>
+                                    <p class="earning-description">
+                                        Achieve all health goals every day of the week
+                                    </p>
+                                </div>
+                                <div class="earning-reward">
+                                    <div class="reward-amount">20</div>
+                                    <div class="reward-frequency">$MNDY/week</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Special Challenges -->
+                    <div class="bonus-section">
+                        <div class="bonus-icon">⚡</div>
+                        <h3 class="bonus-title">Limited Time Challenge</h3>
+                        <p class="bonus-description">
+                            Complete the "Morning Warrior" challenge this week to earn 50 bonus $MNDY tokens!
+                        </p>
+                        <button class="bonus-button">View Challenge</button>
+                    </div>
+                    
+                    <!-- Pro Tips -->
+                    <div class="category-section">
+                        <h2 class="category-title" style="margin-bottom: var(--space-lg);">Pro Tips</h2>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon"></div>
+                            <p class="tip-text">
+                                <strong>Morning sync:</strong> Sync your data before 9 AM for an extra 1 $MNDY daily bonus
+                            </p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon"></div>
+                            <p class="tip-text">
+                                <strong>Consistency pays:</strong> The longer your streak, the higher your multiplier (up to 2x)
+                            </p>
+                        </div>
+                        
+                        <div class="tip-card">
+                            <div class="tip-icon"></div>
+                            <p class="tip-text">
+                                <strong>Quality matters:</strong> Better sleep quality and lower stress earn bonus tokens
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
