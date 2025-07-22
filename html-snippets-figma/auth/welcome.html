@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Welcome - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .welcome-container {
+            width: 100%;
+            height: 100%;
+            padding: 48px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #666;
+            border-radius: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .button {
+            width: 100%;
+            height: 56px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: #1A1A1A;
+            border: 2px solid #E6E6E6;
+        }
+        
+        .footer-text {
+            position: absolute;
+            bottom: 48px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="logo"></div>
+        <h1 class="title">Welcome to MindBuddy</h1>
+        <p class="subtitle">Get rewarded for taking care of your wellness with $MNDY tokens</p>
+        
+        <button class="button">Get Started</button>
+        <button class="button secondary-button">I Already Have an Account</button>
+        
+        <p class="footer-text">v1.0.0</p>
+    </div>
+</body>
+</html>

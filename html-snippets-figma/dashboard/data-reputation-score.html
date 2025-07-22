@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Data Reputation Score - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .reputation-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-header {
+            background: #FFFFFF;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #E6E6E6;
+        }
+        
+        .nav-back {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1A1A1A;
+            font-size: 16px;
+        }
+        
+        .back-arrow {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .title-section {
+            padding: 24px;
+            background: #FFFFFF;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .score-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .score-ring-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+        }
+        
+        .score-ring {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .ring-background {
+            fill: none;
+            stroke: #E6E6E6;
+            stroke-width: 10;
+        }
+        
+        .ring-progress {
+            fill: none;
+            stroke: #666;
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 56.52;
+        }
+        
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .score-percentage {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1A1A1A;
+            display: block;
+        }
+        
+        .score-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        .rating-bar-container {
+            margin-top: 32px;
+        }
+        
+        .rating-bar {
+            height: 8px;
+            background: #E6E6E6;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rating-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 82%;
+            background: #666;
+            border-radius: 4px;
+        }
+        
+        .rating-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .score-range {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: 8px;
+        }
+        
+        .explanation-card, .guidance-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+        
+        .card-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 20px;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .bullet-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #666;
+            line-height: 20px;
+        }
+        
+        .bullet-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #666;
+            font-size: 18px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="reputation-container">
+        <div class="nav-header">
+            <a href="#" class="nav-back">
+                <span class="back-arrow">←</span>
+                <span>Back</span>
+            </a>
+        </div>
+        
+        <div class="title-section">
+            <h1 class="page-title">Data Reputation Score</h1>
+        </div>
+        
+        <div class="content">
+            <div class="score-card">
+                <div class="score-ring-container">
+                    <svg class="score-ring" viewBox="0 0 120 120">
+                        <circle class="ring-background" cx="60" cy="60" r="50"></circle>
+                        <circle class="ring-progress" cx="60" cy="60" r="50"></circle>
+                    </svg>
+                    <div class="score-text">
+                        <span class="score-percentage">82%</span>
+                        <div class="score-label">Your current score</div>
+                    </div>
+                </div>
+                
+                <div class="rating-bar-container">
+                    <div class="rating-bar">
+                        <div class="rating-fill"></div>
+                    </div>
+                    <div class="rating-labels">
+                        <span>Poor</span>
+                        <span>Fair</span>
+                        <span>Good</span>
+                        <span>Excellent</span>
+                    </div>
+                    <div class="score-range">Score range: 0–100</div>
+                </div>
+            </div>
+            
+            <div class="explanation-card">
+                <h2 class="card-title">What does this mean?</h2>
+                <p class="card-text">
+                    This score shows how reliable and consistent your shared data is. It's based on how often you contribute and the types of data you share. A higher score means your data is more valuable for us and may help you earn more $MNDY.
+                </p>
+            </div>
+            
+            <div class="guidance-card">
+                <h2 class="card-title">How to improve your score</h2>
+                <ul class="bullet-list">
+                    <li class="bullet-item">Share data consistently</li>
+                    <li class="bullet-item">Enable more data types (e.g. HRV, sleep, activity)</li>
+                    <li class="bullet-item">Avoid gaps or missing signals</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

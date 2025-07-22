@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Network Error - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        
+        .error-container {
+            text-align: center;
+            max-width: 320px;
+        }
+        
+        .error-icon {
+            width: 100px;
+            height: 100px;
+            background: #F0F0F0;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .wifi-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+        }
+        
+        .wifi-icon::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+        }
+        
+        .wifi-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid #999;
+            border-bottom: none;
+            border-radius: 40px 40px 0 0;
+        }
+        
+        .slash {
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background: #FF5252;
+            transform: rotate(-45deg);
+        }
+        
+        .error-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+        
+        .error-message {
+            font-size: 16px;
+            color: #666;
+            line-height: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .button {
+            width: 100%;
+            height: 56px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        
+        .secondary-button {
+            background: transparent;
+            color: #666;
+            border: 2px solid #E6E6E6;
+        }
+        
+        .troubleshoot-link {
+            display: inline-block;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #666;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-icon">
+            <div class="wifi-icon"></div>
+            <div class="slash"></div>
+        </div>
+        <h1 class="error-title">No Internet Connection</h1>
+        <p class="error-message">Please check your network connection and try again.</p>
+        <button class="button">Try Again</button>
+        <button class="button secondary-button">Use Offline Mode</button>
+        <a class="troubleshoot-link">Troubleshooting tips</a>
+    </div>
+</body>
+</html>

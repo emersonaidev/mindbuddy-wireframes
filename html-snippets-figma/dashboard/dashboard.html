@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Dashboard - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .dashboard-container {
+            width: 100%;
+            height: 100%;
+            padding: 24px;
+            padding-bottom: 88px;
+        }
+        
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 24px;
+        }
+        
+        .cards-container {
+            display: grid;
+            gap: 16px;
+        }
+        
+        .card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        
+        .circular-progress-small {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 16px auto;
+        }
+        
+        .circular-progress-small svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .circular-progress-small circle {
+            fill: none;
+            stroke-width: 8;
+        }
+        
+        .circular-progress-small circle:first-child {
+            stroke: #E0E0E0;
+        }
+        
+        .circular-progress-small circle:last-child {
+            stroke: #666;
+            stroke-linecap: round;
+            stroke-dasharray: 251.2;
+            stroke-dashoffset: 69.84;
+        }
+        
+        .progress-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+        
+        .card-description {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+        
+        .reputation-card .circular-progress-small circle:last-child {
+            stroke-dashoffset: 45.22;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1 class="dashboard-title">Dashboard</h1>
+        <div class="cards-container">
+            <div class="card resilience-card">
+                <h2 class="card-title">Resilience Score</h2>
+                <p class="card-subtitle">Overall physical readiness</p>
+                <div class="circular-progress-small">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" stroke="#E0E0E0" stroke-width="8" fill="none"></circle>
+                        <circle cx="50" cy="50" r="40" stroke="#666" stroke-width="8" fill="none" 
+                                stroke-dasharray="251.2" stroke-dashoffset="69.84" stroke-linecap="round"></circle>
+                    </svg>
+                    <span class="progress-value">72</span>
+                </div>
+                <p class="card-description">High</p>
+            </div>
+            
+            <div class="card reputation-card">
+                <h2 class="card-title">Data Reputation Score</h2>
+                <p class="card-subtitle">Data sharing consistency</p>
+                <div class="circular-progress-small">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40" stroke="#E0E0E0" stroke-width="8" fill="none"></circle>
+                        <circle cx="50" cy="50" r="40" stroke="#666" stroke-width="8" fill="none" 
+                                stroke-dasharray="251.2" stroke-dashoffset="45.22" stroke-linecap="round"></circle>
+                    </svg>
+                    <span class="progress-value">82%</span>
+                </div>
+                <p class="card-description">Excellent</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

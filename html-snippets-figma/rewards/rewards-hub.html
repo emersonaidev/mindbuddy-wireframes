@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>$MNDY Tokens - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .rewards-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-header {
+            background: #FFFFFF;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #E6E6E6;
+        }
+        
+        .nav-back {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1A1A1A;
+            font-size: 16px;
+        }
+        
+        .back-arrow {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .title-section {
+            padding: 24px;
+            background: #FFFFFF;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .earnings-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .day-section {
+            padding: 16px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        
+        .day-section:last-child {
+            border-bottom: none;
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .day-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        
+        .day-total {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+        
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px 24px;
+            padding-left: 16px;
+        }
+        
+        .activity-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .activity-value {
+            font-size: 14px;
+            color: #4CAF50;
+            font-weight: 500;
+        }
+        
+        .utility-section {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+        }
+        
+        .utility-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .utility-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .utility-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .utility-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        
+        .utility-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .utility-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .utility-subtext {
+            font-size: 14px;
+            color: #666;
+            line-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="rewards-container">
+        <div class="nav-header">
+            <a href="#" class="nav-back">
+                <span class="back-arrow">←</span>
+                <span>Back</span>
+            </a>
+        </div>
+        
+        <div class="title-section">
+            <h1 class="page-title">$MNDY Tokens</h1>
+        </div>
+        
+        <div class="content">
+            <div class="earnings-card">
+                <h2 class="card-title">Token Earnings History</h2>
+                <p class="card-subtitle">Your recent activity</p>
+                
+                <div class="day-section">
+                    <div class="day-header">
+                        <span class="day-label">Today</span>
+                        <span class="day-total">+7 $MNDY</span>
+                    </div>
+                    <div class="activities-grid">
+                        <span class="activity-label">Sleep</span>
+                        <span class="activity-value">+3</span>
+                        <span class="activity-label">HRV</span>
+                        <span class="activity-value">+4</span>
+                    </div>
+                </div>
+                
+                <div class="day-section">
+                    <div class="day-header">
+                        <span class="day-label">Yesterday</span>
+                        <span class="day-total">+12 $MNDY</span>
+                    </div>
+                    <div class="activities-grid">
+                        <span class="activity-label">Activity</span>
+                        <span class="activity-value">+5</span>
+                        <span class="activity-label">Sleep</span>
+                        <span class="activity-value">+3</span>
+                        <span class="activity-label">HRV</span>
+                        <span class="activity-value">+4</span>
+                    </div>
+                </div>
+                
+                <div class="day-section">
+                    <div class="day-header">
+                        <span class="day-label">Dec 28</span>
+                        <span class="day-total">+10 $MNDY</span>
+                    </div>
+                    <div class="activities-grid">
+                        <span class="activity-label">Sleep</span>
+                        <span class="activity-value">+3</span>
+                        <span class="activity-label">HRV</span>
+                        <span class="activity-value">+4</span>
+                        <span class="activity-label">Check-in</span>
+                        <span class="activity-value">+3</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="utility-section">
+                <h2 class="utility-title">What can I use $MNDY for?</h2>
+                <p class="utility-subtitle">Token utility</p>
+                
+                <ul class="utility-list">
+                    <li class="utility-item">
+                        <div class="utility-header">Unlock future premium features</div>
+                        <p class="utility-subtext">Access advanced analytics and exclusive wellness tools (coming soon)</p>
+                    </li>
+                    <li class="utility-item">
+                        <div class="utility-header">Exchange on supported platforms</div>
+                        <p class="utility-subtext">Trade your tokens on decentralised exchanges and supported platforms</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

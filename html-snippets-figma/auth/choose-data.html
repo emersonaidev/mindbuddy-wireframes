@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Choose Your Data - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .choose-container {
+            width: 100%;
+            height: 100%;
+            padding: 48px 24px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: #E6E6E6;
+            border-radius: 2px;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 100%;
+            background: #1A1A1A;
+            transition: width 0.3s ease;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .data-list {
+            flex: 1;
+        }
+        
+        .data-item {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .data-icon {
+            width: 40px;
+            height: 40px;
+            background: #E6E6E6;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        
+        .data-info {
+            flex: 1;
+        }
+        
+        .data-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .data-description {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .toggle-switch {
+            width: 48px;
+            height: 28px;
+            background: #E6E6E6;
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: #4CAF50;
+        }
+        
+        .toggle-knob {
+            width: 24px;
+            height: 24px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-switch.active .toggle-knob {
+            transform: translateX(20px);
+        }
+        
+        .info-box {
+            background: #E3F2FD;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            background: #2196F3;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .info-text {
+            font-size: 13px;
+            color: #1976D2;
+            line-height: 18px;
+        }
+        
+        .button-container {
+            padding-top: 24px;
+        }
+        
+        .button {
+            width: 100%;
+            height: 56px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="choose-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <div class="content">
+            <h1 class="title">Choose Your Data</h1>
+            <p class="subtitle">Select which health data you'd like to share</p>
+            
+            <div class="data-list">
+                <div class="data-item">
+                    <div class="data-icon"></div>
+                    <div class="data-info">
+                        <div class="data-name">Heart Rate</div>
+                        <div class="data-description">Resting and active heart rate</div>
+                    </div>
+                    <div class="toggle-switch active">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-icon"></div>
+                    <div class="data-info">
+                        <div class="data-name">Heart Rate Variability</div>
+                        <div class="data-description">HRV for stress insights</div>
+                    </div>
+                    <div class="toggle-switch active">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-icon"></div>
+                    <div class="data-info">
+                        <div class="data-name">Sleep</div>
+                        <div class="data-description">Sleep duration and quality</div>
+                    </div>
+                    <div class="toggle-switch active">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-icon"></div>
+                    <div class="data-info">
+                        <div class="data-name">Activity</div>
+                        <div class="data-description">Steps and exercise data</div>
+                    </div>
+                    <div class="toggle-switch">
+                        <div class="toggle-knob"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-icon"></div>
+                <div class="info-text">
+                    The more data you share, the more accurate your insights and the more $MNDY tokens you can earn
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button class="button">Start Earning</button>
+        </div>
+    </div>
+</body>
+</html>

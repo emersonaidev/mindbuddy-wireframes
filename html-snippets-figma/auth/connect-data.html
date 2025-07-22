@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Connect Your Data - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .connect-container {
+            width: 100%;
+            height: 100%;
+            padding: 48px 24px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: #E6E6E6;
+            border-radius: 2px;
+            margin-bottom: 48px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            width: 66%;
+            background: #1A1A1A;
+            transition: width 0.3s ease;
+        }
+        
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 12px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .device-list {
+            flex: 1;
+        }
+        
+        .device-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .device-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .device-icon {
+            width: 48px;
+            height: 48px;
+            background: #E6E6E6;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+        
+        .device-info {
+            flex: 1;
+        }
+        
+        .device-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .device-description {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .device-status {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #E6E6E6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .device-status.connected {
+            background: #4CAF50;
+            border-color: #4CAF50;
+        }
+        
+        .device-status.connected::after {
+            content: "✓";
+            color: white;
+            font-size: 14px;
+        }
+        
+        .button-container {
+            padding-top: 24px;
+        }
+        
+        .button {
+            width: 100%;
+            height: 56px;
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="connect-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <div class="content">
+            <h1 class="title">Connect Your Data</h1>
+            <p class="subtitle">Choose your data source to start earning $MNDY tokens</p>
+            
+            <div class="device-list">
+                <div class="device-card">
+                    <div class="device-icon"></div>
+                    <div class="device-info">
+                        <div class="device-name">Apple Watch</div>
+                        <div class="device-description">Connect via Apple Health</div>
+                    </div>
+                    <div class="device-status"></div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon"></div>
+                    <div class="device-info">
+                        <div class="device-name">Fitbit</div>
+                        <div class="device-description">Sync your Fitbit data</div>
+                    </div>
+                    <div class="device-status"></div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon"></div>
+                    <div class="device-info">
+                        <div class="device-name">Garmin</div>
+                        <div class="device-description">Connect Garmin devices</div>
+                    </div>
+                    <div class="device-status"></div>
+                </div>
+                
+                <div class="device-card">
+                    <div class="device-icon"></div>
+                    <div class="device-info">
+                        <div class="device-name">Other Devices</div>
+                        <div class="device-description">More options coming soon</div>
+                    </div>
+                    <div class="device-status"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <button class="button">Continue</button>
+            <a href="#" class="skip-link">I'll do this later</a>
+        </div>
+    </div>
+</body>
+</html>

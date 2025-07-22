@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Heart Rate - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .heart-rate-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .nav-header {
+            background: #FFFFFF;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #E6E6E6;
+        }
+        
+        .nav-back {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #1A1A1A;
+            font-size: 16px;
+        }
+        
+        .back-arrow {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .summary-card {
+            background: #FFFFFF;
+            padding: 24px;
+            border-bottom: 1px solid #E6E6E6;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 24px;
+        }
+        
+        .current-reading {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .main-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FF5252;
+        }
+        
+        .main-unit {
+            font-size: 24px;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .main-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .stat-card {
+            background: #F8F9FA;
+            padding: 16px;
+            border-radius: 12px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+        
+        .stat-unit {
+            font-size: 16px;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .chart-section {
+            background: #FFFFFF;
+            padding: 24px;
+            margin-top: 16px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #F8F9FA;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .zones-section {
+            background: #FFFFFF;
+            padding: 24px;
+            margin-top: 16px;
+        }
+        
+        .zone-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        
+        .zone-item:last-child {
+            border-bottom: none;
+        }
+        
+        .zone-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .zone-color {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+        
+        .zone-color.rest { background: #E3F2FD; }
+        .zone-color.light { background: #C8E6C9; }
+        .zone-color.moderate { background: #FFF9C4; }
+        .zone-color.hard { background: #FFE0B2; }
+        .zone-color.max { background: #FFCDD2; }
+        
+        .zone-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+        
+        .zone-range {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-rate-container">
+        <div class="nav-header">
+            <a href="#" class="nav-back">
+                <span class="back-arrow">←</span>
+                <span>Back</span>
+            </a>
+        </div>
+        
+        <div class="content">
+            <div class="summary-card">
+                <h1 class="page-title">Heart Rate</h1>
+                
+                <div class="current-reading">
+                    <span class="main-value">72</span>
+                    <span class="main-unit">bpm</span>
+                </div>
+                <div class="main-subtitle">Current</div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Resting</div>
+                        <div>
+                            <span class="stat-value">58</span>
+                            <span class="stat-unit">bpm</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Average</div>
+                        <div>
+                            <span class="stat-value">68</span>
+                            <span class="stat-unit">bpm</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">High</div>
+                        <div>
+                            <span class="stat-value">142</span>
+                            <span class="stat-unit">bpm</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Low</div>
+                        <div>
+                            <span class="stat-value">52</span>
+                            <span class="stat-unit">bpm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-section">
+                <h2 class="section-title">Today's Trend</h2>
+                <div class="chart-placeholder">Heart rate chart</div>
+            </div>
+            
+            <div class="zones-section">
+                <h2 class="section-title">Heart Rate Zones</h2>
+                
+                <div class="zone-item">
+                    <div class="zone-info">
+                        <div class="zone-color rest"></div>
+                        <div class="zone-name">Rest</div>
+                    </div>
+                    <div class="zone-range">&lt; 94 bpm</div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-info">
+                        <div class="zone-color light"></div>
+                        <div class="zone-name">Light</div>
+                    </div>
+                    <div class="zone-range">94-113 bpm</div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-info">
+                        <div class="zone-color moderate"></div>
+                        <div class="zone-name">Moderate</div>
+                    </div>
+                    <div class="zone-range">114-132 bpm</div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-info">
+                        <div class="zone-color hard"></div>
+                        <div class="zone-name">Hard</div>
+                    </div>
+                    <div class="zone-range">133-151 bpm</div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-info">
+                        <div class="zone-color max"></div>
+                        <div class="zone-name">Maximum</div>
+                    </div>
+                    <div class="zone-range">&gt; 151 bpm</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

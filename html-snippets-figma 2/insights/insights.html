@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Insights - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        .insights-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: #FFFFFF;
+            padding: 24px;
+            border-bottom: 1px solid #E6E6E6;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1A1A1A;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        .insight-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        
+        .insight-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            background: #4CAF50;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        
+        .insight-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1A1A1A;
+            margin-bottom: 4px;
+        }
+        
+        .insight-category {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .insight-content {
+            font-size: 14px;
+            color: #666;
+            line-height: 22px;
+            margin-bottom: 16px;
+        }
+        
+        .insight-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1A1A1A;
+            text-decoration: none;
+        }
+        
+        .insight-arrow {
+            font-size: 16px;
+        }
+        
+        .weekly-summary {
+            background: #1A1A1A;
+            color: #FFFFFF;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .summary-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .summary-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .stat-item {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="insights-container">
+        <div class="header">
+            <h1 class="page-title">Insights</h1>
+        </div>
+        
+        <div class="content">
+            <div class="weekly-summary">
+                <h2 class="summary-title">Weekly Summary</h2>
+                <div class="summary-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">+28</div>
+                        <div class="stat-label">$MNDY earned</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Avg. resilience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">7.2h</div>
+                        <div class="stat-label">Avg. sleep</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">92%</div>
+                        <div class="stat-label">Data consistency</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon"></div>
+                    <div>
+                        <h3 class="insight-title">Your sleep is improving</h3>
+                        <p class="insight-category">Sleep</p>
+                    </div>
+                </div>
+                <p class="insight-content">
+                    You've been getting an average of 7.5 hours of sleep this week, up from 6.8 hours last week. Keep up the good work!
+                </p>
+                <a href="#" class="insight-action">
+                    View sleep trends
+                    <span class="insight-arrow">→</span>
+                </a>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon" style="background: #FF9800;"></div>
+                    <div>
+                        <h3 class="insight-title">Recovery needed</h3>
+                        <p class="insight-category">HRV</p>
+                    </div>
+                </div>
+                <p class="insight-content">
+                    Your HRV has been lower than usual for 3 days. Consider taking a rest day or doing some light recovery activities.
+                </p>
+                <a href="#" class="insight-action">
+                    Learn about recovery
+                    <span class="insight-arrow">→</span>
+                </a>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-header">
+                    <div class="insight-icon" style="background: #2196F3;"></div>
+                    <div>
+                        <h3 class="insight-title">Activity streak!</h3>
+                        <p class="insight-category">Activity</p>
+                    </div>
+                </div>
+                <p class="insight-content">
+                    You've met your daily step goal for 7 days in a row. You're building a great habit!
+                </p>
+                <a href="#" class="insight-action">
+                    See activity history
+                    <span class="insight-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
