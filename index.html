@@ -13,11 +13,17 @@
             box-sizing: border-box;
         }
         
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
             background: #0a0a0a;
             min-height: 100vh;
             color: #333;
+            overflow-x: hidden;
         }
         
         /* Header */
@@ -44,13 +50,16 @@
         /* Category Navigation */
         .category-nav {
             background: #1a1a1a;
-            padding: 16px 24px;
+            padding: 12px 24px;
             display: flex;
-            gap: 12px;
+            gap: 8px;
             overflow-x: auto;
             border-bottom: 1px solid #222;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
         
         .category-nav::-webkit-scrollbar {
@@ -58,11 +67,11 @@
         }
         
         .category-btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             background: #2a2a2a;
             border: 1px solid #333;
-            border-radius: 24px;
-            font-size: 14px;
+            border-radius: 20px;
+            font-size: 13px;
             font-weight: 600;
             color: #999;
             cursor: pointer;
@@ -86,10 +95,10 @@
         .category-count {
             display: inline-block;
             background: rgba(255,255,255,0.1);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-left: 6px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-left: 4px;
         }
         
         .category-btn.active .category-count {
@@ -375,6 +384,34 @@
             
             .section-title {
                 font-size: 32px;
+            }
+            
+            .category-nav {
+                padding: 10px 16px;
+                gap: 6px;
+                justify-content: flex-start;
+            }
+            
+            .category-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .category-count {
+                font-size: 10px;
+                padding: 1px 4px;
+            }
+            
+            .export-controls {
+                position: fixed;
+                bottom: 16px;
+                right: 16px;
+                background: #1a1a1a;
+                border-radius: 20px;
+                padding: 6px;
+                border: 1px solid #333;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                z-index: 100;
             }
         }
         
@@ -745,6 +782,12 @@
         
         // Notify that screens are loaded
         window.dispatchEvent(new Event('screensLoaded'));
+        
+        // Fix initial scroll issue
+        setTimeout(() => {
+            document.body.style.overflow = 'visible';
+            document.documentElement.style.overflow = 'visible';
+        }, 100);
         
         // Handle responsive grid view buttons
         function updateGridViewButtons() {
