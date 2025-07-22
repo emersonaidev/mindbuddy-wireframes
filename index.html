@@ -636,43 +636,35 @@
             transition: width 0.3s ease;
         }
         
-        /* Category sections within All Screens */
-        .all-screens-category {
-            margin-bottom: 48px;
-        }
-        
-        .all-screens-category:last-child {
-            margin-bottom: 0;
-        }
-        
-        .category-divider {
+        /* Simple category divider for All Screens */
+        .category-simple-divider {
+            grid-column: 1 / -1;
             display: flex;
             align-items: center;
-            margin-bottom: 24px;
-            gap: 16px;
+            margin: 32px 0;
+            position: relative;
         }
         
-        .category-divider-line {
-            flex: 1;
+        .category-simple-divider::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
             height: 1px;
             background: #333;
-            opacity: 0.2;
+            opacity: 0.15;
         }
         
-        .category-divider-title {
-            font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #666;
-            padding: 0 8px;
-        }
-        
-        .category-divider-count {
+        .category-simple-divider span {
+            background: #fafafa;
+            padding: 0 16px;
             font-size: 12px;
-            font-weight: 400;
-            color: #999;
-            margin-left: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #666;
+            position: relative;
+            z-index: 1;
         }
         
         /* Authentication Styles */
@@ -1125,46 +1117,34 @@
                     grid.innerHTML = '';
                     
                     if (sectionCategory === 'all') {
-                        // Show all screens organized by category
+                        // Show all screens in one grid with subtle dividers
                         const categoryNames = {
                             onboarding: 'Onboarding',
                             auth: 'Authentication',
-                            dashboard: 'Dashboard & Navigation',
+                            dashboard: 'Dashboard',
                             health: 'Health Data',
-                            rewards: 'Rewards & Tokens',
-                            profile: 'Profile & Settings',
-                            errors: 'Error States',
+                            rewards: 'Rewards',
+                            profile: 'Profile',
+                            errors: 'Errors',
                             legal: 'Legal'
                         };
                         
+                        let isFirstCategory = true;
                         Object.entries(screens).forEach(([cat, categoryScreens]) => {
-                            const categoryContainer = document.createElement('div');
-                            categoryContainer.className = 'all-screens-category';
+                            // Add divider between categories (not before the first one)
+                            if (!isFirstCategory) {
+                                const divider = document.createElement('div');
+                                divider.className = 'category-simple-divider';
+                                divider.innerHTML = `<span>${categoryNames[cat] || cat}</span>`;
+                                divider.style.gridColumn = '1 / -1'; // Span all columns
+                                grid.appendChild(divider);
+                            }
+                            isFirstCategory = false;
                             
-                            // Create category divider
-                            const divider = document.createElement('div');
-                            divider.className = 'category-divider';
-                            divider.innerHTML = `
-                                <div class="category-divider-line"></div>
-                                <div class="category-divider-title">
-                                    ${categoryNames[cat] || cat}
-                                    <span class="category-divider-count">${categoryScreens.length}</span>
-                                </div>
-                                <div class="category-divider-line"></div>
-                            `;
-                            categoryContainer.appendChild(divider);
-                            
-                            // Create grid for this category
-                            const categoryGrid = document.createElement('div');
-                            categoryGrid.className = `screens-grid ${grid.className.split(' ').find(c => ['single', 'double', 'triple', 'quad'].includes(c)) || 'quad'}`;
-                            
-                            // Add screens to category grid
+                            // Add screens directly to the main grid
                             categoryScreens.forEach(screen => {
-                                categoryGrid.innerHTML += createScreenFrame(screen, cat);
+                                grid.innerHTML += createScreenFrame(screen, cat);
                             });
-                            
-                            categoryContainer.appendChild(categoryGrid);
-                            grid.appendChild(categoryContainer);
                         });
                     } else {
                         // Show specific category
