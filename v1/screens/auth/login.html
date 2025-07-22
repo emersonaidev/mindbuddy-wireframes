@@ -118,6 +118,25 @@
         .error-message.show {
             display: block;
         }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            background: var(--gray-300);
+        }
+        
+        .progress-dot.active {
+            background: var(--gray-900);
+            width: 24px;
+        }
     </style>
 </head>
 <body>
@@ -137,6 +156,14 @@
                 <div class="login-header">
                     <div class="app-icon"></div>
                     <h1 class="heading-2">Welcome back</h1>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="progress-dots">
+                    <div class="progress-dot active"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
+                    <div class="progress-dot"></div>
                 </div>
                 
                 <!-- Error State (hidden by default) -->

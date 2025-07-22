@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Resilience Score - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .resilience-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-xl);
+        }
+        
+        .score-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .score-visual {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto var(--space-xl);
+        }
+        
+        .score-ring {
+            position: absolute;
+            inset: 0;
+        }
+        
+        .score-ring-bg {
+            fill: none;
+            stroke: var(--gray-200);
+            stroke-width: 20;
+        }
+        
+        .score-ring-fill {
+            fill: none;
+            stroke: var(--gray-900);
+            stroke-width: 20;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: center;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 122; /* 72% filled */
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .score-value {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score-number {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .score-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .score-status {
+            font-size: var(--font-xl);
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .info-section {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .info-text {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .explanation-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .explanation-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+        
+        .explanation-icon {
+            font-size: var(--font-2xl);
+        }
+        
+        .explanation-title {
+            font-weight: 700;
+            font-size: var(--font-lg);
+        }
+        
+        .explanation-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .footer-note {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            margin: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .footer-note-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="resilience-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Resilience Score</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Score Visual -->
+                <div class="score-section">
+                    <div class="score-visual">
+                        <svg class="score-ring" viewBox="0 0 200 200">
+                            <circle class="score-ring-bg" cx="100" cy="100" r="70"></circle>
+                            <circle class="score-ring-fill" cx="100" cy="100" r="70"></circle>
+                        </svg>
+                        <div class="score-value">
+                            <div class="score-number">72</div>
+                            <div class="score-label">Today's Score</div>
+                        </div>
+                    </div>
+                    <div class="score-status">High</div>
+                </div>
+                
+                <!-- What does this mean -->
+                <div class="info-section">
+                    <h2 class="info-title">What does this mean?</h2>
+                    <p class="info-text">
+                        Your Resilience Score combines your data to show how stressed your body is.
+                    </p>
+                </div>
+                
+                <!-- Explanation Cards -->
+                <div class="explanation-grid">
+                    <div class="explanation-card">
+                        <div class="explanation-header">
+                            <span class="explanation-icon">↑</span>
+                            <h3 class="explanation-title">High Score</h3>
+                        </div>
+                        <p class="explanation-text">
+                            Your nervous system is doing well, so it's a good time for intense workouts or pushing yourself a little further.
+                        </p>
+                    </div>
+                    
+                    <div class="explanation-card">
+                        <div class="explanation-header">
+                            <span class="explanation-icon">↓</span>
+                            <h3 class="explanation-title">Low Score</h3>
+                        </div>
+                        <p class="explanation-text">
+                            Your system is under pressure. Give your body time to recover by focusing on rest, sleep, gentle movement, and activities that make you feel good.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Footer Note -->
+                <div class="footer-note">
+                    <p class="footer-note-text">
+                        This score is calculated using your HRV, sleep, and other biometric data.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

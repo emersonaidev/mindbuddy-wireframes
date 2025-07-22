@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Data Reputation Score - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .reputation-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-lg);
+        }
+        
+        .score-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .score-ring-container {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto var(--space-xl);
+        }
+        
+        .score-ring {
+            position: absolute;
+            inset: 0;
+        }
+        
+        .ring-bg {
+            fill: none;
+            stroke: var(--gray-200);
+            stroke-width: 16;
+        }
+        
+        .ring-fill {
+            fill: none;
+            stroke: var(--gray-900);
+            stroke-width: 16;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: center;
+            stroke-dasharray: 395.84;
+            stroke-dashoffset: 71.25; /* 82% */
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .score-display {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            font-weight: 700;
+        }
+        
+        .score-subtext {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .score-bar {
+            position: relative;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-sm);
+            overflow: hidden;
+        }
+        
+        .score-bar-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 82%;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+        }
+        
+        .score-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .score-label {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .score-range {
+            font-size: var(--font-xs);
+            color: var(--gray-500);
+            text-align: center;
+        }
+        
+        .info-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+        }
+        
+        .info-text {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .tip-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .tip-bullet {
+            width: 6px;
+            height: 6px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        
+        .tip-text {
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="reputation-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Data Reputation Score</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Score Card -->
+                <div class="score-card">
+                    <div class="score-ring-container">
+                        <svg class="score-ring" viewBox="0 0 180 180">
+                            <circle class="ring-bg" cx="90" cy="90" r="63"></circle>
+                            <circle class="ring-fill" cx="90" cy="90" r="63"></circle>
+                        </svg>
+                        <div class="score-display">82%</div>
+                    </div>
+                    
+                    <p class="score-subtext">Your current score</p>
+                    
+                    <div class="score-bar">
+                        <div class="score-bar-fill"></div>
+                    </div>
+                    
+                    <div class="score-labels">
+                        <span class="score-label">Poor</span>
+                        <span class="score-label">Fair</span>
+                        <span class="score-label">Good</span>
+                        <span class="score-label">Excellent</span>
+                    </div>
+                    
+                    <p class="score-range">Score range: 0–100</p>
+                </div>
+                
+                <!-- What does this mean -->
+                <div class="info-card">
+                    <h2 class="info-title">What does this mean?</h2>
+                    <p class="info-text">
+                        This score shows how reliable and consistent your shared data is. It's based on how often you contribute and the types of data you share. A higher score means your data is more valuable for us and may help you earn more $MNDY.
+                    </p>
+                </div>
+                
+                <!-- How to improve -->
+                <div class="info-card">
+                    <h2 class="info-title">How to improve your score</h2>
+                    <ul class="tips-list">
+                        <li class="tip-item">
+                            <div class="tip-bullet"></div>
+                            <span class="tip-text">Share data consistently</span>
+                        </li>
+                        <li class="tip-item">
+                            <div class="tip-bullet"></div>
+                            <span class="tip-text">Enable more data types (e.g. HRV, sleep, activity)</span>
+                        </li>
+                        <li class="tip-item">
+                            <div class="tip-bullet"></div>
+                            <span class="tip-text">Avoid gaps or missing signals</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

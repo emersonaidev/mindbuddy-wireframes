@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Privacy Policy - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .privacy-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-xl);
+        }
+        
+        .privacy-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .privacy-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .privacy-tagline {
+            font-size: var(--font-lg);
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+        
+        .privacy-intro {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+            line-height: 1.6;
+            color: var(--gray-700);
+        }
+        
+        .privacy-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-900);
+        }
+        
+        .section-subtitle {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            margin-top: var(--space-lg);
+            color: var(--gray-800);
+        }
+        
+        .section-content {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .principle-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .principle-item {
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .principle-item:last-child {
+            border-bottom: none;
+        }
+        
+        .principle-title {
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .principle-text {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .data-list {
+            list-style: none;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .data-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+        
+        .data-label {
+            font-weight: 600;
+            min-width: 140px;
+        }
+        
+        .data-description {
+            flex: 1;
+        }
+        
+        .highlight-box {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-2xl) 0;
+            text-align: center;
+        }
+        
+        .highlight-text {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        
+        .rights-list {
+            list-style: none;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+        
+        .rights-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .rights-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .rights-check {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .rights-check::after {
+            content: "✓";
+            color: var(--white);
+            font-size: 12px;
+        }
+        
+        .rights-text {
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="privacy-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Privacy Policy</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <div class="privacy-header">
+                    <h1 class="privacy-title">MindBuddy Privacy Policy</h1>
+                    <p class="privacy-tagline">Your privacy is our highest priority.</p>
+                </div>
+                
+                <div class="privacy-intro">
+                    MindBuddy is built on strict privacy by design principles. We believe that mental health data is highly sensitive and users should always have meaningful control over what they share. From the start, we have designed our system to keep you in control and your data safe.
+                </div>
+                
+                <!-- Key Principles -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Key Principles</h2>
+                    
+                    <div class="principle-list">
+                        <div class="principle-item">
+                            <h3 class="principle-title">User control.</h3>
+                            <p class="principle-text">
+                                MindBuddy is designed to give you clear, meaningful control over your data. You decide what you share and when you share it.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Consent first.</h3>
+                            <p class="principle-text">
+                                We never collect any data without your explicit, recorded consent. You can manage or withdraw your consent at any time through our app.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Pseudonymised and encrypted.</h3>
+                            <p class="principle-text">
+                                All personal data is pseudonymised before storage and encrypted in transit and at rest. We do not collect messages, audio, images, or other sensitive personal content.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Transparency.</h3>
+                            <p class="principle-text">
+                                We clearly explain how your data is used, and you can access or export your records at any time. You can also choose to opt out permanently with no penalty.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">International standards.</h3>
+                            <p class="principle-text">
+                                MindBuddy complies with global data protection laws, including the EU's General Data Protection Regulation (GDPR), the US Health Insurance Portability and Accountability Act (HIPAA) where applicable, and other international frameworks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Infrastructure -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Data Infrastructure</h2>
+                    
+                    <h3 class="section-subtitle">Server Location</h3>
+                    <p class="section-content">
+                        All MindBuddy data is stored exclusively on EU-based servers to ensure compliance with European data protection standards and provide maximum privacy protection for our users.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Data Processing</h3>
+                    <p class="section-content">
+                        Your data is pseudonymised using industry-standard techniques, meaning it cannot be attributed to you without additional information that we keep separately and securely. All data transmission occurs over encrypted channels using TLS 1.3 or higher.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Retention & Deletion</h3>
+                    <p class="section-content">
+                        You maintain full control over your data. You can request deletion of your personal data at any time, and we will remove all identifiable information within 30 days. Research data that has been fully anonymised may be retained for scientific purposes in accordance with our research transparency commitments.
+                    </p>
+                </div>
+                
+                <!-- What We Collect -->
+                <div class="privacy-section">
+                    <h2 class="section-title">What We Collect</h2>
+                    <p class="section-content">When you use MindBuddy, you choose to share:</p>
+                    
+                    <ul class="data-list">
+                        <li class="data-item">
+                            <span class="data-label">Biometric Data:</span>
+                            <span class="data-description">heart rate variability, sleep quality, respiratory rate, body temperature, and other health metrics from connected wearables.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Behavioural Data:</span>
+                            <span class="data-description">screentime, app usage, movement patterns, social media frequency.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Contextual Data:</span>
+                            <span class="data-description">city-level location data, transport mode, weather, ambient noise levels.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Self-Reported Data:</span>
+                            <span class="data-description">mood ratings, panic events, significant life events.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Demographic Data:</span>
+                            <span class="data-description">age range, gender, occupational category (optional).</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- How We Use Data -->
+                <div class="privacy-section">
+                    <h2 class="section-title">How We Use Data</h2>
+                    <ul class="data-list">
+                        <li class="data-item">To provide personalised insights into your stress and mental health patterns.</li>
+                        <li class="data-item">To reward you fairly through our native $MNDY token system.</li>
+                        <li class="data-item">To support research partners in developing better anxiety and stress treatments.</li>
+                        <li class="data-item">To inform public health policy and awareness efforts.</li>
+                        <li class="data-item">To conduct our own internal research and development focused on improving anxiety and stress treatment.</li>
+                    </ul>
+                    <p class="section-content">
+                        Your data is never sold or shared without your consent. Researchers and partners access only pseudonymised, aggregated data through secure, permissioned systems.
+                    </p>
+                </div>
+                
+                <!-- Technical Safeguards -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Technical Safeguards</h2>
+                    
+                    <h3 class="section-subtitle">Encryption</h3>
+                    <p class="section-content">
+                        All data is encrypted both in transit (TLS 1.3+) and at rest (AES-256). Database access is restricted to essential personnel and requires multi-factor authentication.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Access Controls</h3>
+                    <p class="section-content">
+                        We implement role-based access controls, regular access reviews, and the principle of least privilege. All data access is logged and monitored.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Data Minimisation</h3>
+                    <p class="section-content">
+                        We only collect and process data that is necessary for our stated purposes. Raw personal identifiers are separated from research data and stored in different systems.
+                    </p>
+                </div>
+                
+                <!-- Your Rights -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Your Rights</h2>
+                    <ul class="rights-list">
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Access your data at any time through your account dashboard.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Update or correct your records instantly.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Withdraw consent and request deletion of your personal data.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Port your data to another service in machine-readable format.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Lodge a complaint with your local data protection authority.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        We believe privacy is not an add-on. It is the foundation of ethical mental health technology.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

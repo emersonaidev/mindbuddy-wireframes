@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Help Center - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .help-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .search-section {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-full);
+            font-size: var(--font-md);
+            placeholder-color: var(--gray-500);
+        }
+        
+        .search-input::placeholder {
+            color: var(--gray-500);
+        }
+        
+        .categories-section {
+            padding: var(--space-xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .help-category {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .help-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-2xl);
+        }
+        
+        .category-name {
+            font-weight: 600;
+            font-size: var(--font-sm);
+        }
+        
+        .popular-articles {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .articles-title {
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+        }
+        
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .article-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+            cursor: pointer;
+        }
+        
+        .article-item:last-child {
+            border-bottom: none;
+        }
+        
+        .article-title {
+            flex: 1;
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+        }
+        
+        .article-arrow {
+            width: 16px;
+            height: 16px;
+            color: var(--gray-400);
+        }
+        
+        .contact-section {
+            padding: var(--space-xl);
+        }
+        
+        .contact-card {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+        }
+        
+        .contact-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-3xl);
+        }
+        
+        .contact-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-text {
+            opacity: 0.8;
+            margin-bottom: var(--space-lg);
+            line-height: 1.5;
+        }
+        
+        .contact-email {
+            display: inline-block;
+            padding: var(--space-sm) var(--space-xl);
+            background: var(--white);
+            color: var(--gray-900);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        .faq-link {
+            display: block;
+            text-align: center;
+            margin-top: var(--space-lg);
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="help-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Help Center</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Search -->
+                <div class="search-section">
+                    <input type="text" class="search-input" placeholder="Search for help...">
+                </div>
+                
+                <!-- Categories -->
+                <div class="categories-section">
+                    <h2 class="section-title">Browse by Topic</h2>
+                    
+                    <div class="help-categories">
+                        <div class="help-category">
+                            <div class="category-icon">🏁</div>
+                            <div class="category-name">Getting Started</div>
+                        </div>
+                        
+                        <div class="help-category">
+                            <div class="category-icon">💰</div>
+                            <div class="category-name">Tokens & Rewards</div>
+                        </div>
+                        
+                        <div class="help-category">
+                            <div class="category-icon">📊</div>
+                            <div class="category-name">Health Data</div>
+                        </div>
+                        
+                        <div class="help-category">
+                            <div class="category-icon">🔒</div>
+                            <div class="category-name">Privacy & Security</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Popular Articles -->
+                    <div class="popular-articles">
+                        <h3 class="articles-title">Popular Articles</h3>
+                        <div class="article-list">
+                            <div class="article-item">
+                                <span class="article-title">How do I earn $MNDY tokens?</span>
+                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="article-item">
+                                <span class="article-title">What data does MindBuddy collect?</span>
+                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="article-item">
+                                <span class="article-title">How to connect my Apple Watch?</span>
+                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="article-item">
+                                <span class="article-title">Withdrawing tokens to my wallet</span>
+                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contact Support -->
+                <div class="contact-section">
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <h3 class="contact-title">Still need help?</h3>
+                        <p class="contact-text">
+                            Our support team is here to help you with any questions or issues
+                        </p>
+                        <a href="mailto:info@elevatedynamics.pt" class="contact-email">
+                            info@elevatedynamics.pt
+                        </a>
+                    </div>
+                    
+                    <a href="#" class="faq-link">View all FAQs →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

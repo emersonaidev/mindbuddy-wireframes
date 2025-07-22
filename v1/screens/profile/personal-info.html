@@ -142,7 +142,20 @@
         
         .date-picker {
             display: flex;
-            gap: var(--space-sm);
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .date-input-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            min-width: 60px;
         }
         
         .date-input {
@@ -151,7 +164,6 @@
             background: var(--gray-50);
             border: 1px solid var(--gray-200);
             border-radius: var(--radius-lg);
-            text-align: center;
             font-weight: 500;
         }
         
@@ -240,9 +252,18 @@
                     <div class="info-field">
                         <label class="field-label">Date of Birth</label>
                         <div class="date-picker">
-                            <input type="text" class="date-input" value="01" placeholder="DD">
-                            <input type="text" class="date-input" value="15" placeholder="MM">
-                            <input type="text" class="date-input" value="1990" placeholder="YYYY">
+                            <div class="date-input-group">
+                                <span class="date-input-label">Day</span>
+                                <input type="text" class="date-input" value="15" placeholder="DD">
+                            </div>
+                            <div class="date-input-group">
+                                <span class="date-input-label">Month</span>
+                                <input type="text" class="date-input" value="01" placeholder="MM">
+                            </div>
+                            <div class="date-input-group">
+                                <span class="date-input-label">Year</span>
+                                <input type="text" class="date-input" value="1990" placeholder="YYYY">
+                            </div>
                         </div>
                     </div>
                 </div>

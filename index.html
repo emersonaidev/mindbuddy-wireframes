@@ -397,13 +397,13 @@
     <!-- Header -->
     <div class="header">
         <h1>MindBuddy V1 Wireframes</h1>
-        <p>Clean Minimalist Design • 393×852px • 45+ Screens</p>
+        <p>Clean Minimalist Design • 393×852px • 47+ Screens</p>
     </div>
     
     <!-- Category Navigation -->
     <div class="category-nav">
         <button class="category-btn active" data-category="all">
-            All Screens <span class="category-count">45</span>
+            All Screens <span class="category-count">47</span>
         </button>
         <button class="category-btn" data-category="auth">
             Authentication <span class="category-count">11</span>
@@ -412,16 +412,19 @@
             Dashboard <span class="category-count">5</span>
         </button>
         <button class="category-btn" data-category="health">
-            Health Data <span class="category-count">5</span>
+            Health Data <span class="category-count">2</span>
         </button>
         <button class="category-btn" data-category="rewards">
             Rewards <span class="category-count">5</span>
         </button>
         <button class="category-btn" data-category="profile">
-            Profile & Settings <span class="category-count">6</span>
+            Profile & Settings <span class="category-count">9</span>
         </button>
         <button class="category-btn" data-category="errors">
             Error States <span class="category-count">5</span>
+        </button>
+        <button class="category-btn" data-category="legal">
+            Legal <span class="category-count">3</span>
         </button>
     </div>
     
@@ -489,6 +492,15 @@
             </div>
             <div class="screens-grid double"></div>
         </div>
+        
+        <!-- Legal -->
+        <div class="category-section" data-category="legal">
+            <div class="section-header">
+                <h2 class="section-title">Legal Documents</h2>
+                <p class="section-description">Terms, privacy policy, and compliance information</p>
+            </div>
+            <div class="screens-grid double"></div>
+        </div>
     </div>
     
     <!-- View Options -->
@@ -550,10 +562,7 @@
             ],
             health: [
                 { name: 'Health Data Main', path: 'v1/screens/health/main.html' },
-                { name: 'Heart Rate Detail', path: 'v1/screens/health/heart-rate-detail.html' },
-                { name: 'Sleep Analysis', path: 'v1/screens/health/sleep-detail.html' },
-                { name: 'HRV Detail', path: 'v1/screens/health/hrv-detail.html' },
-                { name: 'Activity Detail', path: 'v1/screens/health/activity-detail.html' }
+                { name: 'Resilience Score', path: 'v1/screens/health/resilience-score.html' }
             ],
             rewards: [
                 { name: 'Rewards Overview', path: 'v1/screens/rewards/main.html' },
@@ -568,7 +577,10 @@
                 { name: 'Security Settings', path: 'v1/screens/profile/security.html' },
                 { name: 'Connected Devices', path: 'v1/screens/profile/connected-devices.html' },
                 { name: 'Notification Settings', path: 'v1/screens/profile/notifications.html' },
-                { name: 'Subscription Plans', path: 'v1/screens/profile/subscription.html' }
+                { name: 'Data Reputation Score', path: 'v1/screens/profile/data-reputation-score.html' },
+                { name: 'Connect Wallet', path: 'v1/screens/profile/wallet-connection.html' },
+                { name: 'Data Permissions', path: 'v1/screens/profile/data-permissions.html' },
+                { name: 'Help Center', path: 'v1/screens/profile/help-center.html' }
             ],
             errors: [
                 { name: 'Network Error', path: 'v1/screens/errors/network-error.html' },
@@ -576,6 +588,11 @@
                 { name: 'Permission Denied', path: 'v1/screens/errors/permission-denied.html' },
                 { name: 'Loading States', path: 'v1/screens/errors/loading.html' },
                 { name: 'Generic Error', path: 'v1/screens/errors/generic-error.html' }
+            ],
+            legal: [
+                { name: 'Terms & Conditions', path: 'v1/screens/legal/terms.html' },
+                { name: 'Privacy Policy', path: 'v1/screens/legal/privacy.html' },
+                { name: 'Security & Compliance', path: 'v1/screens/legal/security-compliance.html' }
             ]
         };
         

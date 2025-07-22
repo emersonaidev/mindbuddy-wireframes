@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Connect Wallet - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .wallet-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            padding: var(--space-xl);
+            overflow-y: auto;
+        }
+        
+        .wallet-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .wallet-icon-container {
+            width: 80px;
+            height: 80px;
+            background: var(--gray-900);
+            border-radius: var(--radius-xl);
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .wallet-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--white);
+            border-radius: var(--radius-sm);
+        }
+        
+        .wallet-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .wallet-subtitle {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .wallet-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .wallet-option {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .wallet-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .wallet-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-200);
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+        }
+        
+        .wallet-info {
+            flex: 1;
+        }
+        
+        .wallet-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .wallet-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .wallet-arrow {
+            width: 20px;
+            height: 20px;
+            color: var(--gray-400);
+        }
+        
+        .security-notice {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .notice-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .notice-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-600);
+            border-radius: var(--radius-full);
+        }
+        
+        .notice-title {
+            font-weight: 600;
+            font-size: var(--font-sm);
+        }
+        
+        .notice-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .manual-entry {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .manual-title {
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .address-input {
+            width: 100%;
+            padding: var(--space-md);
+            background: var(--gray-50);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-lg);
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: var(--font-sm);
+            margin-bottom: var(--space-lg);
+        }
+        
+        .connect-button {
+            width: 100%;
+        }
+        
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: var(--space-xl);
+            color: var(--gray-600);
+            font-size: var(--font-sm);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="wallet-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Connect Wallet</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Header -->
+                <div class="wallet-header">
+                    <div class="wallet-icon-container">
+                        <div class="wallet-icon"></div>
+                    </div>
+                    <h1 class="wallet-title">Connect Your Wallet</h1>
+                    <p class="wallet-subtitle">
+                        Link your crypto wallet to withdraw $MNDY tokens directly to your wallet
+                    </p>
+                </div>
+                
+                <!-- Wallet Options -->
+                <div class="wallet-options">
+                    <div class="wallet-option">
+                        <div class="wallet-logo"></div>
+                        <div class="wallet-info">
+                            <div class="wallet-name">MetaMask</div>
+                            <div class="wallet-description">Connect using browser extension</div>
+                        </div>
+                        <svg class="wallet-arrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="wallet-option">
+                        <div class="wallet-logo"></div>
+                        <div class="wallet-info">
+                            <div class="wallet-name">WalletConnect</div>
+                            <div class="wallet-description">Scan QR code with your wallet</div>
+                        </div>
+                        <svg class="wallet-arrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/>
+                        </svg>
+                    </div>
+                    
+                    <div class="wallet-option">
+                        <div class="wallet-logo"></div>
+                        <div class="wallet-info">
+                            <div class="wallet-name">Coinbase Wallet</div>
+                            <div class="wallet-description">Use Coinbase Wallet app</div>
+                        </div>
+                        <svg class="wallet-arrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Security Notice -->
+                <div class="security-notice">
+                    <div class="notice-header">
+                        <div class="notice-icon"></div>
+                        <div class="notice-title">Security Note</div>
+                    </div>
+                    <p class="notice-text">
+                        We never store your private keys. Your wallet remains under your full control at all times.
+                    </p>
+                </div>
+                
+                <!-- Manual Entry -->
+                <div class="manual-entry">
+                    <h3 class="manual-title">Or enter wallet address manually</h3>
+                    <input type="text" class="address-input" placeholder="0x...">
+                    <button class="button button-primary connect-button">
+                        Connect Wallet
+                    </button>
+                </div>
+                
+                <!-- Skip Link -->
+                <a href="#" class="skip-link">Skip for now</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

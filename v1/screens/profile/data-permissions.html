@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Data Permissions - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        .permissions-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding-bottom: 100px; /* Space for floating button */
+        }
+        
+        .permissions-header {
+            background: var(--white);
+            padding: var(--space-xl);
+            text-align: center;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .header-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .header-subtitle {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .permission-section {
+            background: var(--white);
+            margin-bottom: var(--space-md);
+            padding: var(--space-xl);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .section-info {
+            flex: 1;
+        }
+        
+        .section-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .section-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .section-toggle {
+            width: 51px;
+            height: 31px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .section-toggle.active {
+            background: var(--gray-900);
+        }
+        
+        .toggle-knob {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 25px;
+            height: 25px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            transition: transform 0.3s;
+        }
+        
+        .section-toggle.active .toggle-knob {
+            transform: translateX(20px);
+        }
+        
+        .permission-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .permission-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .permission-item:last-child {
+            border-bottom: none;
+        }
+        
+        .permission-info {
+            flex: 1;
+            padding-right: var(--space-md);
+        }
+        
+        .permission-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .permission-detail {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .permission-toggle {
+            width: 44px;
+            height: 26px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .permission-toggle.active {
+            background: var(--gray-900);
+        }
+        
+        .permission-toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            transition: transform 0.3s;
+        }
+        
+        .permission-toggle.active .permission-toggle-knob {
+            transform: translateX(18px);
+        }
+        
+        .data-notice {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl);
+        }
+        
+        .notice-title {
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+        
+        .notice-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-600);
+            border-radius: var(--radius-full);
+        }
+        
+        .notice-text {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .save-button-container {
+            position: fixed;
+            bottom: var(--space-xl);
+            left: var(--space-xl);
+            right: var(--space-xl);
+            background: var(--white);
+            padding: var(--space-lg);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .last-saved {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            text-align: center;
+            margin-top: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="permissions-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Data Permissions</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Header -->
+                <div class="permissions-header">
+                    <h1 class="header-title">Control Your Data Sharing</h1>
+                    <p class="header-subtitle">
+                        Choose exactly what data you want to share. You can change these settings at any time.
+                    </p>
+                </div>
+                
+                <!-- Health Data Section -->
+                <div class="permission-section">
+                    <div class="section-header">
+                        <div class="section-info">
+                            <h2 class="section-title">Health Data</h2>
+                            <p class="section-description">Biometric data from your devices</p>
+                        </div>
+                        <div class="section-toggle active">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-list">
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Heart Rate & HRV</div>
+                                <div class="permission-detail">Continuous heart rate and variability data</div>
+                            </div>
+                            <div class="permission-toggle active">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Sleep Data</div>
+                                <div class="permission-detail">Sleep stages, quality, and duration</div>
+                            </div>
+                            <div class="permission-toggle active">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Activity & Steps</div>
+                                <div class="permission-detail">Daily movement and exercise data</div>
+                            </div>
+                            <div class="permission-toggle active">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Respiratory Rate</div>
+                                <div class="permission-detail">Breathing patterns and rate</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Behavioral Data Section -->
+                <div class="permission-section">
+                    <div class="section-header">
+                        <div class="section-info">
+                            <h2 class="section-title">Behavioral Data</h2>
+                            <p class="section-description">App usage and phone behavior</p>
+                        </div>
+                        <div class="section-toggle active">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-list">
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Screen Time</div>
+                                <div class="permission-detail">Total daily phone usage</div>
+                            </div>
+                            <div class="permission-toggle active">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">App Categories</div>
+                                <div class="permission-detail">Types of apps used (not specific apps)</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Social Media Frequency</div>
+                                <div class="permission-detail">How often social apps are opened</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Contextual Data Section -->
+                <div class="permission-section">
+                    <div class="section-header">
+                        <div class="section-info">
+                            <h2 class="section-title">Contextual Data</h2>
+                            <p class="section-description">Environmental information</p>
+                        </div>
+                        <div class="section-toggle">
+                            <div class="toggle-knob"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-list">
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Location (City Level)</div>
+                                <div class="permission-detail">General location, not precise coordinates</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Weather Data</div>
+                                <div class="permission-detail">Temperature, humidity, conditions</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="permission-item">
+                            <div class="permission-info">
+                                <div class="permission-name">Transport Mode</div>
+                                <div class="permission-detail">Walking, driving, or public transport</div>
+                            </div>
+                            <div class="permission-toggle">
+                                <div class="permission-toggle-knob"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Notice -->
+                <div class="data-notice">
+                    <div class="notice-title">
+                        <div class="notice-icon"></div>
+                        <span>How we protect your data</span>
+                    </div>
+                    <p class="notice-text">
+                        All data is encrypted, pseudonymised, and never shared without your consent. You maintain full control and can delete your data at any time.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Save Button -->
+            <div class="save-button-container">
+                <button class="button button-primary button-full">
+                    Save Permissions
+                </button>
+                <p class="last-saved">Last updated: 2 hours ago</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
