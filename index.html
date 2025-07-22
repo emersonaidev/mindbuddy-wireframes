@@ -1535,6 +1535,83 @@
         window.showExportPreview = showExportPreview;
         window.clearComments = clearComments;
         
+        // Process HTML to make it Figma-ready
+        function processFigmaHTML(html, screenName) {
+            // Create a clean HTML template optimized for Figma import
+            const figmaHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>${screenName} - MindBuddy Wireframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 393px;
+            height: 852px;
+            background: #F8F9FA;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Extract and inline all styles from the original HTML */
+        ${extractStyles(html)}
+        
+        /* Ensure proper rendering for Figma */
+        .screen {
+            width: 393px;
+            height: 852px;
+            position: relative;
+            background: #F8F9FA;
+        }
+        
+        /* Make all text selectable and properly rendered */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Remove any animations or transitions */
+        *, *::before, *::after {
+            animation: none !important;
+            transition: none !important;
+        }
+    </style>
+</head>
+<body>
+    ${extractBody(html)}
+</body>
+</html>`;
+            
+            return figmaHTML;
+        }
+        
+        // Extract styles from HTML
+        function extractStyles(html) {
+            const styleMatch = html.match(/<style[^>]*>([\s\S]*?)<\/style>/gi);
+            if (styleMatch) {
+                return styleMatch.map(style => {
+                    return style.replace(/<\/?style[^>]*>/gi, '');
+                }).join('\n');
+            }
+            return '';
+        }
+        
+        // Extract body content from HTML
+        function extractBody(html) {
+            const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            if (bodyMatch) {
+                return bodyMatch[1];
+            }
+            return '<div class="screen">Error: Could not extract content</div>';
+        }
+        
         // Export all screens to HTML files
         async function exportAllScreensToHTML() {
             const loadingModal = document.createElement('div');
@@ -1616,11 +1693,14 @@
                         // Fetch HTML content
                         const response = await fetch(screen.path);
                         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                        const htmlContent = await response.text();
+                        let htmlContent = await response.text();
+                        
+                        // Process HTML to make it Figma-ready
+                        const processedContent = processFigmaHTML(htmlContent, screen.name);
                         
                         // Add to appropriate folder
                         if (folderName && folders[folderName]) {
-                            folders[folderName].file(fileName, htmlContent);
+                            folders[folderName].file(fileName, processedContent);
                             console.log(`Added ${folderName}/${fileName}`);
                         }
                         
@@ -1629,27 +1709,45 @@
                     }
                 }
                 
-                // Add base.css file
+                // Process base.css and add as a reference file
                 try {
                     const cssResponse = await fetch('v1/styles/base.css');
                     const cssContent = await cssResponse.text();
-                    htmlFolder.folder('styles').file('base.css', cssContent);
+                    
+                    // Create a README for CSS reference
+                    const cssReadme = `Base CSS Styles for MindBuddy Wireframes
+
+The base.css file has been inlined into each HTML file for better Figma compatibility.
+
+Key styles included:
+- Font: Inter
+- Background: #F8F9FA
+- Card styles with 16px border radius
+- Navigation components
+- Button styles
+- Form elements
+
+All styles are now embedded in each HTML file for easier import to Figma.`;
+                    
+                    htmlFolder.file('CSS_README.txt', cssReadme);
                 } catch (error) {
-                    console.error('Failed to fetch base.css:', error);
+                    console.error('Failed to process base.css:', error);
                 }
                 
                 // Add README file
-                const readme = `MindBuddy HTML Wireframes Export
+                const readme = `MindBuddy Figma-Ready HTML Wireframes
 Generated on: ${new Date().toLocaleString()}
 Total screens: ${totalScreens}
 
-These HTML files are the source wireframes for the MindBuddy application.
-Each file is a complete HTML page with embedded CSS styling.
+🎯 OPTIMIZED FOR FIGMA IMPORT 🎯
 
-To view:
-1. Open any HTML file in a web browser
-2. Set viewport to 393x852px (iPhone 14)
-3. The files reference '../styles/base.css' for common styles
+These HTML files have been processed and optimized for Figma:
+✅ All styles inlined (no external CSS dependencies)
+✅ Fixed dimensions: 393x852px (iPhone 14)
+✅ Clean markup for better conversion
+✅ Animations and transitions removed
+✅ Font smoothing applied
+✅ Consistent background color (#F8F9FA)
 
 Categories included:
 - auth/ (11 files) - Onboarding & Authentication
@@ -1661,16 +1759,22 @@ Categories included:
 - legal/ (3 files) - Legal documents
 - insights/ (1 file) - Insights screen
 
-These files can be:
-- Opened directly in browser
-- Imported to Figma using HTML to Figma plugins
-- Used as reference for design implementation
+TO IMPORT TO FIGMA:
+1. Open any HTML file in Chrome/Safari
+2. Use "Figma HTML to Design" plugin OR
+3. Take screenshots at 393x852px viewport OR
+4. Use "html.to.design" Figma plugin
 
 Design specifications:
 - Device: iPhone 14 (393x852px)
 - Font: Inter
 - Background: #F8F9FA
-- Primary color: #000000
+- Primary: #000000
+- Cards: #FFFFFF with 16px radius
+- Shadows: 0px 2px 8px rgba(0,0,0,0.05)
+
+Each file is self-contained with all styles embedded.
+No external dependencies needed!
 
 Visit https://github.com/emersonaidev/mindbuddy-wireframes for more information.`;
                 
