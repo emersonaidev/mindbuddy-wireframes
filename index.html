@@ -6,6 +6,7 @@
     <title>MindBuddy V1 Wireframes - Simple Gallery</title>
     <link rel="stylesheet" href="styles/auth.css">
     <link rel="stylesheet" href="styles/comments.css">
+    <link rel="stylesheet" href="styles/agent-sidebar.css">
     <style>
         * {
             margin: 0;
@@ -25,8 +26,16 @@
             color: #333;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow: hidden;
+            display: flex;
+        }
+        
+        /* App Container */
+        .app-container {
+            display: flex;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
         }
         
         /* Header */
@@ -36,6 +45,7 @@
             padding: 24px;
             text-align: center;
             border-bottom: 1px solid #222;
+            flex-shrink: 0;
         }
         
         .header h1 {
@@ -60,9 +70,11 @@
             border-bottom: 1px solid #222;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             position: relative;
+            flex-shrink: 0;
+            flex-wrap: wrap;
         }
         
         .category-nav::-webkit-scrollbar {
@@ -108,10 +120,41 @@
             background: rgba(0,0,0,0.1);
         }
         
+        /* Content Area - Right side */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        
         /* Main Content */
         .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
             padding: 40px 24px;
-            min-height: calc(100vh - 180px);
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Ensure scrollbar is visible */
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .main-content::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        .main-content::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        
+        .main-content::-webkit-scrollbar-thumb:hover {
+            background: #444;
         }
         
         /* Category Section */
@@ -169,7 +212,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             padding-bottom: 40px;
             margin-bottom: 40px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -195,6 +238,7 @@
                 0 0 0 1px rgba(255,255,255,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             transform: scale(1);
+            cursor: pointer;
         }
         
         /* Enable scrolling within iframes */
@@ -220,12 +264,7 @@
             background: white;
             transform: scale(0.61);
             transform-origin: top left;
-            pointer-events: auto;
-        }
-        
-        /* Allow iframe interaction on hover */
-        .screen-frame:hover .screen-iframe {
-            pointer-events: auto;
+            pointer-events: none;
         }
         
         /* Loading state */
@@ -273,7 +312,7 @@
         
         /* View Options */
         .view-options {
-            position: fixed;
+            position: absolute;
             bottom: 24px;
             right: 24px;
             background: #1a1a1a;
@@ -283,7 +322,7 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.5);
             display: flex;
             gap: 4px;
-            z-index: 1000;
+            z-index: 100;
         }
         
         .view-btn {
@@ -405,8 +444,8 @@
             
             .category-nav {
                 padding: 8px 12px;
-                gap: 3px;
-                justify-content: flex-start;
+                gap: 4px;
+                justify-content: center;
                 overflow-x: auto;
                 overflow-y: hidden;
                 -webkit-overflow-scrolling: touch;
@@ -414,13 +453,18 @@
             }
             
             .category-btn {
-                padding: 5px 8px;
-                font-size: 10px;
-                border-radius: 14px;
+                padding: 6px 10px;
+                font-size: 11px;
+                border-radius: 16px;
             }
             
             .category-count {
                 display: none; /* Hide counts on mobile to save space */
+            }
+            
+            .logout-btn {
+                font-size: 11px;
+                padding: 6px 10px;
             }
             
         }
@@ -460,7 +504,33 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <div class="app-container">
+        <!-- AI Agent Sidebar (Always visible) -->
+        <div class="agent-sidebar open" id="agentSidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">MindBuddy Wireframes</h3>
+            </div>
+            <div class="selected-info" id="selectedInfo">
+                <div class="selected-screen-name">Select a wireframe to start</div>
+            </div>
+            <div class="chat-history" id="chatHistory">
+                <div class="chat-welcome">
+                    <p>👋 Welcome!</p>
+                    <p>Single click to add change requests. Double click for focus mode.</p>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <textarea class="chat-input" id="chatInput" placeholder="Select a wireframe to start..." rows="3" disabled></textarea>
+                <div class="chat-actions">
+                    <button class="send-btn" onclick="sendChatMessage()" disabled>Add Request</button>
+                    <button class="clear-btn" onclick="clearChatHistory()">Clear</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Header -->
     <div class="header">
         <h1>MindBuddy V1 Wireframes</h1>
         <p>Clean Minimalist Design • 393×852px • 47+ Screens</p>
@@ -568,8 +638,8 @@
             <div class="screens-grid double"></div>
         </div>
     </div>
-    
-    <!-- View Options -->
+            
+            <!-- View Options -->
     <div class="view-options">
         <button class="view-btn" data-view="single">
             <div class="view-icon single">
@@ -663,7 +733,7 @@
         };
         
         // Create screen frame
-        function createScreenFrame(screen) {
+        function createScreenFrame(screen, category) {
             const screenId = `screen-${Math.random().toString(36).substr(2, 9)}`;
             // Check if this screen needs scrolling (legal docs, help center, etc)
             const needsScroll = screen.path.includes('legal/') || 
@@ -676,17 +746,11 @@
                     <div class="screen-info">
                         <h3 class="screen-name">${screen.name}</h3>
                     </div>
-                    <div class="comment-section" data-screen-name="${screen.name}" data-screen-path="${screen.path}">
-                        <textarea 
-                            class="comment-input" 
-                            placeholder="Add a comment..."
-                            data-screen-name="${screen.name}"
-                            data-screen-path="${screen.path}"
-                            rows="1"
-                        ></textarea>
-                        <button class="comment-send-btn">➤</button>
-                    </div>
-                    <div class="screen-frame ${needsScroll ? 'scrollable' : ''}">
+                    <div class="screen-frame ${needsScroll ? 'scrollable' : ''}" 
+                         data-screen-name="${screen.name}" 
+                         data-screen-path="${screen.path}"
+                         data-category="${category || 'all'}"
+                         onclick="handleWireframeClick(this, event)">
                         <div class="loading-container" id="loading-${screenId}">
                             <div class="loading-spinner"></div>
                         </div>
@@ -715,49 +779,24 @@
                     
                     if (sectionCategory === 'all') {
                         // Show all screens
-                        Object.values(screens).forEach(categoryScreens => {
+                        Object.entries(screens).forEach(([cat, categoryScreens]) => {
                             categoryScreens.forEach(screen => {
-                                grid.innerHTML += createScreenFrame(screen);
+                                grid.innerHTML += createScreenFrame(screen, cat);
                             });
                         });
                     } else {
                         // Show specific category
                         if (screens[sectionCategory]) {
                             screens[sectionCategory].forEach(screen => {
-                                grid.innerHTML += createScreenFrame(screen);
+                                grid.innerHTML += createScreenFrame(screen, sectionCategory);
                             });
                         }
                     }
                 }
             });
             
-            // Notify that screens are loaded and add comment listeners
+            // Notify that screens are loaded
             setTimeout(() => {
-                // Add event listeners to comment sections
-                const commentSections = document.querySelectorAll('.comment-section');
-                commentSections.forEach(section => {
-                    const input = section.querySelector('.comment-input');
-                    const sendBtn = section.querySelector('.comment-send-btn');
-                    const screenName = section.dataset.screenName;
-                    const screenPath = section.dataset.screenPath;
-                    
-                    const sendComment = () => {
-                        const comment = input.value.trim();
-                        if (comment && window.professionalCommentsManager) {
-                            window.professionalCommentsManager.addCommentToLog(screenName, screenPath, comment);
-                            input.value = '';
-                            input.blur();
-                        }
-                    };
-                    
-                    sendBtn.onclick = sendComment;
-                    input.addEventListener('keypress', (e) => {
-                        if (e.key === 'Enter') {
-                            sendComment();
-                        }
-                    });
-                });
-                
                 window.dispatchEvent(new Event('screensLoaded'));
             }, 100);
         }
@@ -813,11 +852,277 @@
             });
         });
         
+        // Track selected wireframe and click timer
+        let selectedWireframe = null;
+        let clickTimer = null;
+        let chatHistory = {};
+        
+        // Handle wireframe clicks (single vs double)
+        function handleWireframeClick(element, event) {
+            event.stopPropagation();
+            
+            if (clickTimer) {
+                clearTimeout(clickTimer);
+                clickTimer = null;
+                // Double click - focus mode
+                openFocusMode(element);
+            } else {
+                clickTimer = setTimeout(() => {
+                    // Single click - select and open sidebar
+                    selectWireframe(element);
+                    clickTimer = null;
+                }, 250);
+            }
+        }
+        
+        // Select wireframe and open sidebar
+        function selectWireframe(element) {
+            // Update selection
+            document.querySelectorAll('.screen-frame').forEach(el => {
+                el.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Store context
+            selectedWireframe = {
+                name: element.dataset.screenName,
+                path: element.dataset.screenPath,
+                category: element.dataset.category
+            };
+            
+            // Update sidebar info
+            document.querySelector('.selected-screen-name').textContent = selectedWireframe.name;
+            
+            // Enable chat input
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.querySelector('.send-btn');
+            chatInput.disabled = false;
+            sendBtn.disabled = false;
+            chatInput.placeholder = `Add a change request for ${selectedWireframe.name}...`;
+            
+            // Load chat history for this wireframe
+            loadChatHistory();
+            
+            // Focus input
+            chatInput.focus();
+        }
+        
+        
+        // Load chat history for selected wireframe
+        function loadChatHistory() {
+            if (!selectedWireframe) return;
+            
+            const chatHistoryEl = document.getElementById('chatHistory');
+            const wireframeKey = `${selectedWireframe.category}_${selectedWireframe.name}`;
+            
+            // Clear current chat
+            chatHistoryEl.innerHTML = '';
+            
+            // Load history if exists
+            if (chatHistory[wireframeKey] && chatHistory[wireframeKey].length > 0) {
+                chatHistory[wireframeKey].forEach(msg => {
+                    addMessageToChat(msg.type, msg.content, msg.timestamp, false);
+                });
+            } else {
+                // Show welcome message
+                chatHistoryEl.innerHTML = `
+                    <div class="chat-welcome">
+                        <p>Start a conversation about <strong>${selectedWireframe.name}</strong></p>
+                        <p style="font-size: 12px; margin-top: 8px;">You can ask questions, suggest changes, or add comments.</p>
+                    </div>
+                `;
+            }
+            
+            // Scroll to bottom
+            chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+        }
+        
+        // Send chat message
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (!message || !selectedWireframe) return;
+            
+            // Add user message as a change request
+            addMessageToChat('user', message);
+            
+            // Save to comment log
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.addCommentToLog(
+                    selectedWireframe.name,
+                    selectedWireframe.path,
+                    message
+                );
+            }
+            
+            // Clear input
+            input.value = '';
+            input.style.height = 'auto';
+        }
+        
+        // Make function globally available
+        window.sendChatMessage = sendChatMessage;
+        
+        // Add message to chat
+        function addMessageToChat(type, content, timestamp = null, save = true) {
+            const chatHistoryEl = document.getElementById('chatHistory');
+            const wireframeKey = `${selectedWireframe.category}_${selectedWireframe.name}`;
+            
+            // Remove welcome message if exists
+            const welcome = chatHistoryEl.querySelector('.chat-welcome');
+            if (welcome) welcome.remove();
+            
+            // Add section header if first message
+            if (chatHistoryEl.children.length === 0) {
+                const header = document.createElement('div');
+                header.className = 'change-requests-header';
+                header.innerHTML = `<h4>Change Requests for ${selectedWireframe.name}</h4>`;
+                chatHistoryEl.appendChild(header);
+            }
+            
+            // Create message element
+            const messageEl = document.createElement('div');
+            messageEl.className = 'change-request-item';
+            
+            const time = timestamp || new Date().toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            
+            const date = new Date().toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+            });
+            
+            messageEl.innerHTML = `
+                <div class="request-header">
+                    <span class="request-number">#${(chatHistory[wireframeKey]?.length || 0) + 1}</span>
+                    <span class="request-time">${date} at ${time}</span>
+                </div>
+                <div class="request-content">${content}</div>
+            `;
+            
+            chatHistoryEl.appendChild(messageEl);
+            
+            // Save to history
+            if (save) {
+                if (!chatHistory[wireframeKey]) {
+                    chatHistory[wireframeKey] = [];
+                }
+                chatHistory[wireframeKey].push({ type, content, timestamp: time });
+            }
+            
+            // Scroll to bottom
+            chatHistoryEl.scrollTop = chatHistoryEl.scrollHeight;
+        }
+        
+        
+        // Clear chat history
+        function clearChatHistory() {
+            if (!selectedWireframe) return;
+            
+            const wireframeKey = `${selectedWireframe.category}_${selectedWireframe.name}`;
+            chatHistory[wireframeKey] = [];
+            loadChatHistory();
+        }
+        
+        // Export all comments
+        function exportComments() {
+            if (window.professionalCommentsManager) {
+                // Trigger the export preview from comments manager
+                const exportBtn = document.querySelector('[data-action="preview"]');
+                if (exportBtn) {
+                    exportBtn.click();
+                } else {
+                    // Fallback: create a temporary export button and click it
+                    window.professionalCommentsManager.showExportPreview();
+                }
+            }
+        }
+        
+        // Clear all comments
+        function clearAllComments() {
+            if (confirm('Are you sure you want to clear all comments? This cannot be undone.')) {
+                // Clear chat history
+                chatHistory = {};
+                
+                // Clear from comments manager
+                if (window.professionalCommentsManager) {
+                    window.professionalCommentsManager.clearAllComments();
+                }
+                
+                // Reload current wireframe chat
+                if (selectedWireframe) {
+                    loadChatHistory();
+                }
+            }
+        }
+        
+        // Make functions globally available
+        window.clearChatHistory = clearChatHistory;
+        window.exportComments = exportComments;
+        window.clearAllComments = clearAllComments;
+        
+        // Handle Enter key in chat input
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatInput = document.getElementById('chatInput');
+            if (chatInput) {
+                chatInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendChatMessage();
+                    }
+                });
+                
+                // Auto-resize textarea
+                chatInput.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+                });
+            }
+        });
+        
+        // Function to open focus mode
+        function openFocusMode(element) {
+            const screenName = element.dataset.screenName;
+            const screenPath = element.dataset.screenPath;
+            const category = element.dataset.category;
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Build focus mode URL
+            const params = new URLSearchParams({
+                screen: screenName,
+                path: screenPath,
+                category: category,
+                scroll: currentScroll
+            });
+            
+            // Navigate to focus mode
+            window.location.href = `focus.html?${params.toString()}`;
+        }
+        
+        // Make functions globally available
+        window.openFocusMode = openFocusMode;
+        window.handleWireframeClick = handleWireframeClick;
+        
         // Initialize with all screens
         populateScreens('all');
         
         // Notify that screens are loaded
         window.dispatchEvent(new Event('screensLoaded'));
+        
+        // Check for scroll restoration from focus mode
+        if (window.location.hash.includes('scroll=')) {
+            const scrollPos = parseInt(window.location.hash.split('scroll=')[1]);
+            if (!isNaN(scrollPos)) {
+                setTimeout(() => {
+                    window.scrollTo(0, scrollPos);
+                    // Clean up the hash
+                    history.replaceState(null, null, window.location.pathname);
+                }, 100);
+            }
+        }
         
         // Handle responsive grid view buttons
         function updateGridViewButtons() {
@@ -915,30 +1220,12 @@
         }
     </script>
     
+        </div> <!-- End content-area -->
+    </div> <!-- End app-container -->
+    
     <!-- Authentication and Professional Comments Scripts -->
     <script src="auth.js"></script>
     <script src="comments-manager.js"></script>
     
-    <!-- Ensure scrolling works on load -->
-    <script>
-        // Force enable scrolling after all resources load
-        window.addEventListener('load', function() {
-            document.body.style.overflow = 'auto';
-            document.documentElement.style.overflow = 'auto';
-            // Also ensure main content is scrollable
-            const mainContent = document.querySelector('.main-content');
-            if (mainContent) {
-                mainContent.style.overflow = 'visible';
-            }
-        });
-        
-        // Backup in case load event doesn't fire properly
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.body.style.overflow = 'auto';
-                document.documentElement.style.overflow = 'auto';
-            }, 500);
-        });
-    </script>
 </body>
 </html>

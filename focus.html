@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Mode - MindBuddy Wireframes</title>
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="stylesheet" href="styles/comments.css">
+    <link rel="stylesheet" href="styles/agent-sidebar.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+        }
+        
+        /* App Container for sidebar layout */
+        .app-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        /* Focus Container */
+        .focus-container {
+            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Focus Header */
+        .focus-header {
+            background: #000;
+            padding: 16px 24px;
+            border-bottom: 1px solid #222;
+            text-align: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        
+        .screen-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            background: #2a2a2a;
+            color: #999;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        /* Main Content */
+        .focus-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Wireframe Container */
+        .wireframe-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Desktop Frame */
+        .desktop-frame {
+            width: 393px;
+            height: 852px;
+            border-radius: 48px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            transform: scale(0.9);
+        }
+        
+        /* Adjust scale based on viewport */
+        @media (max-height: 900px) {
+            .desktop-frame {
+                transform: scale(0.8);
+            }
+        }
+        
+        @media (max-height: 800px) {
+            .desktop-frame {
+                transform: scale(0.7);
+            }
+        }
+        
+        /* Mobile Frame */
+        .mobile-frame {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            position: relative;
+            display: none;
+        }
+        
+        /* Wireframe */
+        .wireframe-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            background: white;
+        }
+        
+        /* Loading State */
+        .loading-container {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+        
+        .loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid #f0f0f0;
+            border-top-color: #333;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Export Controls */
+        .focus-export-controls {
+            display: none; /* Will be added by JS based on viewport */
+        }
+        
+        /* Hide comment input since we'll use sidebar */
+        .comment-input-focus {
+            display: none;
+        }
+        
+        /* Navigation Hints */
+        .nav-hints {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            color: #666;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .focus-header {
+                padding: 12px 16px;
+            }
+            
+            .screen-title {
+                font-size: 18px;
+            }
+            
+            .focus-content {
+                padding: 0;
+            }
+            
+            .desktop-frame {
+                display: none;
+            }
+            
+            .mobile-frame {
+                display: block;
+            }
+            
+            .comment-input-focus {
+                bottom: 70px;
+                right: 12px;
+                width: 200px;
+                font-size: 13px;
+                padding: 8px 12px;
+                height: 36px;
+            }
+            
+            .comment-input-focus:focus {
+                width: 260px;
+            }
+            
+            .nav-hints {
+                display: none;
+            }
+        }
+        
+        /* Error State */
+        .error-message {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+        }
+        
+        .error-message h3 {
+            margin-bottom: 10px;
+        }
+        
+        .error-message p {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        
+        /* Back button styling override for focus mode */
+        .focus-back-btn {
+            background: #2a2a2a !important;
+            border: 1px solid #444 !important;
+            width: 36px !important;
+            height: 36px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 6px !important;
+            color: #fff !important;
+            font-size: 20px !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+        }
+        
+        .focus-back-btn:hover {
+            background: #333 !important;
+            transform: translateX(-2px) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Agent Sidebar -->
+        <div class="agent-sidebar" id="agent-sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Change Requests</h3>
+            </div>
+            
+            <div class="selected-info">
+                <div class="selected-screen-name" id="sidebar-selected-name">No screen selected</div>
+            </div>
+            
+            <div class="chat-history" id="chat-history">
+                <div class="chat-welcome">
+                    <p>👋 Welcome!</p>
+                    <p>Single click to add change requests. Double click for focus mode.</p>
+                </div>
+            </div>
+            
+            <div class="chat-input-container">
+                <textarea 
+                    class="chat-input" 
+                    id="chat-input"
+                    placeholder="Describe changes needed..."
+                    rows="3"
+                ></textarea>
+                <div class="chat-actions">
+                    <button class="send-btn" id="send-btn">Add Change Request</button>
+                    <button class="clear-btn" id="clear-btn">Clear</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Focus Container -->
+        <div class="focus-container">
+        <!-- Header -->
+        <div class="focus-header">
+            <h1 class="screen-title" id="screen-title">Loading...</h1>
+            <span class="category-badge" id="category-badge">-</span>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="focus-content">
+            <div class="wireframe-container">
+                <!-- Desktop View -->
+                <div class="desktop-frame" id="desktop-frame">
+                    <div class="loading-container" id="loading">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <iframe 
+                        id="wireframe-iframe-desktop"
+                        class="wireframe-iframe"
+                        scrolling="yes"
+                    ></iframe>
+                </div>
+                
+                <!-- Mobile View -->
+                <div class="mobile-frame" id="mobile-frame">
+                    <div class="loading-container" id="loading-mobile">
+                        <div class="loading-spinner"></div>
+                    </div>
+                    <iframe 
+                        id="wireframe-iframe-mobile"
+                        class="wireframe-iframe"
+                        scrolling="yes"
+                    ></iframe>
+                </div>
+            </div>
+            
+            
+            <!-- Navigation Hints -->
+            <div class="nav-hints">
+                Press ESC to exit • Use arrow keys to navigate
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script>
+        // Parse URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const screenName = urlParams.get('screen') || 'Unknown Screen';
+        const screenPath = urlParams.get('path') || '';
+        const category = urlParams.get('category') || 'unknown';
+        const returnScroll = urlParams.get('scroll') || '0';
+        
+        // Update UI
+        document.getElementById('screen-title').textContent = screenName;
+        document.getElementById('category-badge').textContent = 
+            category.charAt(0).toUpperCase() + category.slice(1);
+        
+        // Load wireframe
+        function loadWireframe() {
+            if (!screenPath) {
+                showError();
+                return;
+            }
+            
+            const desktopIframe = document.getElementById('wireframe-iframe-desktop');
+            const mobileIframe = document.getElementById('wireframe-iframe-mobile');
+            
+            // Load in both iframes
+            desktopIframe.src = screenPath;
+            mobileIframe.src = screenPath;
+            
+            // Hide loading on load
+            desktopIframe.onload = () => {
+                document.getElementById('loading').style.display = 'none';
+            };
+            
+            mobileIframe.onload = () => {
+                document.getElementById('loading-mobile').style.display = 'none';
+            };
+            
+            // Handle errors
+            desktopIframe.onerror = showError;
+            mobileIframe.onerror = showError;
+        }
+        
+        function showError() {
+            const containers = document.querySelectorAll('.loading-container');
+            containers.forEach(container => {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <h3>Failed to load wireframe</h3>
+                        <p>The requested screen could not be loaded.</p>
+                    </div>
+                `;
+            });
+        }
+        
+        // Handle back navigation
+        function goBack() {
+            // Restore scroll position when returning
+            window.location.href = `index.html#scroll=${returnScroll}`;
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                goBack();
+            }
+            // Additional navigation can be added here (arrow keys for prev/next)
+        });
+        
+        // Update sidebar with current screen info
+        function updateSidebarInfo() {
+            const sidebarName = document.getElementById('sidebar-selected-name');
+            if (sidebarName) {
+                sidebarName.textContent = screenName;
+            }
+        }
+        
+        // Initialize
+        loadWireframe();
+        updateSidebarInfo();
+        
+        // Wait for export controls to be added by comments manager
+        window.addEventListener('load', () => {
+            // The comments manager will add the export controls
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.addExportControls();
+            }
+        });
+        
+        // Export back navigation function for use by comments manager
+        window.focusModeGoBack = goBack;
+    </script>
+    
+    <!-- Load managers -->
+    <script src="auth.js"></script>
+    <script src="comments-manager.js"></script>
+    <script src="agent-sidebar.js"></script>
+</body>
+</html>

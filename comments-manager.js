@@ -410,16 +410,48 @@ class ProfessionalCommentsManager {
         exportControls.setAttribute('role', 'toolbar');
         exportControls.setAttribute('aria-label', 'Comment export tools');
         
-        exportControls.innerHTML = `
+        // Check if we're in focus mode
+        const inFocusMode = window.location.pathname.includes('focus.html');
+        
+        let controlsHTML = '';
+        
+        if (inFocusMode) {
+            // Add back button in focus mode
+            controlsHTML = `
+                <button class="focus-back-btn" title="Back to Gallery" data-action="back" aria-label="Back to gallery">←</button>
+            `;
+        }
+        
+        controlsHTML += `
             <span class="log-count" aria-live="polite">${this.commentsLog.length} comments</span>
             <button class="export-btn" title="Preview & Export Comments" data-action="preview" aria-label="Preview and export comments">📝</button>
             <button class="export-btn clear-btn" title="Clear all comments" aria-label="Clear all comments">🗑️</button>
         `;
+        
+        exportControls.innerHTML = controlsHTML;
 
-        document.body.appendChild(exportControls);
+        // In focus mode or mobile, append to body. Otherwise to nav
+        if (inFocusMode || window.innerWidth <= 640) {
+            document.body.appendChild(exportControls);
+        } else {
+            const categoryNav = document.querySelector('.category-nav');
+            if (categoryNav) {
+                categoryNav.appendChild(exportControls);
+            } else {
+                document.body.appendChild(exportControls);
+            }
+        }
 
         // Add event listeners with proper error handling
         this.addEventListener(exportControls, 'click', (e) => {
+            // Handle back button in focus mode
+            if (e.target.classList.contains('focus-back-btn')) {
+                if (window.focusModeGoBack) {
+                    window.focusModeGoBack();
+                }
+                return;
+            }
+            
             if (!e.target.classList.contains('export-btn')) return;
 
             try {

@@ -1,0 +1,261 @@
+/* AI Agent Sidebar Styles */
+
+/* Sidebar Container */
+.agent-sidebar {
+    width: 350px;
+    height: 100vh;
+    background: #0a0a0a;
+    border-right: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.agent-sidebar.open {
+    transform: translateX(0);
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    background: #000;
+    padding: 20px;
+    border-bottom: 1px solid #222;
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+/* Selected Info */
+.selected-info {
+    background: #111;
+    padding: 16px 20px;
+    border-bottom: 1px solid #222;
+    flex-shrink: 0;
+}
+
+.selected-screen-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0ea5e9;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Chat History */
+.chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.chat-history::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-history::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+.chat-history::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+
+.chat-history::-webkit-scrollbar-thumb:hover {
+    background: #444;
+}
+
+/* Chat Welcome */
+.chat-welcome {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.chat-welcome p:first-child {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.chat-welcome p:last-child {
+    font-size: 13px;
+    color: #666;
+}
+
+/* Change Requests Header */
+.change-requests-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #222;
+}
+
+.change-requests-header h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+/* Change Request Item */
+.change-request-item {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.change-request-item:hover {
+    background: #222;
+    border-color: #444;
+}
+
+/* Request Header */
+.request-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.request-number {
+    background: #0ea5e9;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.request-time {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Request Content */
+.request-content {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Chat Input Container */
+.chat-input-container {
+    padding: 20px;
+    border-top: 1px solid #222;
+    background: #000;
+    flex-shrink: 0;
+}
+
+.chat-input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    font-size: 14px;
+    font-family: inherit;
+    resize: none;
+    transition: all 0.2s;
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    background: #222;
+    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
+}
+
+.chat-input::placeholder {
+    color: #666;
+}
+
+/* Chat Actions */
+.chat-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.send-btn, .clear-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.send-btn {
+    background: #0ea5e9;
+    color: white;
+    flex: 1;
+}
+
+.send-btn:hover {
+    background: #0284c7;
+    transform: translateY(-1px);
+}
+
+.send-btn:active {
+    transform: translateY(0);
+}
+
+.clear-btn {
+    background: #2a2a2a;
+    color: #999;
+    border: 1px solid #333;
+}
+
+.clear-btn:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Remove old main content adjustment - no longer needed */
+
+/* Screen Frame Selection */
+.screen-frame.selected {
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.4),
+        0 0 0 3px #0ea5e9 !important;
+    transform: translateY(-2px);
+}
+
+
+/* Responsive - Hide on mobile */
+@media (max-width: 768px) {
+    .agent-sidebar {
+        display: none;
+    }
+    
+    .main-content.sidebar-open {
+        margin-left: 0;
+    }
+}

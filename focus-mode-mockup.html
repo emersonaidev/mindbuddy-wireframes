@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Mode Mockup - MindBuddy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* Focus Mode Container */
+        .focus-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        /* Minimal Header */
+        .focus-header {
+            background: #000;
+            padding: 16px 24px;
+            border-bottom: 1px solid #222;
+            text-align: center;
+            position: relative;
+        }
+        
+        .screen-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .category-badge {
+            display: inline-block;
+            background: #2a2a2a;
+            color: #999;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        /* Main Content Area */
+        .focus-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Wireframe Container */
+        .wireframe-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Desktop Frame */
+        .desktop-frame {
+            width: 393px;
+            height: 852px;
+            border-radius: 48px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+        }
+        
+        /* Mobile Frame (full viewport) */
+        .mobile-frame {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            position: relative;
+        }
+        
+        /* Mockup iframe placeholder */
+        .wireframe-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 24px;
+        }
+        
+        /* Export Controls - Desktop */
+        .export-controls-desktop {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #1a1a1a;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #333;
+        }
+        
+        /* Export Controls - Mobile */
+        .export-controls-mobile {
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 8px 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+        
+        .back-btn {
+            width: 32px;
+            height: 32px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: #333;
+            transform: translateX(-2px);
+        }
+        
+        .export-btn {
+            width: 32px;
+            height: 32px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .export-btn:hover {
+            background: #333;
+        }
+        
+        .comment-count {
+            color: #999;
+            font-size: 13px;
+            margin-right: 8px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .focus-header {
+                padding: 12px 16px;
+            }
+            
+            .screen-title {
+                font-size: 16px;
+            }
+            
+            .focus-content {
+                padding: 0;
+            }
+            
+            .wireframe-container {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .desktop-frame {
+                display: none;
+            }
+            
+            .mobile-frame {
+                display: block;
+            }
+            
+            .export-controls-desktop {
+                display: none;
+            }
+            
+            .comment-count {
+                display: none;
+            }
+            
+            .back-btn {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .export-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+        
+        @media (min-width: 641px) {
+            .mobile-frame {
+                display: none;
+            }
+            
+            .export-controls-mobile {
+                display: none;
+            }
+        }
+        
+        /* Comment Input (minimal in focus mode) */
+        .comment-input-minimal {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: #fff;
+            font-size: 14px;
+            width: 200px;
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .comment-input-minimal:focus {
+            opacity: 1;
+            width: 300px;
+        }
+        
+        /* Navigation hints */
+        .nav-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #666;
+            font-size: 12px;
+            opacity: 0.6;
+        }
+        
+        /* Mockup specific styles */
+        .mockup-info {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .mockup-info h3 {
+            margin-bottom: 10px;
+        }
+        
+        .mockup-info p {
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="focus-container">
+        <!-- Minimal Header -->
+        <div class="focus-header">
+            <h1 class="screen-title">Login Screen</h1>
+            <span class="category-badge">Authentication</span>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="focus-content">
+            <!-- Desktop View -->
+            <div class="wireframe-container">
+                <div class="desktop-frame">
+                    <div class="wireframe-placeholder">
+                        <div class="mockup-info">
+                            <h3>Focus Mode - Desktop</h3>
+                            <p>The wireframe displays here at full size with device frame. Export controls are in the top navigation bar with back button.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile View -->
+                <div class="mobile-frame">
+                    <div class="wireframe-placeholder">
+                        <div class="mockup-info">
+                            <h3>Focus Mode - Mobile</h3>
+                            <p>The wireframe fills the entire viewport. All controls are in the floating bar at bottom right.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Export Controls (in nav bar simulation) -->
+            <div class="export-controls-desktop">
+                <button class="back-btn" title="Back to Gallery">←</button>
+                <div style="width: 1px; height: 24px; background: #444; margin: 0 8px;"></div>
+                <span class="comment-count">3 comments</span>
+                <button class="export-btn" title="Export Comments">📝</button>
+                <button class="export-btn" title="Clear Comments">🗑️</button>
+            </div>
+            
+            <!-- Mobile Export Controls (floating) -->
+            <div class="export-controls-mobile">
+                <button class="back-btn" title="Back to Gallery">←</button>
+                <button class="export-btn" title="Export Comments">📝</button>
+                <button class="export-btn" title="Clear Comments">🗑️</button>
+            </div>
+            
+            <!-- Comment Input (minimal version) -->
+            <input type="text" class="comment-input-minimal" placeholder="Add comment..." />
+            
+            <!-- Navigation hint -->
+            <div class="nav-hint">ESC to exit • Arrow keys to navigate</div>
+        </div>
+    </div>
+    
+    <script>
+        // Simple interaction demo
+        document.querySelectorAll('.back-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('This would return to the gallery view');
+            });
+        });
+        
+        document.querySelectorAll('.export-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Export/Clear functionality');
+            });
+        });
+    </script>
+</body>
+</html>
