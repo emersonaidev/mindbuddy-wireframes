@@ -18,131 +18,95 @@
             overflow-y: auto;
         }
         
-        .search-section {
+        .contact-section {
             background: var(--white);
             padding: var(--space-xl);
             border-bottom: 1px solid var(--gray-100);
+            text-align: center;
         }
         
-        .search-input {
-            width: 100%;
-            padding: var(--space-md) var(--space-lg);
+        .contact-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-email {
+            display: inline-block;
+            color: var(--gray-900);
+            font-size: var(--font-lg);
+            font-weight: 600;
+            text-decoration: none;
+            padding: var(--space-sm) var(--space-lg);
             background: var(--gray-50);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius-full);
-            font-size: var(--font-md);
-            placeholder-color: var(--gray-500);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-sm);
         }
         
-        .search-input::placeholder {
-            color: var(--gray-500);
-        }
-        
-        .categories-section {
+        .faq-section {
             padding: var(--space-xl);
         }
         
         .section-title {
-            font-size: var(--font-lg);
+            font-size: var(--font-xl);
             font-weight: 700;
             margin-bottom: var(--space-lg);
         }
         
-        .help-categories {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: var(--space-md);
-            margin-bottom: var(--space-2xl);
-        }
-        
-        .help-category {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .help-category:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        .category-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--gray-100);
-            border-radius: var(--radius-full);
-            margin: 0 auto var(--space-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--font-2xl);
-        }
-        
-        .category-name {
-            font-weight: 600;
-            font-size: var(--font-sm);
-        }
-        
-        .popular-articles {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-xl);
-        }
-        
-        .articles-title {
-            font-weight: 600;
-            margin-bottom: var(--space-md);
-        }
-        
-        .article-list {
+        .faq-list {
             display: flex;
             flex-direction: column;
             gap: var(--space-md);
         }
         
-        .article-item {
+        .faq-item {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            font-size: var(--font-md);
+            margin-bottom: var(--space-md);
+            color: var(--gray-900);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+        
+        .faq-number {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-full);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: var(--space-md) 0;
-            border-bottom: 1px solid var(--gray-100);
-            cursor: pointer;
-        }
-        
-        .article-item:last-child {
-            border-bottom: none;
-        }
-        
-        .article-title {
-            flex: 1;
+            justify-content: center;
             font-size: var(--font-sm);
-            color: var(--gray-700);
+            font-weight: 700;
         }
         
-        .article-arrow {
-            width: 16px;
-            height: 16px;
-            color: var(--gray-400);
+        .faq-answer {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-left: calc(24px + var(--space-sm));
         }
         
-        .contact-section {
-            padding: var(--space-xl);
-        }
-        
-        .contact-card {
+        .info-card {
             background: var(--gray-900);
             color: var(--white);
             border-radius: var(--radius-lg);
             padding: var(--space-xl);
+            margin: var(--space-xl);
             text-align: center;
         }
         
-        .contact-icon {
+        .info-icon {
             width: 64px;
             height: 64px;
             background: rgba(255, 255, 255, 0.1);
@@ -154,33 +118,15 @@
             font-size: var(--font-3xl);
         }
         
-        .contact-title {
+        .info-title {
             font-size: var(--font-xl);
             font-weight: 700;
             margin-bottom: var(--space-sm);
         }
         
-        .contact-text {
+        .info-text {
             opacity: 0.8;
-            margin-bottom: var(--space-lg);
             line-height: 1.5;
-        }
-        
-        .contact-email {
-            display: inline-block;
-            padding: var(--space-sm) var(--space-xl);
-            background: var(--white);
-            color: var(--gray-900);
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            text-decoration: none;
-        }
-        
-        .faq-link {
-            display: block;
-            text-align: center;
-            margin-top: var(--space-lg);
-            color: var(--gray-600);
             font-size: var(--font-sm);
         }
     </style>
@@ -199,86 +145,116 @@
             
             <!-- Content -->
             <div class="content">
-                <!-- Search -->
-                <div class="search-section">
-                    <input type="text" class="search-input" placeholder="Search for help...">
-                </div>
-                
-                <!-- Categories -->
-                <div class="categories-section">
-                    <h2 class="section-title">Browse by Topic</h2>
-                    
-                    <div class="help-categories">
-                        <div class="help-category">
-                            <div class="category-icon">🏁</div>
-                            <div class="category-name">Getting Started</div>
-                        </div>
-                        
-                        <div class="help-category">
-                            <div class="category-icon">💰</div>
-                            <div class="category-name">Tokens & Rewards</div>
-                        </div>
-                        
-                        <div class="help-category">
-                            <div class="category-icon">📊</div>
-                            <div class="category-name">Health Data</div>
-                        </div>
-                        
-                        <div class="help-category">
-                            <div class="category-icon">🔒</div>
-                            <div class="category-name">Privacy & Security</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Popular Articles -->
-                    <div class="popular-articles">
-                        <h3 class="articles-title">Popular Articles</h3>
-                        <div class="article-list">
-                            <div class="article-item">
-                                <span class="article-title">How do I earn $MNDY tokens?</span>
-                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
-                                </svg>
-                            </div>
-                            
-                            <div class="article-item">
-                                <span class="article-title">What data does MindBuddy collect?</span>
-                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
-                                </svg>
-                            </div>
-                            
-                            <div class="article-item">
-                                <span class="article-title">How to connect my Apple Watch?</span>
-                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
-                                </svg>
-                            </div>
-                            
-                            <div class="article-item">
-                                <span class="article-title">Withdrawing tokens to my wallet</span>
-                                <svg class="article-arrow" viewBox="0 0 16 16" fill="currentColor">
-                                    <path d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Contact Support -->
+                <!-- Contact Section -->
                 <div class="contact-section">
-                    <div class="contact-card">
-                        <div class="contact-icon">✉️</div>
-                        <h3 class="contact-title">Still need help?</h3>
-                        <p class="contact-text">
-                            Our support team is here to help you with any questions or issues
-                        </p>
-                        <a href="mailto:info@elevatedynamics.pt" class="contact-email">
-                            info@elevatedynamics.pt
-                        </a>
-                    </div>
+                    <h2 class="contact-title">Get in touch</h2>
+                    <a href="mailto:info@elevatedynamics.pt" class="contact-email">
+                        info@elevatedynamics.pt
+                    </a>
+                </div>
+                
+                <!-- FAQs -->
+                <div class="faq-section">
+                    <h2 class="section-title">FAQs</h2>
                     
-                    <a href="#" class="faq-link">View all FAQs →</a>
+                    <div class="faq-list">
+                        <!-- FAQ 1 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">1</span>
+                                <span>What is MindBuddy?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy is an app that turns your smartphone or wearable into a secure, anonymised node for collecting real world stress data. By sharing your signals, you help build the world's largest stress intelligence platform, and you get rewarded with $MNDY tokens.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 2 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">2</span>
+                                <span>Why does research need real-world data?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Most anxiety studies happen in labs or clinics, with small and limited population samples. So, they often miss how stress truly unfolds in daily life. MindBuddy captures real-world signals over hours, days, and weeks, across all kinds of people and locations. This gives researchers, policymakers, and health systems the detailed data they need to create effective, personalised solutions.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 3 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">3</span>
+                                <span>What are $MNDY tokens and how do I earn them?</span>
+                            </div>
+                            <div class="faq-answer">
+                                $MNDY is MindBuddy's native token that rewards you for sharing anonymised data. You earn $MNDY by contributing biometric, behavioural, and contextual signals consistently. Tokens can be used to unlock premium features, access exclusive experiences, participate in community governance, or exchange them on supported markets. It is a way to ensure the value of your data flows back to you.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 4 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">4</span>
+                                <span>What kind of data does MindBuddy collect?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy gathers data across four dimensions: biometric signals such as heart rate variability and sleep, behavioural patterns such as screentime and movement, contextual information such as location and noise levels, and self-reported mood or events.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 5 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">5</span>
+                                <span>How does my data help?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Your pseudonymised data helps researchers study anxiety in real world settings, enabling the development of more effective treatments. It also supports public health planning, guides insurers toward better care models, and helps city planners design healthier environments.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 6 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">6</span>
+                                <span>Can I opt-out at anytime?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Yes. Autonomy is at the core of MindBuddy. You stay in control, with the ability to choose what you share and opt out at any time. Plus, all data is anonymised and encrypted with smart contracts recording your consent transparently.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 7 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">7</span>
+                                <span>Do I need a wearable device?</span>
+                            </div>
+                            <div class="faq-answer">
+                                While MindBuddy works with many wearables such as Apple Watch, Fitbit, and Samsung, no wearable device is needed. While wearables will provide richer data, you can also track simple stress signals with your smartphone alone.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 8 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">8</span>
+                                <span>What makes MindBuddy different from other mental health apps?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy is not just another wellness tracker. It is a decentralised, ethical, and user-owned data network. It rewards you for your participation, protects your privacy, and helps create the evidence base needed to transform mental health research and care.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Info Card -->
+                <div class="info-card">
+                    <div class="info-icon">🔒</div>
+                    <h3 class="info-title">Your data is secure</h3>
+                    <p class="info-text">
+                        All health data is encrypted end-to-end and never shared without your permission.
+                    </p>
                 </div>
             </div>
         </div>
