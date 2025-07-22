@@ -610,8 +610,11 @@
         <button class="category-btn active" data-category="all">
             All Screens <span class="category-count">44</span>
         </button>
+        <button class="category-btn" data-category="onboarding">
+            Onboarding <span class="category-count">5</span>
+        </button>
         <button class="category-btn" data-category="auth">
-            Authentication <span class="category-count">11</span>
+            Authentication <span class="category-count">6</span>
         </button>
         <button class="category-btn" data-category="dashboard">
             Dashboard <span class="category-count">3</span>
@@ -644,11 +647,20 @@
             <div class="screens-grid double"></div>
         </div>
         
+        <!-- Onboarding -->
+        <div class="category-section" data-category="onboarding">
+            <div class="section-header">
+                <h2 class="section-title">Onboarding</h2>
+                <p class="section-description">Welcome experience and initial user setup</p>
+            </div>
+            <div class="screens-grid double"></div>
+        </div>
+        
         <!-- Authentication -->
         <div class="category-section" data-category="auth">
             <div class="section-header">
                 <h2 class="section-title">Authentication</h2>
-                <p class="section-description">User onboarding, login, and account creation flows</p>
+                <p class="section-description">Login, account creation, and security flows</p>
             </div>
             <div class="screens-grid double"></div>
         </div>
@@ -745,16 +757,18 @@
     <script>
         // Screen data organized by category
         const screens = {
-            auth: [
+            onboarding: [
                 { name: 'Welcome', path: 'v1/screens/auth/welcome.html' },
-                { name: 'Login', path: 'v1/screens/auth/login.html' },
                 { name: 'How It Works', path: 'v1/screens/auth/how-it-works.html' },
-                { name: 'Create Account', path: 'v1/screens/auth/create-account.html' },
                 { name: 'Connect Your Data', path: 'v1/screens/auth/connect-data.html' },
                 { name: 'Choose What to Share', path: 'v1/screens/auth/choose-data.html' },
+                { name: 'Account Created', path: 'v1/screens/auth/success.html' }
+            ],
+            auth: [
+                { name: 'Login', path: 'v1/screens/auth/login.html' },
+                { name: 'Create Account', path: 'v1/screens/auth/create-account.html' },
                 { name: 'Forgot Password', path: 'v1/screens/auth/forgot-password.html' },
                 { name: 'Email Verification', path: 'v1/screens/auth/email-verification.html' },
-                { name: 'Account Created', path: 'v1/screens/auth/success.html' },
                 { name: 'Sign in with Google', path: 'v1/screens/auth/sso-google.html' },
                 { name: 'Sign in with Apple', path: 'v1/screens/auth/sso-apple.html' }
             ],
