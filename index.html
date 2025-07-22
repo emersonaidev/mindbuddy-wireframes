@@ -1535,15 +1535,21 @@
         window.showExportPreview = showExportPreview;
         window.clearComments = clearComments;
         
-        // Process HTML to make it Figma-ready
+        // Process HTML to make it Figma-ready with clean snippets
         function processFigmaHTML(html, screenName) {
-            // Create a clean HTML template optimized for Figma import
+            // Extract just the content inside the screen div
+            const screenContent = extractScreenContent(html);
+            
+            // Extract only the essential styles
+            const essentialStyles = extractEssentialStyles(html);
+            
+            // Create a minimal HTML template like the snippets in HTML_SNIPPETS_UPDATED.md
             const figmaHTML = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=393, initial-scale=1.0">
-    <title>${screenName} - MindBuddy Wireframe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${screenName}</title>
     <style>
         * {
             margin: 0;
@@ -1552,40 +1558,116 @@
         }
         
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #F8F9FA;
             width: 393px;
             height: 852px;
-            background: #F8F9FA;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            position: relative;
             overflow: hidden;
         }
         
-        /* Extract and inline all styles from the original HTML */
-        ${extractStyles(html)}
-        
-        /* Ensure proper rendering for Figma */
+        /* Base component styles */
         .screen {
-            width: 393px;
-            height: 852px;
-            position: relative;
+            width: 100%;
+            height: 100%;
             background: #F8F9FA;
         }
         
-        /* Make all text selectable and properly rendered */
-        * {
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+        .nav-header {
+            height: 56px;
+            background: white;
+            border-bottom: 1px solid #E5E5E5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
         }
         
-        /* Remove any animations or transitions */
-        *, *::before, *::after {
-            animation: none !important;
-            transition: none !important;
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: #000;
         }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .button {
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #E5E5E5;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .circular-progress {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .score-ring {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .ring-background {
+            fill: none;
+            stroke: #E0E0E0;
+            stroke-width: 10;
+        }
+        
+        .ring-progress {
+            fill: none;
+            stroke: #000;
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 56.52;
+            transform: rotate(-90deg);
+            transform-origin: center;
+        }
+        
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        h2 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+        p { font-size: 14px; line-height: 1.5; color: #666; }
+        
+        /* Component-specific styles */
+        ${essentialStyles}
     </style>
 </head>
 <body>
-    ${extractBody(html)}
+${screenContent}
 </body>
 </html>`;
             
@@ -1610,6 +1692,63 @@
                 return bodyMatch[1];
             }
             return '<div class="screen">Error: Could not extract content</div>';
+        }
+        
+        // Extract screen content from HTML - gets just the core UI elements
+        function extractScreenContent(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Look for the main container based on common patterns
+            let container = doc.querySelector('.screen-container') || 
+                           doc.querySelector('[class*="-container"]') ||
+                           doc.querySelector('.content-wrapper') ||
+                           doc.querySelector('.screen');
+            
+            if (container) {
+                // Return the full container with its class
+                return container.outerHTML;
+            }
+            
+            // If no container found, construct a clean version from body
+            const body = doc.body;
+            if (body) {
+                // Get the first main container div
+                const mainDiv = body.querySelector('div');
+                if (mainDiv && mainDiv.className.includes('container')) {
+                    return mainDiv.outerHTML;
+                }
+            }
+            
+            // Fallback: return body content wrapped in a container
+            return `<div class="screen-container">${body ? body.innerHTML : ''}</div>`;
+        }
+        
+        // Extract only essential styles from the HTML
+        function extractEssentialStyles(html) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Get all style tags (excluding base.css link)
+            const styleTags = doc.querySelectorAll('style');
+            let componentStyles = '';
+            
+            // Extract all inline styles specific to this component
+            styleTags.forEach(styleTag => {
+                const css = styleTag.textContent;
+                // Skip global resets and body styles
+                if (!css.includes('* {') && !css.includes('body {')) {
+                    componentStyles += css + '\n';
+                }
+            });
+            
+            // Clean up the CSS
+            componentStyles = componentStyles
+                .replace(/\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//g, '') // Remove comments
+                .replace(/\n\s*\n/g, '\n') // Remove empty lines
+                .trim();
+            
+            return componentStyles;
         }
         
         // Export all screens to HTML files
