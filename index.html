@@ -293,6 +293,24 @@
                 0 0 0 1px rgba(255,255,255,0.2);
         }
         
+        /* Blue border for screens with pending comments */
+        .screen-frame.has-comments {
+            border: 4px solid #007AFF;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.4),
+                0 0 0 4px rgba(0, 122, 255, 0.5),
+                0 0 20px rgba(0, 122, 255, 0.2);
+        }
+        
+        .screen-frame.has-comments:hover {
+            border-color: #0051D5;
+            transform: translateY(-5px);
+            box-shadow: 
+                0 30px 60px rgba(0,0,0,0.5),
+                0 0 0 4px rgba(0, 81, 213, 0.6),
+                0 0 30px rgba(0, 122, 255, 0.3);
+        }
+        
         /* Screen iframe */
         .screen-iframe {
             width: 393px;
@@ -565,6 +583,58 @@
             background: white;
             border-radius: 48px;
         }
+        
+        /* Export loading modal */
+        .export-loading-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .export-loading-content {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .export-loading-content h3 {
+            color: #fff;
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+        
+        .export-loading-content p {
+            color: #999;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .export-progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .export-progress-fill {
+            height: 100%;
+            background: #007AFF;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -812,6 +882,29 @@
             ]
         };
         
+        // Check if a screen has pending comments
+        function checkScreenHasComments(screenName) {
+            if (!window.professionalCommentsManager) return false;
+            
+            const comments = window.professionalCommentsManager.commentsLog || [];
+            return comments.some(comment => comment.screenName === screenName);
+        }
+        
+        // Update screens to show comment indicators
+        function updateCommentIndicators() {
+            const screenFrames = document.querySelectorAll('.screen-frame');
+            screenFrames.forEach(frame => {
+                const screenName = frame.dataset.screenName;
+                const hasComments = checkScreenHasComments(screenName);
+                
+                if (hasComments) {
+                    frame.classList.add('has-comments');
+                } else {
+                    frame.classList.remove('has-comments');
+                }
+            });
+        }
+        
         // Create screen frame
         function createScreenFrame(screen, category) {
             const screenId = `screen-${Math.random().toString(36).substr(2, 9)}`;
@@ -821,12 +914,15 @@
                                screen.path.includes('data-permissions') ||
                                screen.path.includes('security-compliance');
             
+            // Check if this screen has pending comments
+            const hasPendingComments = checkScreenHasComments(screen.name);
+            
             return `
                 <div class="screen-container">
                     <div class="screen-info">
                         <h3 class="screen-name">${screen.name}</h3>
                     </div>
-                    <div class="screen-frame ${needsScroll ? 'scrollable' : ''}" 
+                    <div class="screen-frame ${needsScroll ? 'scrollable' : ''} ${hasPendingComments ? 'has-comments' : ''}" 
                          data-screen-name="${screen.name}" 
                          data-screen-path="${screen.path}"
                          data-category="${category || 'all'}"
@@ -878,6 +974,7 @@
             // Notify that screens are loaded
             setTimeout(() => {
                 window.dispatchEvent(new Event('screensLoaded'));
+                updateCommentIndicators(); // Update blue borders after screens are loaded
             }, 100);
         }
         
@@ -948,6 +1045,7 @@
                 <span class="log-count">${count} comments</span>
                 <button class="export-btn" title="Preview & Export Comments" onclick="showExportPreview()">📝</button>
                 <button class="export-btn clear-btn" title="Clear all comments" onclick="clearComments()">🗑️</button>
+                <button class="export-btn" title="Export all screens to SVG" onclick="exportAllScreensToSVG()">📦</button>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             `;
         }
@@ -974,14 +1072,26 @@
             }
         }
         
-        // Wait for comments manager to load
+        // Add controls immediately on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            addHeaderExportControls();
+        });
+        
+        // Also add when window loads
+        window.addEventListener('load', () => {
+            addHeaderExportControls();
+        });
+        
+        // Update controls when comments manager loads
         const checkCommentsManager = setInterval(() => {
             if (window.professionalCommentsManager) {
                 addHeaderExportControls();
+                updateCommentIndicators(); // Update blue borders on load
                 
                 // Listen for updates
                 window.professionalCommentsManager.events.addEventListener('uiUpdate', () => {
                     addHeaderExportControls();
+                    updateCommentIndicators(); // Update blue borders when comments change
                 });
                 
                 clearInterval(checkCommentsManager);
@@ -1210,7 +1320,10 @@
             const screenName = element.dataset.screenName;
             const screenPath = element.dataset.screenPath;
             const category = element.dataset.category;
-            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Get the actual scroll position from main-content
+            const mainContent = document.querySelector('.main-content');
+            const currentScroll = mainContent ? mainContent.scrollTop : 0;
             
             // Save scroll position to sessionStorage as backup
             sessionStorage.setItem('mindbuddy_scroll_position', currentScroll);
@@ -1230,6 +1343,383 @@
         // Make functions globally available
         window.openFocusMode = openFocusMode;
         window.handleWireframeClick = handleWireframeClick;
+        window.exportAllScreensToSVG = exportAllScreensToSVG;
+        window.showExportPreview = showExportPreview;
+        window.clearComments = clearComments;
+        
+        // Export all screens to SVG
+        async function exportAllScreensToSVG() {
+            const loadingModal = document.createElement('div');
+            loadingModal.className = 'export-loading-modal';
+            loadingModal.innerHTML = `
+                <div class="export-loading-content">
+                    <h3>Exporting Screens</h3>
+                    <p id="export-progress">Loading html2canvas library...</p>
+                    <div class="export-progress-bar">
+                        <div class="export-progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(loadingModal);
+            
+            try {
+                // Load html2canvas library
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                document.head.appendChild(script);
+                
+                await new Promise((resolve, reject) => {
+                    script.onload = resolve;
+                    script.onerror = reject;
+                });
+                
+                document.getElementById('export-progress').textContent = 'Preparing screens...';
+                
+                const allScreens = [];
+                Object.entries(screens).forEach(([category, categoryScreens]) => {
+                    categoryScreens.forEach(screen => {
+                        allScreens.push({ ...screen, category });
+                    });
+                });
+                
+                const exportFiles = [];
+                const totalScreens = allScreens.length;
+                
+                // Use existing iframes from the page instead of creating new ones
+                const visibleFrames = document.querySelectorAll('.screen-frame');
+                const processedScreens = new Set();
+                
+                for (const frame of visibleFrames) {
+                    const screenName = frame.dataset.screenName;
+                    const category = frame.dataset.category;
+                    
+                    if (!screenName || processedScreens.has(screenName)) continue;
+                    processedScreens.add(screenName);
+                    
+                    const progress = Math.round(processedScreens.size / totalScreens * 100);
+                    document.getElementById('export-progress').textContent = 
+                        `Capturing ${screenName} (${processedScreens.size}/${totalScreens})`;
+                    document.getElementById('progress-fill').style.width = `${progress}%`;
+                    
+                    try {
+                        // Temporarily make the frame visible if hidden
+                        const originalDisplay = frame.style.display;
+                        frame.style.display = 'block';
+                        
+                        // Capture the frame as canvas
+                        const canvas = await html2canvas(frame, {
+                            backgroundColor: '#000',
+                            scale: 2,
+                            logging: false,
+                            width: 240,
+                            height: 520
+                        });
+                        
+                        // Convert to PNG blob
+                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                        
+                        exportFiles.push({
+                            name: `${category}-${screenName.replace(/[^a-zA-Z0-9]/g, '-')}.png`,
+                            blob: blob
+                        });
+                        
+                        // Restore original display
+                        frame.style.display = originalDisplay;
+                        
+                    } catch (error) {
+                        console.error(`Failed to capture ${screenName}:`, error);
+                    }
+                }
+                
+                // Process remaining screens that aren't visible
+                for (const screen of allScreens) {
+                    if (processedScreens.has(screen.name)) continue;
+                    
+                    const progress = Math.round(processedScreens.size / totalScreens * 100);
+                    document.getElementById('export-progress').textContent = 
+                        `Processing ${screen.name} (${processedScreens.size}/${totalScreens})`;
+                    document.getElementById('progress-fill').style.width = `${progress}%`;
+                    
+                    // For non-visible screens, we'll add them to a temporary container
+                    const tempContainer = document.createElement('div');
+                    tempContainer.style.position = 'fixed';
+                    tempContainer.style.left = '-9999px';
+                    tempContainer.style.width = '240px';
+                    tempContainer.style.height = '520px';
+                    tempContainer.innerHTML = createScreenFrame(screen, screen.category);
+                    document.body.appendChild(tempContainer);
+                    
+                    // Wait a bit for rendering
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    
+                    try {
+                        const frame = tempContainer.querySelector('.screen-frame');
+                        const canvas = await html2canvas(frame, {
+                            backgroundColor: '#000',
+                            scale: 2,
+                            logging: false,
+                            width: 240,
+                            height: 520
+                        });
+                        
+                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                        
+                        exportFiles.push({
+                            name: `${screen.category}-${screen.name.replace(/[^a-zA-Z0-9]/g, '-')}.png`,
+                            blob: blob
+                        });
+                        
+                        processedScreens.add(screen.name);
+                        
+                    } catch (error) {
+                        console.error(`Failed to process ${screen.name}:`, error);
+                    }
+                    
+                    document.body.removeChild(tempContainer);
+                }
+                
+                // Create ZIP file
+                document.getElementById('export-progress').textContent = 'Creating ZIP file...';
+                
+                if (exportFiles.length > 0) {
+                    await downloadPNGsAsZip(exportFiles);
+                }
+                
+                // Clean up
+                document.head.removeChild(script);
+                
+            } catch (error) {
+                console.error('Export failed:', error);
+                alert('Failed to export screens. Please try again.');
+            } finally {
+                document.body.removeChild(loadingModal);
+            }
+        }
+        
+        // Convert iframe content to SVG
+        async function convertIframeToSVG(iframe, screenName) {
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Create SVG wrapper
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="393" height="852" viewBox="0 0 393 852">
+                <foreignObject width="393" height="852">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="width: 393px; height: 852px; background: white;">
+                        ${doc.body.innerHTML}
+                    </div>
+                </foreignObject>
+                <style>
+                    ${Array.from(doc.styleSheets).map(sheet => {
+                        try {
+                            return Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
+                        } catch (e) {
+                            return '';
+                        }
+                    }).join('\n')}
+                </style>
+            </svg>`;
+            
+            return svg;
+        }
+        
+        // Simple TAR file creation for bundling SVG files
+        function createTarFile(files) {
+            const encoder = new TextEncoder();
+            const blocks = [];
+            
+            files.forEach(file => {
+                // Create TAR header (512 bytes)
+                const header = new Uint8Array(512);
+                const nameBytes = encoder.encode(file.name);
+                header.set(nameBytes, 0);
+                
+                // File size in octal
+                const sizeOctal = file.content.length.toString(8).padStart(11, '0');
+                header.set(encoder.encode(sizeOctal), 124);
+                
+                // File mode
+                header.set(encoder.encode('0644   '), 100);
+                
+                // Checksum placeholder
+                header.set(encoder.encode('        '), 148);
+                
+                // Calculate checksum
+                let checksum = 0;
+                for (let i = 0; i < 512; i++) {
+                    checksum += header[i];
+                }
+                const checksumOctal = checksum.toString(8).padStart(6, '0') + '\0 ';
+                header.set(encoder.encode(checksumOctal), 148);
+                
+                blocks.push(header);
+                
+                // Add file content
+                const contentBytes = encoder.encode(file.content);
+                const contentPadded = new Uint8Array(Math.ceil(contentBytes.length / 512) * 512);
+                contentPadded.set(contentBytes);
+                blocks.push(contentPadded);
+            });
+            
+            // Add two empty blocks at the end
+            blocks.push(new Uint8Array(512));
+            blocks.push(new Uint8Array(512));
+            
+            // Combine all blocks
+            const totalLength = blocks.reduce((sum, block) => sum + block.length, 0);
+            const tarFile = new Uint8Array(totalLength);
+            let offset = 0;
+            blocks.forEach(block => {
+                tarFile.set(block, offset);
+                offset += block.length;
+            });
+            
+            return tarFile;
+        }
+        
+        // Download PNG files as ZIP
+        async function downloadPNGsAsZip(files) {
+            try {
+                // Load JSZip if not already loaded
+                if (typeof JSZip === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                    document.head.appendChild(script);
+                    
+                    await new Promise((resolve, reject) => {
+                        script.onload = resolve;
+                        script.onerror = reject;
+                    });
+                }
+                
+                // Create ZIP file
+                const zip = new JSZip();
+                const wireframesFolder = zip.folder('mindbuddy-wireframes');
+                
+                // Add each PNG file to the ZIP
+                for (const file of files) {
+                    wireframesFolder.file(file.name, file.blob);
+                }
+                
+                // Add README
+                const readme = `MindBuddy Wireframes Export
+Generated on: ${new Date().toLocaleString()}
+Total screens: ${files.length}
+
+These PNG files are high-resolution captures of the MindBuddy wireframes.
+Each file represents a mobile screen at 480x1040px resolution (2x scale).
+
+Categories included:
+- Onboarding
+- Authentication  
+- Dashboard
+- Health Data
+- Rewards
+- Profile & Settings
+- Errors
+- Legal
+
+These files can be imported into Figma, Sketch, or any design tool.
+
+Visit mindbuddy.pt for more information.`;
+                
+                wireframesFolder.file('README.txt', readme);
+                
+                // Generate ZIP and download
+                const content = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `mindbuddy-wireframes-${new Date().toISOString().split('T')[0]}.zip`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+            } catch (error) {
+                console.error('Failed to create ZIP:', error);
+                alert('Failed to create ZIP file. The screens will be downloaded individually.');
+                
+                // Fallback: download files individually
+                files.forEach((file, index) => {
+                    setTimeout(() => {
+                        const url = URL.createObjectURL(file.blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = file.name;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    }, index * 200);
+                });
+            }
+        }
+        
+        // Download files as ZIP
+        async function downloadAsZip(files) {
+            try {
+                // Load JSZip dynamically
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                document.head.appendChild(script);
+                
+                await new Promise((resolve, reject) => {
+                    script.onload = resolve;
+                    script.onerror = reject;
+                });
+                
+                // Create ZIP file
+                const zip = new JSZip();
+                const svgFolder = zip.folder('mindbuddy-wireframes');
+                
+                // Add each SVG file to the ZIP
+                files.forEach(file => {
+                    svgFolder.file(file.name, file.content);
+                });
+                
+                // Add a README file
+                const readme = `MindBuddy Wireframes Export
+Generated on: ${new Date().toLocaleString()}
+Total screens: ${files.length}
+
+These SVG files can be imported directly into Figma or other design tools.
+Each file represents a mobile screen at 393x852px resolution.
+
+Categories included:
+- Onboarding
+- Authentication  
+- Dashboard
+- Health Data
+- Rewards
+- Profile & Settings
+- Errors
+- Legal
+
+Visit mindbuddy.pt for more information.`;
+                
+                svgFolder.file('README.txt', readme);
+                
+                // Generate ZIP and download
+                const content = await zip.generateAsync({ type: 'blob' });
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `mindbuddy-wireframes-${new Date().toISOString().split('T')[0]}.zip`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                // Clean up script
+                document.head.removeChild(script);
+                
+            } catch (error) {
+                console.error('Failed to create ZIP, falling back to TAR:', error);
+                
+                // Fallback to TAR file
+                const tarFile = createTarFile(files);
+                const blob = new Blob([tarFile], { type: 'application/x-tar' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `mindbuddy-wireframes-${new Date().toISOString().split('T')[0]}.tar`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
         
         // Initialize with all screens
         populateScreens('all');
@@ -1252,36 +1742,48 @@
                 sessionStorage.removeItem('mindbuddy_scroll_position');
             }
             
-            if (scrollPos && !isNaN(scrollPos)) {
+            if (scrollPos && !isNaN(scrollPos) && scrollPos > 0) {
+                console.log('Restoring scroll position to:', scrollPos);
+                
                 // Force scroll after a small delay to ensure content is loaded
                 const forceScroll = () => {
-                    document.documentElement.scrollTop = scrollPos;
-                    document.body.scrollTop = scrollPos;
-                    window.scrollTo(0, scrollPos);
+                    // The main-content div is what actually scrolls
+                    const mainContent = document.querySelector('.main-content');
+                    if (mainContent) {
+                        mainContent.scrollTop = scrollPos;
+                        console.log('Scrolled main-content to:', scrollPos);
+                    }
                 };
                 
-                // Try multiple times to ensure scroll happens
+                // Try multiple times with increasing delays to ensure content is loaded
                 forceScroll();
-                setTimeout(forceScroll, 50);
                 setTimeout(forceScroll, 100);
-                setTimeout(forceScroll, 200);
+                setTimeout(forceScroll, 300);
+                setTimeout(forceScroll, 500);
+                setTimeout(forceScroll, 1000);
                 
-                // Clean up the hash
-                if (window.location.hash.includes('scroll=')) {
-                    setTimeout(() => {
+                // Clean up the hash after scrolling is done
+                setTimeout(() => {
+                    if (window.location.hash.includes('scroll=')) {
                         history.replaceState(null, null, window.location.pathname);
-                    }, 300);
-                }
+                    }
+                }, 1500);
             }
         }
         
-        // Call restore function after DOM is ready
+        // Call restore function at multiple points to ensure it works
+        restoreScrollPosition();
+        
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', restoreScrollPosition);
-        } else {
-            restoreScrollPosition();
         }
-        window.addEventListener('load', restoreScrollPosition);
+        
+        window.addEventListener('load', () => {
+            setTimeout(restoreScrollPosition, 100);
+        });
+        
+        // Also restore after images load
+        window.addEventListener('pageshow', restoreScrollPosition);
         
         // Handle responsive grid view buttons
         function updateGridViewButtons() {
@@ -1403,7 +1905,7 @@
     </div> <!-- End app-container -->
     
     <!-- Authentication and Professional Comments Scripts -->
-    <script src="auth.js"></script>
+    <script type="module" src="auth.js"></script>
     <script src="comments-manager.js"></script>
     <script src="agent-sidebar.js"></script>
     

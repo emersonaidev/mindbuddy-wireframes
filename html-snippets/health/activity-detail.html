@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Activity Detail - MindBuddy</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* CSS Variables */
+        :root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+        
+        /* Base Styles */
+        /* MindBuddy Wireframes V1 - Clean Minimalist */
+/* iPhone 15 Pro: 393x852px */
+
+:root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body reset for iframe compatibility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 393px;
+  height: 852px;
+}
+
+/* Base screen container */
+.screen {
+  width: 393px;
+  height: 852px;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* Typography */
+.heading-1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: var(--font-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-base);
+  line-height: 1.5;
+}
+
+.body-small {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: var(--font-xs);
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* Layout containers */
+.container {
+  padding: 0 var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation */
+.nav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.nav-back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -var(--space-sm);
+}
+
+.nav-action {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -var(--space-sm);
+}
+
+/* Tab bar */
+.tab-bar {
+  height: 88px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  background: var(--white);
+  padding-bottom: 34px; /* Safe area */
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  color: var(--gray-400);
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--gray-900);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+}
+
+.tab-label {
+  font-size: var(--font-xs);
+}
+
+/* Buttons */
+.button {
+  height: 56px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.button-primary {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--white);
+  color: var(--gray-900);
+  border: 2px solid var(--gray-200);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--gray-900);
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gray-600);
+}
+
+.form-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--space-md);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active {
+  background: var(--gray-700);
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gray-700);
+  transition: width 0.3s;
+}
+
+/* Loading states */
+.skeleton {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-description {
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+        
+        /* Screen Specific Styles */
+        
+        .activity-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .activity-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .rings-display {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .activity-rings {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        
+        .ring {
+            position: absolute;
+            border-radius: var(--radius-full);
+            border: 12px solid var(--gray-100);
+        }
+        
+        .ring-move {
+            inset: 0;
+            border-color: var(--gray-100);
+            border-top-color: var(--gray-900);
+            border-right-color: var(--gray-900);
+            border-bottom-color: var(--gray-900);
+            transform: rotate(-90deg);
+        }
+        
+        .ring-exercise {
+            inset: 20px;
+            border-color: var(--gray-100);
+            border-top-color: var(--gray-600);
+            border-right-color: var(--gray-600);
+            transform: rotate(-90deg);
+        }
+        
+        .ring-stand {
+            inset: 40px;
+            border-color: var(--gray-100);
+            border-top-color: var(--gray-400);
+            transform: rotate(-90deg);
+        }
+        
+        .ring-center {
+            position: absolute;
+            inset: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .steps-count {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .steps-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .activity-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .summary-item {
+            text-align: center;
+        }
+        
+        .summary-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-sm);
+        }
+        
+        .summary-value {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .summary-unit {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .daily-breakdown {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            margin-bottom: var(--space-md);
+        }
+        
+        .breakdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .breakdown-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .breakdown-toggle {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .hourly-chart {
+            height: 160px;
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+        }
+        
+        .hour-bar {
+            flex: 1;
+            background: var(--gray-200);
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            position: relative;
+        }
+        
+        .hour-bar.active {
+            background: var(--gray-700);
+        }
+        
+        .hour-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-sm);
+            font-size: var(--font-xs);
+            color: var(--gray-500);
+        }
+        
+        .achievements-section {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .achievements-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .achievement-item:last-child {
+            border-bottom: none;
+        }
+        
+        .achievement-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .achievement-badge {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-400);
+            border-radius: var(--radius-md);
+        }
+        
+        .achievement-info {
+            flex: 1;
+        }
+        
+        .achievement-name {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .achievement-description {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .achievement-date {
+            font-size: var(--font-sm);
+            color: var(--gray-500);
+            text-align: right;
+        }
+        
+        .goal-card {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-xl);
+            text-align: center;
+        }
+        
+        .goal-progress {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .goal-text {
+            opacity: 0.8;
+            margin-bottom: var(--space-md);
+        }
+        
+        .goal-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: var(--font-sm);
+            font-weight: 500;
+        }
+    
+
+        
+        /* Container for Figma */
+        body {
+            width: 393px;
+            height: 852px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="activity-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Activity</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="activity-header">
+                <div class="rings-display">
+                    <div class="activity-rings">
+                        <div class="ring ring-move"></div>
+                        <div class="ring ring-exercise"></div>
+                        <div class="ring ring-stand"></div>
+                        <div class="ring-center">
+                            <div class="steps-count">8,420</div>
+                            <div class="steps-label">steps</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-summary">
+                    <div class="summary-item">
+                        <div class="summary-dot" style="background: var(--gray-900);"></div>
+                        <div class="summary-value">342</div>
+                        <div class="summary-unit">Calories</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-dot" style="background: var(--gray-600);"></div>
+                        <div class="summary-value">45</div>
+                        <div class="summary-unit">Minutes</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-dot" style="background: var(--gray-400);"></div>
+                        <div class="summary-value">10/12</div>
+                        <div class="summary-unit">Hours</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daily Goal Progress -->
+            <div class="goal-card">
+                <div class="goal-progress">68% of daily goal</div>
+                <p class="goal-text">1,580 more steps to reach 10,000</p>
+                <button class="goal-button">Update Goal</button>
+            </div>
+            
+            <!-- Daily Breakdown -->
+            <div class="daily-breakdown">
+                <div class="breakdown-header">
+                    <h2 class="breakdown-title">Today's Activity</h2>
+                    <span class="breakdown-toggle">Hourly</span>
+                </div>
+                
+                <div class="hourly-chart">
+                    <div class="hour-bar" style="height: 20%;"></div>
+                    <div class="hour-bar" style="height: 15%;"></div>
+                    <div class="hour-bar" style="height: 10%;"></div>
+                    <div class="hour-bar" style="height: 5%;"></div>
+                    <div class="hour-bar" style="height: 8%;"></div>
+                    <div class="hour-bar" style="height: 25%;"></div>
+                    <div class="hour-bar active" style="height: 60%;"></div>
+                    <div class="hour-bar" style="height: 45%;"></div>
+                    <div class="hour-bar active" style="height: 80%;"></div>
+                    <div class="hour-bar" style="height: 35%;"></div>
+                    <div class="hour-bar" style="height: 40%;"></div>
+                    <div class="hour-bar" style="height: 55%;"></div>
+                    <div class="hour-bar active" style="height: 90%;"></div>
+                    <div class="hour-bar" style="height: 70%;"></div>
+                    <div class="hour-bar" style="height: 50%;"></div>
+                    <div class="hour-bar" style="height: 45%;"></div>
+                    <div class="hour-bar" style="height: 30%;"></div>
+                    <div class="hour-bar" style="height: 25%;"></div>
+                    <div class="hour-bar" style="height: 20%;"></div>
+                    <div class="hour-bar" style="height: 15%;"></div>
+                    <div class="hour-bar" style="height: 10%;"></div>
+                    <div class="hour-bar" style="height: 5%;"></div>
+                    <div class="hour-bar" style="height: 0%;"></div>
+                    <div class="hour-bar" style="height: 0%;"></div>
+                </div>
+                
+                <div class="hour-labels">
+                    <span>12A</span>
+                    <span>6A</span>
+                    <span>12P</span>
+                    <span>6P</span>
+                    <span>Now</span>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div class="achievements-section">
+                <h2 class="achievements-title">Recent Achievements</h2>
+                
+                <div class="achievement-item">
+                    <div class="achievement-icon">
+                        <div class="achievement-badge"></div>
+                    </div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">7-Day Streak</div>
+                        <div class="achievement-description">Reached your step goal 7 days in a row</div>
+                    </div>
+                    <div class="achievement-date">Today</div>
+                </div>
+                
+                <div class="achievement-item">
+                    <div class="achievement-icon">
+                        <div class="achievement-badge"></div>
+                    </div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Morning Walker</div>
+                        <div class="achievement-description">Logged 1,000 steps before 8 AM</div>
+                    </div>
+                    <div class="achievement-date">2 days ago</div>
+                </div>
+                
+                <div class="achievement-item">
+                    <div class="achievement-icon">
+                        <div class="achievement-badge"></div>
+                    </div>
+                    <div class="achievement-info">
+                        <div class="achievement-name">Weekend Warrior</div>
+                        <div class="achievement-description">Exceeded goal by 50% on Saturday</div>
+                    </div>
+                    <div class="achievement-date">5 days ago</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

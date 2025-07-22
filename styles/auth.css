@@ -148,6 +148,61 @@
     border-color: #444;
 }
 
+/* Google Sign-In Button */
+.google-sign-in-btn {
+    width: 100%;
+    padding: 16px 20px;
+    background: #fff;
+    color: #3c4043;
+    border: 1px solid #dadce0;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.google-sign-in-btn:hover {
+    background: #f8f9fa;
+    border-color: #dadce0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.google-sign-in-btn:active {
+    background: #e8e8e9;
+}
+
+.google-sign-in-btn svg {
+    flex-shrink: 0;
+}
+
+/* Auth Note */
+.auth-note {
+    font-size: 13px;
+    color: #666;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* User Avatar in Logout Button */
+.user-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 /* Mobile adjustments */
 @media (max-width: 480px) {
     .auth-box {

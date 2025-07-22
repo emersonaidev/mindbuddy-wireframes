@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>HRV Detail - MindBuddy</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* CSS Variables */
+        :root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+        
+        /* Base Styles */
+        /* MindBuddy Wireframes V1 - Clean Minimalist */
+/* iPhone 15 Pro: 393x852px */
+
+:root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body reset for iframe compatibility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 393px;
+  height: 852px;
+}
+
+/* Base screen container */
+.screen {
+  width: 393px;
+  height: 852px;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* Typography */
+.heading-1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: var(--font-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-base);
+  line-height: 1.5;
+}
+
+.body-small {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: var(--font-xs);
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* Layout containers */
+.container {
+  padding: 0 var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation */
+.nav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.nav-back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -var(--space-sm);
+}
+
+.nav-action {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -var(--space-sm);
+}
+
+/* Tab bar */
+.tab-bar {
+  height: 88px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  background: var(--white);
+  padding-bottom: 34px; /* Safe area */
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  color: var(--gray-400);
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--gray-900);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+}
+
+.tab-label {
+  font-size: var(--font-xs);
+}
+
+/* Buttons */
+.button {
+  height: 56px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.button-primary {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--white);
+  color: var(--gray-900);
+  border: 2px solid var(--gray-200);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--gray-900);
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gray-600);
+}
+
+.form-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--space-md);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active {
+  background: var(--gray-700);
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gray-700);
+  transition: width 0.3s;
+}
+
+/* Loading states */
+.skeleton {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-description {
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+        
+        /* Screen Specific Styles */
+        
+        .hrv-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .hrv-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .hrv-current {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .hrv-value-group {
+            flex: 1;
+        }
+        
+        .hrv-value {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .hrv-unit {
+            font-size: var(--font-lg);
+            color: var(--gray-600);
+            margin-left: var(--space-xs);
+        }
+        
+        .hrv-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .hrv-indicator {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .indicator-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-full);
+            border: 8px solid var(--gray-100);
+            position: relative;
+        }
+        
+        .indicator-fill {
+            position: absolute;
+            inset: -8px;
+            border-radius: var(--radius-full);
+            border: 8px solid var(--gray-700);
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            transform: rotate(-45deg);
+        }
+        
+        .indicator-center {
+            position: absolute;
+            inset: 20%;
+            background: var(--white);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .info-banner {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+        
+        .info-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-300);
+            border-radius: var(--radius-full);
+            flex-shrink: 0;
+        }
+        
+        .info-text {
+            font-size: var(--font-sm);
+            color: var(--gray-700);
+            line-height: 1.4;
+        }
+        
+        .trend-section {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            margin-bottom: var(--space-md);
+        }
+        
+        .trend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .trend-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+        }
+        
+        .trend-period {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .trend-chart {
+            height: 200px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .trend-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 60%, var(--gray-200) 100%);
+            clip-path: polygon(
+                0% 70%,
+                14% 65%,
+                28% 60%,
+                42% 55%,
+                57% 50%,
+                71% 45%,
+                85% 40%,
+                100% 35%,
+                100% 100%,
+                0% 100%
+            );
+        }
+        
+        .trend-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+        }
+        
+        .trend-stat {
+            text-align: center;
+        }
+        
+        .trend-stat-value {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .trend-stat-label {
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            text-transform: uppercase;
+        }
+        
+        .factors-section {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .factors-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .factor-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .factor-item:last-child {
+            border-bottom: none;
+        }
+        
+        .factor-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-md);
+        }
+        
+        .factor-info {
+            flex: 1;
+        }
+        
+        .factor-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .factor-impact {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .factor-score {
+            text-align: right;
+        }
+        
+        .impact-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-md);
+            font-size: var(--font-xs);
+            font-weight: 600;
+        }
+        
+        .impact-positive {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+        
+        .impact-negative {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+    
+
+        
+        /* Container for Figma */
+        body {
+            width: 393px;
+            height: 852px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="hrv-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Heart Rate Variability</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Header -->
+            <div class="hrv-header">
+                <div class="hrv-current">
+                    <div class="hrv-value-group">
+                        <span class="hrv-value">42</span>
+                        <span class="hrv-unit">ms</span>
+                        <div class="hrv-label">Current HRV • 2 hours ago</div>
+                    </div>
+                    
+                    <div class="hrv-indicator">
+                        <div class="indicator-circle">
+                            <div class="indicator-fill"></div>
+                            <div class="indicator-center">Good</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-banner">
+                    <div class="info-icon"></div>
+                    <p class="info-text">
+                        Higher HRV indicates better stress resilience and recovery. Your HRV is above your baseline.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Trend Chart -->
+            <div class="trend-section">
+                <div class="trend-header">
+                    <h2 class="trend-title">7-Day Trend</h2>
+                    <span class="trend-period">↑ 8% from last week</span>
+                </div>
+                
+                <div class="trend-chart">
+                    <div class="trend-line"></div>
+                </div>
+                
+                <div class="trend-stats">
+                    <div class="trend-stat">
+                        <div class="trend-stat-value">38</div>
+                        <div class="trend-stat-label">7-Day Avg</div>
+                    </div>
+                    <div class="trend-stat">
+                        <div class="trend-stat-value">52</div>
+                        <div class="trend-stat-label">Peak</div>
+                    </div>
+                    <div class="trend-stat">
+                        <div class="trend-stat-value">28</div>
+                        <div class="trend-stat-label">Low</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contributing Factors -->
+            <div class="factors-section">
+                <h2 class="factors-title">Contributing Factors</h2>
+                
+                <div class="factor-item">
+                    <div class="factor-icon"></div>
+                    <div class="factor-info">
+                        <div class="factor-name">Sleep Quality</div>
+                        <div class="factor-impact">Last night: 82%</div>
+                    </div>
+                    <div class="factor-score">
+                        <span class="impact-badge impact-positive">+5 ms</span>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <div class="factor-icon"></div>
+                    <div class="factor-info">
+                        <div class="factor-name">Physical Activity</div>
+                        <div class="factor-impact">45 min moderate exercise</div>
+                    </div>
+                    <div class="factor-score">
+                        <span class="impact-badge impact-positive">+3 ms</span>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <div class="factor-icon"></div>
+                    <div class="factor-info">
+                        <div class="factor-name">Stress Level</div>
+                        <div class="factor-impact">3 stressful events today</div>
+                    </div>
+                    <div class="factor-score">
+                        <span class="impact-badge impact-negative">-2 ms</span>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <div class="factor-icon"></div>
+                    <div class="factor-info">
+                        <div class="factor-name">Recovery Time</div>
+                        <div class="factor-impact">16 hours since last workout</div>
+                    </div>
+                    <div class="factor-score">
+                        <span class="impact-badge impact-positive">+4 ms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

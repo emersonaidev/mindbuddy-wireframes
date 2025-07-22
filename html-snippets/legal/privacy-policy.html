@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Privacy Policy - MindBuddy</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* CSS Variables */
+        :root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+        
+        /* Base Styles */
+        /* MindBuddy Wireframes V1 - Clean Minimalist */
+/* iPhone 15 Pro: 393x852px */
+
+:root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body reset for iframe compatibility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 393px;
+  height: 852px;
+}
+
+/* Base screen container */
+.screen {
+  width: 393px;
+  height: 852px;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* Typography */
+.heading-1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: var(--font-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-base);
+  line-height: 1.5;
+}
+
+.body-small {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: var(--font-xs);
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* Layout containers */
+.container {
+  padding: 0 var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation */
+.nav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.nav-back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -var(--space-sm);
+}
+
+.nav-action {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -var(--space-sm);
+}
+
+/* Tab bar */
+.tab-bar {
+  height: 88px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  background: var(--white);
+  padding-bottom: 34px; /* Safe area */
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  color: var(--gray-400);
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--gray-900);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+}
+
+.tab-label {
+  font-size: var(--font-xs);
+}
+
+/* Buttons */
+.button {
+  height: 56px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.button-primary {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--white);
+  color: var(--gray-900);
+  border: 2px solid var(--gray-200);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--gray-900);
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gray-600);
+}
+
+.form-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--space-md);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active {
+  background: var(--gray-700);
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gray-700);
+  transition: width 0.3s;
+}
+
+/* Loading states */
+.skeleton {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-description {
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+        
+        /* Screen Specific Styles */
+        
+        .privacy-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--white);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: var(--space-xl);
+        }
+        
+        .privacy-header {
+            text-align: center;
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .privacy-title {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .privacy-tagline {
+            font-size: var(--font-lg);
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+        
+        .privacy-intro {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+            line-height: 1.6;
+            color: var(--gray-700);
+        }
+        
+        .privacy-section {
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--gray-900);
+        }
+        
+        .section-subtitle {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-md);
+            margin-top: var(--space-lg);
+            color: var(--gray-800);
+        }
+        
+        .section-content {
+            color: var(--gray-700);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .principle-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-2xl);
+        }
+        
+        .principle-item {
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .principle-item:last-child {
+            border-bottom: none;
+        }
+        
+        .principle-title {
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .principle-text {
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .data-list {
+            list-style: none;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .data-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+        
+        .data-label {
+            font-weight: 600;
+            min-width: 140px;
+        }
+        
+        .data-description {
+            flex: 1;
+        }
+        
+        .highlight-box {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin: var(--space-2xl) 0;
+            text-align: center;
+        }
+        
+        .highlight-text {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        
+        .rights-list {
+            list-style: none;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+        }
+        
+        .rights-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+        
+        .rights-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .rights-check {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-900);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .rights-check::after {
+            content: "✓";
+            color: var(--white);
+            font-size: 12px;
+        }
+        
+        .rights-text {
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+    
+
+        
+        /* Container for Figma */
+        body {
+            width: 393px;
+            height: 852px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="privacy-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Privacy Policy</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <div class="privacy-header">
+                    <h1 class="privacy-title">MindBuddy Privacy Policy</h1>
+                    <p class="privacy-tagline">Your privacy is our highest priority.</p>
+                </div>
+                
+                <div class="privacy-intro">
+                    MindBuddy is built on strict privacy by design principles. We believe that mental health data is highly sensitive and users should always have meaningful control over what they share. From the start, we have designed our system to keep you in control and your data safe.
+                </div>
+                
+                <!-- Key Principles -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Key Principles</h2>
+                    
+                    <div class="principle-list">
+                        <div class="principle-item">
+                            <h3 class="principle-title">User control.</h3>
+                            <p class="principle-text">
+                                MindBuddy is designed to give you clear, meaningful control over your data. You decide what you share and when you share it.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Consent first.</h3>
+                            <p class="principle-text">
+                                We never collect any data without your explicit, recorded consent. You can manage or withdraw your consent at any time through our app.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Pseudonymised and encrypted.</h3>
+                            <p class="principle-text">
+                                All personal data is pseudonymised before storage and encrypted in transit and at rest. We do not collect messages, audio, images, or other sensitive personal content.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">Transparency.</h3>
+                            <p class="principle-text">
+                                We clearly explain how your data is used, and you can access or export your records at any time. You can also choose to opt out permanently with no penalty.
+                            </p>
+                        </div>
+                        
+                        <div class="principle-item">
+                            <h3 class="principle-title">International standards.</h3>
+                            <p class="principle-text">
+                                MindBuddy complies with global data protection laws, including the EU's General Data Protection Regulation (GDPR), the US Health Insurance Portability and Accountability Act (HIPAA) where applicable, and other international frameworks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Infrastructure -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Data Infrastructure</h2>
+                    
+                    <h3 class="section-subtitle">Server Location</h3>
+                    <p class="section-content">
+                        All MindBuddy data is stored exclusively on EU-based servers to ensure compliance with European data protection standards and provide maximum privacy protection for our users.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Data Processing</h3>
+                    <p class="section-content">
+                        Your data is pseudonymised using industry-standard techniques, meaning it cannot be attributed to you without additional information that we keep separately and securely. All data transmission occurs over encrypted channels using TLS 1.3 or higher.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Retention &amp; Deletion</h3>
+                    <p class="section-content">
+                        You maintain full control over your data. You can request deletion of your personal data at any time, and we will remove all identifiable information within 30 days. Research data that has been fully anonymised may be retained for scientific purposes in accordance with our research transparency commitments.
+                    </p>
+                </div>
+                
+                <!-- What We Collect -->
+                <div class="privacy-section">
+                    <h2 class="section-title">What We Collect</h2>
+                    <p class="section-content">When you use MindBuddy, you choose to share:</p>
+                    
+                    <ul class="data-list">
+                        <li class="data-item">
+                            <span class="data-label">Biometric Data:</span>
+                            <span class="data-description">heart rate variability, sleep quality, respiratory rate, body temperature, and other health metrics from connected wearables.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Behavioural Data:</span>
+                            <span class="data-description">screentime, app usage, movement patterns, social media frequency.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Contextual Data:</span>
+                            <span class="data-description">city-level location data, transport mode, weather, ambient noise levels.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Self-Reported Data:</span>
+                            <span class="data-description">mood ratings, panic events, significant life events.</span>
+                        </li>
+                        <li class="data-item">
+                            <span class="data-label">Demographic Data:</span>
+                            <span class="data-description">age range, gender, occupational category (optional).</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- How We Use Data -->
+                <div class="privacy-section">
+                    <h2 class="section-title">How We Use Data</h2>
+                    <ul class="data-list">
+                        <li class="data-item">To provide personalised insights into your stress and mental health patterns.</li>
+                        <li class="data-item">To reward you fairly through our native $MNDY token system.</li>
+                        <li class="data-item">To support research partners in developing better anxiety and stress treatments.</li>
+                        <li class="data-item">To inform public health policy and awareness efforts.</li>
+                        <li class="data-item">To conduct our own internal research and development focused on improving anxiety and stress treatment.</li>
+                    </ul>
+                    <p class="section-content">
+                        Your data is never sold or shared without your consent. Researchers and partners access only pseudonymised, aggregated data through secure, permissioned systems.
+                    </p>
+                </div>
+                
+                <!-- Technical Safeguards -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Technical Safeguards</h2>
+                    
+                    <h3 class="section-subtitle">Encryption</h3>
+                    <p class="section-content">
+                        All data is encrypted both in transit (TLS 1.3+) and at rest (AES-256). Database access is restricted to essential personnel and requires multi-factor authentication.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Access Controls</h3>
+                    <p class="section-content">
+                        We implement role-based access controls, regular access reviews, and the principle of least privilege. All data access is logged and monitored.
+                    </p>
+                    
+                    <h3 class="section-subtitle">Data Minimisation</h3>
+                    <p class="section-content">
+                        We only collect and process data that is necessary for our stated purposes. Raw personal identifiers are separated from research data and stored in different systems.
+                    </p>
+                </div>
+                
+                <!-- Your Rights -->
+                <div class="privacy-section">
+                    <h2 class="section-title">Your Rights</h2>
+                    <ul class="rights-list">
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Access your data at any time through your account dashboard.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Update or correct your records instantly.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Withdraw consent and request deletion of your personal data.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Port your data to another service in machine-readable format.</span>
+                        </li>
+                        <li class="rights-item">
+                            <div class="rights-check"></div>
+                            <span class="rights-text">Lodge a complaint with your local data protection authority.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p class="highlight-text">
+                        We believe privacy is not an add-on. It is the foundation of ethical mental health technology.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

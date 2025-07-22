@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Help Center - MindBuddy</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* CSS Variables */
+        :root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+        
+        /* Base Styles */
+        /* MindBuddy Wireframes V1 - Clean Minimalist */
+/* iPhone 15 Pro: 393x852px */
+
+:root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body reset for iframe compatibility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 393px;
+  height: 852px;
+}
+
+/* Base screen container */
+.screen {
+  width: 393px;
+  height: 852px;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* Typography */
+.heading-1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: var(--font-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-base);
+  line-height: 1.5;
+}
+
+.body-small {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: var(--font-xs);
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* Layout containers */
+.container {
+  padding: 0 var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation */
+.nav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.nav-back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -var(--space-sm);
+}
+
+.nav-action {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -var(--space-sm);
+}
+
+/* Tab bar */
+.tab-bar {
+  height: 88px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  background: var(--white);
+  padding-bottom: 34px; /* Safe area */
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  color: var(--gray-400);
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--gray-900);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+}
+
+.tab-label {
+  font-size: var(--font-xs);
+}
+
+/* Buttons */
+.button {
+  height: 56px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.button-primary {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--white);
+  color: var(--gray-900);
+  border: 2px solid var(--gray-200);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--gray-900);
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gray-600);
+}
+
+.form-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--space-md);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active {
+  background: var(--gray-700);
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gray-700);
+  transition: width 0.3s;
+}
+
+/* Loading states */
+.skeleton {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-description {
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+        
+        /* Screen Specific Styles */
+        
+        .help-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        
+        .contact-section {
+            background: var(--white);
+            padding: var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+            text-align: center;
+        }
+        
+        .contact-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .contact-email {
+            display: inline-block;
+            color: var(--gray-900);
+            font-size: var(--font-lg);
+            font-weight: 600;
+            text-decoration: none;
+            padding: var(--space-sm) var(--space-lg);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            margin-top: var(--space-sm);
+        }
+        
+        .faq-section {
+            padding: var(--space-xl);
+        }
+        
+        .section-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
+        
+        .faq-item {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            font-size: var(--font-md);
+            margin-bottom: var(--space-md);
+            color: var(--gray-900);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+        }
+        
+        .faq-number {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-sm);
+            font-weight: 700;
+        }
+        
+        .faq-answer {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-left: calc(24px + var(--space-sm));
+        }
+        
+        .info-card {
+            background: var(--gray-900);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl);
+            text-align: center;
+        }
+        
+        .info-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-3xl);
+        }
+        
+        .info-title {
+            font-size: var(--font-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .info-text {
+            opacity: 0.8;
+            line-height: 1.5;
+            font-size: var(--font-sm);
+        }
+    
+
+        
+        /* Container for Figma */
+        body {
+            width: 393px;
+            height: 852px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="help-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Help Center</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- Contact Section -->
+                <div class="contact-section">
+                    <h2 class="contact-title">Get in touch</h2>
+                    <a href="mailto:info@elevatedynamics.pt" class="contact-email">
+                        info@elevatedynamics.pt
+                    </a>
+                </div>
+                
+                <!-- FAQs -->
+                <div class="faq-section">
+                    <h2 class="section-title">FAQs</h2>
+                    
+                    <div class="faq-list">
+                        <!-- FAQ 1 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">1</span>
+                                <span>What is MindBuddy?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy is an app that turns your smartphone or wearable into a secure, anonymised node for collecting real world stress data. By sharing your signals, you help build the world's largest stress intelligence platform, and you get rewarded with $MNDY tokens.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 2 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">2</span>
+                                <span>Why does research need real-world data?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Most anxiety studies happen in labs or clinics, with small and limited population samples. So, they often miss how stress truly unfolds in daily life. MindBuddy captures real-world signals over hours, days, and weeks, across all kinds of people and locations. This gives researchers, policymakers, and health systems the detailed data they need to create effective, personalised solutions.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 3 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">3</span>
+                                <span>What are $MNDY tokens and how do I earn them?</span>
+                            </div>
+                            <div class="faq-answer">
+                                $MNDY is MindBuddy's native token that rewards you for sharing anonymised data. You earn $MNDY by contributing biometric, behavioural, and contextual signals consistently. Tokens can be used to unlock premium features, access exclusive experiences, participate in community governance, or exchange them on supported markets. It is a way to ensure the value of your data flows back to you.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 4 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">4</span>
+                                <span>What kind of data does MindBuddy collect?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy gathers data across four dimensions: biometric signals such as heart rate variability and sleep, behavioural patterns such as screentime and movement, contextual information such as location and noise levels, and self-reported mood or events.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 5 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">5</span>
+                                <span>How does my data help?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Your pseudonymised data helps researchers study anxiety in real world settings, enabling the development of more effective treatments. It also supports public health planning, guides insurers toward better care models, and helps city planners design healthier environments.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 6 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">6</span>
+                                <span>Can I opt-out at anytime?</span>
+                            </div>
+                            <div class="faq-answer">
+                                Yes. Autonomy is at the core of MindBuddy. You stay in control, with the ability to choose what you share and opt out at any time. Plus, all data is anonymised and encrypted with smart contracts recording your consent transparently.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 7 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">7</span>
+                                <span>Do I need a wearable device?</span>
+                            </div>
+                            <div class="faq-answer">
+                                While MindBuddy works with many wearables such as Apple Watch, Fitbit, and Samsung, no wearable device is needed. While wearables will provide richer data, you can also track simple stress signals with your smartphone alone.
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ 8 -->
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span class="faq-number">8</span>
+                                <span>What makes MindBuddy different from other mental health apps?</span>
+                            </div>
+                            <div class="faq-answer">
+                                MindBuddy is not just another wellness tracker. It is a decentralised, ethical, and user-owned data network. It rewards you for your participation, protects your privacy, and helps create the evidence base needed to transform mental health research and care.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Info Card -->
+                <div class="info-card">
+                    <div class="info-icon">🔒</div>
+                    <h3 class="info-title">Your data is secure</h3>
+                    <p class="info-text">
+                        All health data is encrypted end-to-end and never shared without your permission.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

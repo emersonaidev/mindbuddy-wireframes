@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Heart Rate Detail - MindBuddy</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* CSS Variables */
+        :root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+        
+        /* Base Styles */
+        /* MindBuddy Wireframes V1 - Clean Minimalist */
+/* iPhone 15 Pro: 393x852px */
+
+:root {
+  /* Grayscale palette */
+  --black: #000000;
+  --gray-900: #1A1A1A;
+  --gray-800: #333333;
+  --gray-700: #4D4D4D;
+  --gray-600: #666666;
+  --gray-500: #808080;
+  --gray-400: #999999;
+  --gray-300: #B3B3B3;
+  --gray-200: #CCCCCC;
+  --gray-100: #E6E6E6;
+  --gray-50: #F5F5F5;
+  --white: #FFFFFF;
+  
+  /* Spacing scale */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Typography scale */
+  --font-xs: 12px;
+  --font-sm: 14px;
+  --font-base: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+  --font-2xl: 32px;
+  --font-3xl: 48px;
+  
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body reset for iframe compatibility */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 393px;
+  height: 852px;
+}
+
+/* Base screen container */
+.screen {
+  width: 393px;
+  height: 852px;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  font-size: var(--font-base);
+  line-height: 1.5;
+  color: var(--gray-900);
+}
+
+/* Typography */
+.heading-1 {
+  font-size: var(--font-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: var(--font-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body-large {
+  font-size: var(--font-lg);
+  line-height: 1.6;
+}
+
+.body-base {
+  font-size: var(--font-base);
+  line-height: 1.5;
+}
+
+.body-small {
+  font-size: var(--font-sm);
+  line-height: 1.5;
+}
+
+.caption {
+  font-size: var(--font-xs);
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* Layout containers */
+.container {
+  padding: 0 var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Navigation */
+.nav-header {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  border-bottom: 1px solid var(--gray-100);
+  background: var(--white);
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-lg);
+  font-weight: 600;
+}
+
+.nav-back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -var(--space-sm);
+}
+
+.nav-action {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -var(--space-sm);
+}
+
+/* Tab bar */
+.tab-bar {
+  height: 88px;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  background: var(--white);
+  padding-bottom: 34px; /* Safe area */
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  color: var(--gray-400);
+  text-decoration: none;
+}
+
+.tab-item.active {
+  color: var(--gray-900);
+}
+
+.tab-icon {
+  width: 24px;
+  height: 24px;
+  background: currentColor;
+}
+
+.tab-label {
+  font-size: var(--font-xs);
+}
+
+/* Buttons */
+.button {
+  height: 56px;
+  padding: 0 var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: var(--font-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.button-primary {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+.button-secondary {
+  background: var(--white);
+  color: var(--gray-900);
+  border: 2px solid var(--gray-200);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--gray-900);
+}
+
+.button-full {
+  width: 100%;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: var(--space-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  font-size: var(--font-base);
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gray-600);
+}
+
+.form-input::placeholder {
+  color: var(--gray-400);
+}
+
+/* Cards */
+.card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+.card-title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: var(--space-md);
+}
+
+/* Lists */
+.list {
+  list-style: none;
+}
+
+.list-item {
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* Toggle switch */
+.toggle {
+  width: 48px;
+  height: 28px;
+  background: var(--gray-300);
+  border-radius: var(--radius-full);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-knob {
+  width: 24px;
+  height: 24px;
+  background: var(--white);
+  border-radius: var(--radius-full);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s;
+}
+
+.toggle.active {
+  background: var(--gray-700);
+}
+
+.toggle.active .toggle-knob {
+  transform: translateX(20px);
+}
+
+/* Progress indicators */
+.progress-bar {
+  height: 4px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--gray-700);
+  transition: width 0.3s;
+}
+
+/* Loading states */
+.skeleton {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Empty states */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-lg);
+}
+
+.empty-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+}
+
+.empty-description {
+  color: var(--gray-600);
+  margin-bottom: var(--space-xl);
+}
+
+/* Utility classes */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+        
+        /* Screen Specific Styles */
+        
+        .detail-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+            overflow: hidden;
+        }
+        
+        .detail-content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .detail-header {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .current-value {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .value-main {
+            font-size: 48px;
+            font-weight: 700;
+        }
+        
+        .value-unit {
+            font-size: var(--font-xl);
+            color: var(--gray-600);
+        }
+        
+        .value-status {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .chart-full {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+            margin-bottom: var(--space-md);
+        }
+        
+        .chart-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .time-selector {
+            display: flex;
+            gap: var(--space-sm);
+        }
+        
+        .time-option {
+            padding: var(--space-sm) var(--space-md);
+            font-size: var(--font-sm);
+            font-weight: 500;
+            color: var(--gray-600);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .time-option.active {
+            color: var(--gray-900);
+            background: var(--gray-100);
+            border-radius: var(--radius-md);
+        }
+        
+        .chart-type {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .chart-area {
+            height: 240px;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-y-axis {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--space-sm) 0;
+        }
+        
+        .y-label {
+            font-size: var(--font-xs);
+            color: var(--gray-500);
+            text-align: right;
+            padding-right: var(--space-sm);
+        }
+        
+        .chart-graph {
+            position: absolute;
+            left: 40px;
+            right: 0;
+            top: 0;
+            bottom: 20px;
+        }
+        
+        .chart-line-path {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, var(--gray-200) 100%);
+            clip-path: polygon(
+                0% 60%,
+                5% 55%,
+                10% 50%,
+                15% 45%,
+                20% 48%,
+                25% 43%,
+                30% 40%,
+                35% 38%,
+                40% 35%,
+                45% 37%,
+                50% 33%,
+                55% 30%,
+                60% 28%,
+                65% 25%,
+                70% 27%,
+                75% 23%,
+                80% 20%,
+                85% 18%,
+                90% 15%,
+                95% 17%,
+                100% 13%,
+                100% 100%,
+                0% 100%
+            );
+        }
+        
+        .chart-x-axis {
+            position: absolute;
+            bottom: 0;
+            left: 40px;
+            right: 0;
+            height: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+        }
+        
+        .x-label {
+            font-size: var(--font-xs);
+            color: var(--gray-500);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: var(--radius-full);
+            margin: 0 auto var(--space-md);
+        }
+        
+        .stat-value {
+            font-size: var(--font-2xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .zones-section {
+            background: var(--white);
+            padding: var(--space-lg) var(--space-xl);
+        }
+        
+        .zones-title {
+            font-size: var(--font-lg);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+        }
+        
+        .zone-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+        
+        .zone-color {
+            width: 12px;
+            height: 12px;
+            border-radius: var(--radius-sm);
+            margin-right: var(--space-md);
+        }
+        
+        .zone-info {
+            flex: 1;
+        }
+        
+        .zone-name {
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .zone-range {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+        
+        .zone-time {
+            text-align: right;
+            font-weight: 500;
+        }
+        
+        .zone-percentage {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+        }
+    
+
+        
+        /* Container for Figma */
+        body {
+            width: 393px;
+            height: 852px;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            background: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="detail-container">
+            <!-- Navigation -->
+            <div class="nav-header">
+                <div class="nav-back">
+                    <span style="font-size: 20px;">←</span>
+                </div>
+                <div class="nav-title">Heart Rate</div>
+                <div class="nav-action"></div>
+            </div>
+            
+            <!-- Scrollable Content -->
+            <div class="detail-content">
+            <!-- Header -->
+            <div class="detail-header">
+                <div class="current-value">
+                    <span class="value-main">68</span>
+                    <span class="value-unit">bpm</span>
+                </div>
+                <p class="value-status">Current • Updated 2 min ago</p>
+            </div>
+            
+            <!-- Chart -->
+            <div class="chart-full">
+                <div class="chart-controls">
+                    <div class="time-selector">
+                        <button class="time-option active">Today</button>
+                        <button class="time-option">Week</button>
+                        <button class="time-option">Month</button>
+                    </div>
+                    <span class="chart-type">Average</span>
+                </div>
+                
+                <div class="chart-area">
+                    <div class="chart-y-axis">
+                        <div class="y-label">120</div>
+                        <div class="y-label">100</div>
+                        <div class="y-label">80</div>
+                        <div class="y-label">60</div>
+                        <div class="y-label">40</div>
+                    </div>
+                    
+                    <div class="chart-graph">
+                        <div class="chart-line-path"></div>
+                    </div>
+                    
+                    <div class="chart-x-axis">
+                        <span class="x-label">12AM</span>
+                        <span class="x-label">6AM</span>
+                        <span class="x-label">12PM</span>
+                        <span class="x-label">6PM</span>
+                        <span class="x-label">Now</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-value">52</div>
+                    <div class="stat-label">Resting</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-value">165</div>
+                    <div class="stat-label">Max Today</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-value">72</div>
+                    <div class="stat-label">Average</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-label">In Range</div>
+                </div>
+            </div>
+            
+            <!-- Heart Rate Zones -->
+            <div class="zones-section">
+                <h2 class="zones-title">Heart Rate Zones</h2>
+                
+                <div class="zone-item">
+                    <div class="zone-color" style="background: var(--gray-300);"></div>
+                    <div class="zone-info">
+                        <div class="zone-name">Rest</div>
+                        <div class="zone-range">Below 95 bpm</div>
+                    </div>
+                    <div>
+                        <div class="zone-time">18h 42m</div>
+                        <div class="zone-percentage">78%</div>
+                    </div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-color" style="background: var(--gray-400);"></div>
+                    <div class="zone-info">
+                        <div class="zone-name">Fat Burn</div>
+                        <div class="zone-range">95-133 bpm</div>
+                    </div>
+                    <div>
+                        <div class="zone-time">3h 15m</div>
+                        <div class="zone-percentage">14%</div>
+                    </div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-color" style="background: var(--gray-600);"></div>
+                    <div class="zone-info">
+                        <div class="zone-name">Cardio</div>
+                        <div class="zone-range">133-162 bpm</div>
+                    </div>
+                    <div>
+                        <div class="zone-time">1h 45m</div>
+                        <div class="zone-percentage">7%</div>
+                    </div>
+                </div>
+                
+                <div class="zone-item">
+                    <div class="zone-color" style="background: var(--gray-800);"></div>
+                    <div class="zone-info">
+                        <div class="zone-name">Peak</div>
+                        <div class="zone-range">Above 162 bpm</div>
+                    </div>
+                    <div>
+                        <div class="zone-time">18m</div>
+                        <div class="zone-percentage">1%</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
