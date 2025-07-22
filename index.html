@@ -1198,6 +1198,9 @@
             const category = element.dataset.category;
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
             
+            // Save scroll position to sessionStorage as backup
+            sessionStorage.setItem('mindbuddy_scroll_position', currentScroll);
+            
             // Build focus mode URL
             const params = new URLSearchParams({
                 screen: screenName,
@@ -1221,16 +1224,50 @@
         window.dispatchEvent(new Event('screensLoaded'));
         
         // Check for scroll restoration from focus mode
-        if (window.location.hash.includes('scroll=')) {
-            const scrollPos = parseInt(window.location.hash.split('scroll=')[1]);
-            if (!isNaN(scrollPos)) {
-                setTimeout(() => {
+        function restoreScrollPosition() {
+            let scrollPos = null;
+            
+            // Try to get from URL hash first
+            if (window.location.hash.includes('scroll=')) {
+                scrollPos = parseInt(window.location.hash.split('scroll=')[1]);
+            }
+            
+            // Fallback to sessionStorage
+            if ((!scrollPos || isNaN(scrollPos)) && sessionStorage.getItem('mindbuddy_scroll_position')) {
+                scrollPos = parseInt(sessionStorage.getItem('mindbuddy_scroll_position'));
+                sessionStorage.removeItem('mindbuddy_scroll_position');
+            }
+            
+            if (scrollPos && !isNaN(scrollPos)) {
+                // Force scroll after a small delay to ensure content is loaded
+                const forceScroll = () => {
+                    document.documentElement.scrollTop = scrollPos;
+                    document.body.scrollTop = scrollPos;
                     window.scrollTo(0, scrollPos);
-                    // Clean up the hash
-                    history.replaceState(null, null, window.location.pathname);
-                }, 100);
+                };
+                
+                // Try multiple times to ensure scroll happens
+                forceScroll();
+                setTimeout(forceScroll, 50);
+                setTimeout(forceScroll, 100);
+                setTimeout(forceScroll, 200);
+                
+                // Clean up the hash
+                if (window.location.hash.includes('scroll=')) {
+                    setTimeout(() => {
+                        history.replaceState(null, null, window.location.pathname);
+                    }, 300);
+                }
             }
         }
+        
+        // Call restore function after DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', restoreScrollPosition);
+        } else {
+            restoreScrollPosition();
+        }
+        window.addEventListener('load', restoreScrollPosition);
         
         // Handle responsive grid view buttons
         function updateGridViewButtons() {
