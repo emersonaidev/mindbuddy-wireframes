@@ -671,11 +671,20 @@
     }
     
     .export-controls {
-        border-left: none !important;
-        padding-left: 0 !important;
-        margin-left: 0 !important;
-        gap: 4px !important;
-        margin: 0 !important;
+        position: fixed;
+        bottom: 20px;
+        right: 16px;
+        left: auto;
+        transform: none;
+        background: #1a1a1a;
+        border: 1px solid #333;
+        border-radius: 20px;
+        padding: 8px 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .log-count {

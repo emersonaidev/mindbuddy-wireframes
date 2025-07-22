@@ -400,14 +400,8 @@ class ProfessionalCommentsManager {
      * Add professional export controls to navigation
      */
     addExportControls() {
-        const categoryNav = document.querySelector('.category-nav');
-        if (!categoryNav) {
-            console.warn('Category navigation not found');
-            return;
-        }
-
         // Prevent duplicate controls
-        if (categoryNav.querySelector('.export-controls')) {
+        if (document.querySelector('.export-controls')) {
             return;
         }
 
@@ -422,7 +416,7 @@ class ProfessionalCommentsManager {
             <button class="export-btn clear-btn" title="Clear all comments" aria-label="Clear all comments">🗑️</button>
         `;
 
-        categoryNav.appendChild(exportControls);
+        document.body.appendChild(exportControls);
 
         // Add event listeners with proper error handling
         this.addEventListener(exportControls, 'click', (e) => {
