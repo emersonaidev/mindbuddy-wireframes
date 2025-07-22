@@ -48,9 +48,24 @@
             background: #000;
             padding: 16px 24px;
             border-bottom: 1px solid #222;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: relative;
             flex-shrink: 0;
+        }
+        
+        /* Header Content */
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        /* Header Controls */
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
         
         .screen-title {
@@ -177,9 +192,33 @@
         }
         
         /* Responsive */
+        @media (max-width: 768px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .agent-sidebar {
+                display: none;
+            }
+        }
+        
         @media (max-width: 640px) {
             .focus-header {
                 padding: 12px 16px;
+            }
+            
+            .header-controls {
+                gap: 4px;
+            }
+            
+            .header-export-controls .log-count {
+                display: none;
+            }
+            
+            .header-export-controls .export-btn,
+            .header-logout-btn {
+                padding: 6px 8px;
+                font-size: 11px;
             }
             
             .screen-title {
@@ -252,6 +291,65 @@
             background: #333 !important;
             transform: translateX(-2px) !important;
         }
+        
+        /* Export Controls in Header */
+        .header-export-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .header-export-controls .log-count {
+            color: #666;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        .header-export-controls .export-btn {
+            padding: 6px 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .header-export-controls .export-btn:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+        
+        .header-export-controls .clear-btn {
+            background: transparent;
+            color: #ff4444;
+            border-color: #333;
+        }
+        
+        .header-export-controls .clear-btn:hover {
+            background: #2a2a2a;
+            border-color: #ff4444;
+        }
+        
+        /* Logout button in header */
+        .header-logout-btn {
+            padding: 6px 12px;
+            background: transparent;
+            color: #666;
+            border: 1px solid #333;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .header-logout-btn:hover {
+            background: #1a1a1a;
+            color: #ff4444;
+            border-color: #444;
+        }
     </style>
 </head>
 <body>
@@ -269,7 +367,7 @@
             <div class="chat-history" id="chat-history">
                 <div class="chat-welcome">
                     <p>👋 Welcome!</p>
-                    <p>Single click to add change requests. Double click for focus mode.</p>
+                    <p style="color: #ccc;">Single click to add change requests. Double click for focus mode.</p>
                 </div>
             </div>
             
@@ -291,8 +389,17 @@
         <div class="focus-container">
         <!-- Header -->
         <div class="focus-header">
-            <h1 class="screen-title" id="screen-title">Loading...</h1>
-            <span class="category-badge" id="category-badge">-</span>
+            <div class="focus-back-btn" onclick="goBack()" title="Back to Gallery">←</div>
+            <div class="header-content">
+                <h1 class="screen-title" id="screen-title">Loading...</h1>
+                <span class="category-badge" id="category-badge">-</span>
+            </div>
+            <div class="header-controls">
+                <div class="header-export-controls" id="header-export-controls">
+                    <!-- Export controls will be added here by JS -->
+                </div>
+                <button class="header-logout-btn" id="header-logout-btn" onclick="logout()">Logout</button>
+            </div>
         </div>
         
         <!-- Main Content -->
@@ -391,6 +498,13 @@
             window.location.href = `index.html#scroll=${returnScroll}`;
         }
         
+        // Handle logout
+        function logout() {
+            if (window.authManager) {
+                window.authManager.logout();
+            }
+        }
+        
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -407,17 +521,54 @@
             }
         }
         
+        // Add export controls to header
+        function addHeaderExportControls() {
+            const container = document.getElementById('header-export-controls');
+            if (!container || container.querySelector('.log-count')) return;
+            
+            const count = window.professionalCommentsManager ? window.professionalCommentsManager.commentsLog.length : 0;
+            
+            container.innerHTML = `
+                <span class="log-count">${count} comments</span>
+                <button class="export-btn" title="Preview & Export Comments" onclick="showExportPreview()">📝</button>
+                <button class="export-btn clear-btn" title="Clear all comments" onclick="clearComments()">🗑️</button>
+            `;
+        }
+        
+        // Export preview handler
+        function showExportPreview() {
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.showExportPreview();
+            }
+        }
+        
+        // Clear comments handler
+        function clearComments() {
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.clearLog();
+                addHeaderExportControls(); // Update count
+            }
+        }
+        
         // Initialize
         loadWireframe();
         updateSidebarInfo();
         
-        // Wait for export controls to be added by comments manager
-        window.addEventListener('load', () => {
-            // The comments manager will add the export controls
+        // Add export controls after comments manager loads
+        const checkCommentsManager = setInterval(() => {
             if (window.professionalCommentsManager) {
-                window.professionalCommentsManager.addExportControls();
+                addHeaderExportControls();
+                
+                // Listen for updates
+                window.professionalCommentsManager.events.addEventListener('uiUpdate', () => {
+                    addHeaderExportControls();
+                });
+                
+                clearInterval(checkCommentsManager);
             }
-        });
+        }, 100);
+        
+        // Export controls are now in the header, not added by comments manager
         
         // Export back navigation function for use by comments manager
         window.focusModeGoBack = goBack;

@@ -413,22 +413,16 @@ class ProfessionalCommentsManager {
         // Check if we're in focus mode
         const inFocusMode = window.location.pathname.includes('focus.html');
         
-        let controlsHTML = '';
-        
+        // Don't add export controls in focus mode - they're in the header
         if (inFocusMode) {
-            // Add back button in focus mode
-            controlsHTML = `
-                <button class="focus-back-btn" title="Back to Gallery" data-action="back" aria-label="Back to gallery">←</button>
-            `;
+            return;
         }
         
-        controlsHTML += `
+        exportControls.innerHTML = `
             <span class="log-count" aria-live="polite">${this.commentsLog.length} comments</span>
             <button class="export-btn" title="Preview & Export Comments" data-action="preview" aria-label="Preview and export comments">📝</button>
             <button class="export-btn clear-btn" title="Clear all comments" aria-label="Clear all comments">🗑️</button>
         `;
-        
-        exportControls.innerHTML = controlsHTML;
 
         // In focus mode or mobile, append to body. Otherwise to nav
         if (inFocusMode || window.innerWidth <= 640) {
