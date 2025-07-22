@@ -1531,12 +1531,12 @@
         // Make functions globally available
         window.openFocusMode = openFocusMode;
         window.handleWireframeClick = handleWireframeClick;
-        window.exportAllScreensToSVG = exportAllScreensToSVG;
+        window.exportAllScreensToSVG = exportAllScreensToHTML;
         window.showExportPreview = showExportPreview;
         window.clearComments = clearComments;
         
         // Export all screens to HTML files
-        async function exportAllScreensToSVG() {
+        async function exportAllScreensToHTML() {
             const loadingModal = document.createElement('div');
             loadingModal.className = 'export-loading-modal';
             loadingModal.innerHTML = `
