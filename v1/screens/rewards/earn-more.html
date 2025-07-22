@@ -230,6 +230,126 @@
             font-size: var(--font-sm);
             line-height: 1.4;
         }
+        
+        /* Data Reputation Score Section */
+        .reputation-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin: var(--space-xl);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .reputation-header {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .reputation-title {
+            font-size: var(--font-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reputation-subtitle {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            line-height: 1.5;
+        }
+        
+        .reputation-score-container {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .reputation-ring {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto var(--space-md);
+        }
+        
+        .reputation-ring svg {
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+        
+        .ring-bg {
+            fill: none;
+            stroke: var(--gray-200);
+            stroke-width: 12;
+        }
+        
+        .ring-fill {
+            fill: none;
+            stroke: var(--gray-700);
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-dasharray: 314;
+            stroke-dashoffset: 56.52; /* 82% */
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .reputation-score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .reputation-percentage {
+            font-size: var(--font-3xl);
+            font-weight: 700;
+            display: block;
+        }
+        
+        .reputation-label {
+            font-size: var(--font-sm);
+            color: var(--gray-600);
+            margin-top: var(--space-xs);
+        }
+        
+        .reputation-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: var(--radius-full);
+            position: relative;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reputation-bar-fill {
+            height: 100%;
+            width: 82%;
+            background: var(--gray-700);
+            border-radius: var(--radius-full);
+        }
+        
+        .reputation-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+            margin-bottom: var(--space-sm);
+        }
+        
+        .reputation-range {
+            text-align: center;
+            font-size: var(--font-xs);
+            color: var(--gray-600);
+        }
+        
+        .reputation-button {
+            background: var(--gray-900);
+            color: var(--white);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            margin-top: var(--space-xl);
+        }
     </style>
 </head>
 <body>
@@ -263,6 +383,42 @@
             
             <!-- Content -->
             <div class="content" style="overflow-y: auto;">
+                <!-- Data Reputation Score Section -->
+                <div class="reputation-section">
+                    <div class="reputation-header">
+                        <h2 class="reputation-title">Data Reputation Score</h2>
+                        <p class="reputation-subtitle">
+                            This score shows how reliable and consistent your shared data is. Higher scores may help you earn more $MNDY.
+                        </p>
+                    </div>
+                    
+                    <div class="reputation-score-container">
+                        <div class="reputation-ring">
+                            <svg viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="50"></circle>
+                                <circle class="ring-fill" cx="60" cy="60" r="50"></circle>
+                            </svg>
+                            <div class="reputation-score-text">
+                                <span class="reputation-percentage">82%</span>
+                                <div class="reputation-label">Your current score</div>
+                            </div>
+                        </div>
+                        
+                        <div class="reputation-bar">
+                            <div class="reputation-bar-fill"></div>
+                        </div>
+                        <div class="reputation-labels">
+                            <span>Poor</span>
+                            <span>Fair</span>
+                            <span>Good</span>
+                            <span>Excellent</span>
+                        </div>
+                        <div class="reputation-range">Score range: 0–100</div>
+                    </div>
+                    
+                    <a href="#" class="reputation-button">View Details</a>
+                </div>
+                
                 <div class="earning-categories">
                     <!-- Daily Activities -->
                     <div class="category-section">

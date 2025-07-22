@@ -211,6 +211,48 @@
             line-height: 1.4;
             margin: 0;
         }
+        
+        /* Action Buttons */
+        .action-buttons {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .action-button {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .action-button:hover {
+            background: #F0F0F0;
+            border-color: #666;
+        }
+        
+        .action-icon {
+            font-size: 20px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .action-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -231,6 +273,26 @@
             
             <!-- Content -->
             <div class="content">
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="action-button">
+                        <span class="action-icon">💸</span>
+                        <span class="action-label">Withdraw</span>
+                    </a>
+                    <a href="#" class="action-button">
+                        <span class="action-icon">🔄</span>
+                        <span class="action-label">Exchange</span>
+                    </a>
+                    <a href="#" class="action-button">
+                        <span class="action-icon">📊</span>
+                        <span class="action-label">Transaction History</span>
+                    </a>
+                    <a href="#" class="action-button">
+                        <span class="action-icon">💰</span>
+                        <span class="action-label">Earn More</span>
+                    </a>
+                </div>
+                
                 <!-- Token Earnings History Card -->
                 <div class="earnings-card">
                     <h2 class="card-title">Token Earnings History</h2>

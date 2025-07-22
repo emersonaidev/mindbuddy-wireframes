@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=393, initial-scale=1.0">
+    <title>Dashboard with Menu - MindBuddy V1</title>
+    <link rel="stylesheet" href="../../styles/base.css">
+    <style>
+        /* Global styling based on partner specifications */
+        body {
+            background-color: #F8F9FA;
+        }
+        
+        .dashboard-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: #F8F9FA;
+            position: relative;
+        }
+        
+        /* Header Section */
+        .dashboard-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+        }
+        
+        .menu-button {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px 0;
+            cursor: pointer;
+        }
+        
+        .menu-line {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            border-radius: 1px;
+        }
+        
+        /* Card styling */
+        .card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 20px 20px;
+        }
+        
+        /* $MNDY Balance Card */
+        .balance-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .balance-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0;
+        }
+        
+        .balance-amount {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin: 0;
+        }
+        
+        .earned-badge {
+            background-color: #F0F0F0;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #000;
+        }
+        
+        .earnings-breakdown {
+            margin-top: 20px;
+        }
+        
+        .earning-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
+        }
+        
+        .earning-item:not(:last-child) {
+            border-bottom: 1px solid #F0F0F0;
+        }
+        
+        /* Resilience Score Card */
+        .resilience-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .resilience-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0 0 4px 0;
+        }
+        
+        .resilience-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #999;
+            margin: 0 0 20px 0;
+        }
+        
+        .resilience-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .resilience-ring {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .ring-background {
+            fill: none;
+            stroke: #E0E0E0;
+            stroke-width: 10;
+        }
+        
+        .ring-progress {
+            fill: none;
+            stroke: #666;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .ring-score {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .score-value {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            display: block;
+        }
+        
+        .score-max {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .resilience-right {
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .resilience-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .level-dots {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+        
+        .level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #E0E0E0;
+        }
+        
+        .level-dot.active {
+            background-color: #666;
+        }
+        
+        .resilience-link {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            text-decoration: none;
+        }
+        
+        /* Data Reputation Score Card */
+        .reputation-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .reputation-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0 0 4px 0;
+        }
+        
+        .reputation-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0 0 20px 0;
+        }
+        
+        .reputation-score {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin: 0 0 12px 0;
+        }
+        
+        .reputation-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .reputation-fill {
+            height: 100%;
+            background-color: #666;
+            width: 85%;
+            border-radius: 4px;
+        }
+        
+        /* Menu Overlay */
+        .menu-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 295px;
+            height: 100%;
+            background: #FFFFFF;
+            box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .menu-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+            margin: 0;
+        }
+        
+        .close-button {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: #000;
+        }
+        
+        .menu-items {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .menu-item {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .menu-item:hover {
+            color: #666;
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Dark overlay for the rest of the screen */
+        .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 295px;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <div class="screen">
+        <div class="dashboard-container">
+            <!-- Dark overlay -->
+            <div class="dark-overlay"></div>
+            
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="menu-button">
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
+                </div>
+            </div>
+            
+            <!-- Content -->
+            <div class="content">
+                <!-- $MNDY Balance Card -->
+                <div class="balance-card">
+                    <div class="balance-header">
+                        <div>
+                            <h2 class="balance-title">$MNDY Balance</h2>
+                            <p class="balance-amount">174 $MNDY</p>
+                        </div>
+                        <div class="earned-badge">+7 earned today</div>
+                    </div>
+                    
+                    <div class="earnings-breakdown">
+                        <div class="earning-item">
+                            <span>Sleep</span>
+                            <span>+3</span>
+                        </div>
+                        <div class="earning-item">
+                            <span>HRV</span>
+                            <span>+4</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Resilience Score Card -->
+                <div class="resilience-card">
+                    <h2 class="resilience-title">Resilience Score</h2>
+                    <p class="resilience-subtitle">Your daily stress recovery score</p>
+                    
+                    <div class="resilience-content">
+                        <div class="resilience-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="ring-background" cx="50" cy="50" r="40"></circle>
+                                <circle class="ring-progress" cx="50" cy="50" r="40" 
+                                        stroke-dasharray="251.2" 
+                                        stroke-dashoffset="70.336"></circle>
+                            </svg>
+                            <div class="ring-score">
+                                <span class="score-value">72</span>
+                                <span class="score-max">/ 100</span>
+                            </div>
+                        </div>
+                        
+                        <div class="resilience-right">
+                            <div class="resilience-label">High</div>
+                            <div class="level-dots">
+                                <div class="level-dot active"></div>
+                                <div class="level-dot active"></div>
+                                <div class="level-dot active"></div>
+                                <div class="level-dot"></div>
+                            </div>
+                            <a href="#" class="resilience-link">What does this mean?</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Reputation Score Card -->
+                <div class="reputation-card">
+                    <h2 class="reputation-title">Data Reputation Score</h2>
+                    <p class="reputation-subtitle">Based on consistency, completeness, and quality of your data</p>
+                    
+                    <p class="reputation-score">85%</p>
+                    
+                    <div class="reputation-bar">
+                        <div class="reputation-fill"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Menu Overlay -->
+            <div class="menu-overlay">
+                <div class="menu-header">
+                    <h2 class="menu-title">Menu</h2>
+                    <div class="close-button">×</div>
+                </div>
+                
+                <div class="menu-items">
+                    <a href="#" class="menu-item">Profile & Settings</a>
+                    <a href="#" class="menu-item">Terms & Conditions</a>
+                    <a href="#" class="menu-item">Privacy Policy</a>
+                    <a href="#" class="menu-item">Security & Compliance</a>
+                    <a href="#" class="menu-item">Help Centre</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
