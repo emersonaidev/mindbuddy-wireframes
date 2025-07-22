@@ -838,7 +838,7 @@
             Dashboard <span class="category-count">6</span>
         </button>
         <button class="category-btn" data-category="health">
-            Health Data <span class="category-count">1</span>
+            Health Data <span class="category-count">6</span>
         </button>
         <button class="category-btn" data-category="rewards">
             Rewards <span class="category-count">5</span>
@@ -999,7 +999,12 @@
                 { name: 'Profile', path: 'v1/screens/profile/main.html' }
             ],
             health: [
-                { name: 'Resilience Score', path: 'v1/screens/health/resilience-score.html' }
+                { name: 'Health Data Main', path: 'v1/screens/health/main.html' },
+                { name: 'Resilience Score', path: 'v1/screens/health/resilience-score.html' },
+                { name: 'Heart Rate Detail', path: 'v1/screens/health/heart-rate-detail.html' },
+                { name: 'HRV Detail', path: 'v1/screens/health/hrv-detail.html' },
+                { name: 'Sleep Detail', path: 'v1/screens/health/sleep-detail.html' },
+                { name: 'Activity Detail', path: 'v1/screens/health/activity-detail.html' }
             ],
             rewards: [
                 { name: 'Rewards Overview', path: 'v1/screens/rewards/main.html' },
@@ -1014,7 +1019,7 @@
                 { name: 'Security Settings', path: 'v1/screens/profile/security.html' },
                 { name: 'Connected Devices', path: 'v1/screens/profile/connected-devices.html' },
                 { name: 'Notification Settings', path: 'v1/screens/profile/notifications.html' },
-                { name: 'Data Reputation Score', path: 'v1/screens/profile/data-reputation-score.html' },
+                { name: 'Subscription Plans', path: 'v1/screens/profile/subscription.html' },
                 { name: 'Connect Wallet', path: 'v1/screens/profile/wallet-connection.html' },
                 { name: 'Data Permissions', path: 'v1/screens/profile/data-permissions.html' },
                 { name: 'Help Center', path: 'v1/screens/profile/help-center.html' }
@@ -1030,6 +1035,9 @@
                 { name: 'Terms & Conditions', path: 'v1/screens/legal/terms.html' },
                 { name: 'Privacy Policy', path: 'v1/screens/legal/privacy.html' },
                 { name: 'Security & Compliance', path: 'v1/screens/legal/security-compliance.html' }
+            ],
+            insights: [
+                { name: 'Insights', path: 'v1/screens/insights/main.html' }
             ]
         };
         
@@ -1108,13 +1116,14 @@
                         // Show all screens in one grid with subtle dividers
                         const categoryNames = {
                             onboarding: 'Onboarding',
-                            auth: 'Authentication',
+                            auth: 'Authentication', 
                             dashboard: 'Dashboard',
                             health: 'Health Data',
                             rewards: 'Rewards',
                             profile: 'Profile',
                             errors: 'Errors',
-                            legal: 'Legal'
+                            legal: 'Legal',
+                            insights: 'Insights'
                         };
                         
                         Object.entries(screens).forEach(([cat, categoryScreens], index) => {
@@ -1224,7 +1233,7 @@
                 <span class="log-count">${count} comments</span>
                 <button class="export-btn" title="Preview & Export Comments" onclick="showExportPreview()">📝</button>
                 <button class="export-btn clear-btn" title="Clear all comments" onclick="clearComments()">🗑️</button>
-                <button class="export-btn" title="Export all screens to SVG" onclick="exportAllScreensToSVG()">📦</button>
+                <button class="export-btn" title="Export all HTML files for Figma" onclick="exportAllScreensToSVG()">📦</button>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             `;
         }
@@ -1526,14 +1535,14 @@
         window.showExportPreview = showExportPreview;
         window.clearComments = clearComments;
         
-        // Export all screens to SVG
+        // Export all screens to HTML files
         async function exportAllScreensToSVG() {
             const loadingModal = document.createElement('div');
             loadingModal.className = 'export-loading-modal';
             loadingModal.innerHTML = `
                 <div class="export-loading-content">
-                    <h3>Exporting Screens</h3>
-                    <p id="export-progress">Loading html2canvas library...</p>
+                    <h3>Exporting HTML Files</h3>
+                    <p id="export-progress">Preparing HTML files for export...</p>
                     <div class="export-progress-bar">
                         <div class="export-progress-fill" id="progress-fill"></div>
                     </div>
@@ -1542,9 +1551,9 @@
             document.body.appendChild(loadingModal);
             
             try {
-                // Load html2canvas library
+                // Load JSZip library
                 const script = document.createElement('script');
-                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
                 document.head.appendChild(script);
                 
                 await new Promise((resolve, reject) => {
@@ -1552,8 +1561,13 @@
                     script.onerror = reject;
                 });
                 
-                document.getElementById('export-progress').textContent = 'Preparing screens...';
+                document.getElementById('export-progress').textContent = 'Collecting HTML files...';
                 
+                // Create ZIP file structure
+                const zip = new JSZip();
+                const htmlFolder = zip.folder('mindbuddy-html-wireframes');
+                
+                // Collect all HTML files and their paths
                 const allScreens = [];
                 Object.entries(screens).forEach(([category, categoryScreens]) => {
                     categoryScreens.forEach(screen => {
@@ -1561,111 +1575,131 @@
                     });
                 });
                 
-                const exportFiles = [];
                 const totalScreens = allScreens.length;
+                let processedCount = 0;
                 
-                // Use existing iframes from the page instead of creating new ones
-                const visibleFrames = document.querySelectorAll('.screen-frame');
-                const processedScreens = new Set();
+                // Create folder structure
+                const folders = {
+                    'auth': htmlFolder.folder('auth'),
+                    'dashboard': htmlFolder.folder('dashboard'),
+                    'health': htmlFolder.folder('health'),
+                    'rewards': htmlFolder.folder('rewards'),
+                    'profile': htmlFolder.folder('profile'),
+                    'errors': htmlFolder.folder('errors'),
+                    'legal': htmlFolder.folder('legal'),
+                    'insights': htmlFolder.folder('insights')
+                };
                 
-                for (const frame of visibleFrames) {
-                    const screenName = frame.dataset.screenName;
-                    const category = frame.dataset.category;
-                    
-                    if (!screenName || processedScreens.has(screenName)) continue;
-                    processedScreens.add(screenName);
-                    
-                    const progress = Math.round(processedScreens.size / totalScreens * 100);
-                    document.getElementById('export-progress').textContent = 
-                        `Capturing ${screenName} (${processedScreens.size}/${totalScreens})`;
-                    document.getElementById('progress-fill').style.width = `${progress}%`;
-                    
-                    try {
-                        // Temporarily make the frame visible if hidden
-                        const originalDisplay = frame.style.display;
-                        frame.style.display = 'block';
-                        
-                        // Capture the frame as canvas
-                        const canvas = await html2canvas(frame, {
-                            backgroundColor: '#000',
-                            scale: 2,
-                            logging: false,
-                            width: 240,
-                            height: 520
-                        });
-                        
-                        // Convert to PNG blob
-                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-                        
-                        exportFiles.push({
-                            name: `${category}-${screenName.replace(/[^a-zA-Z0-9]/g, '-')}.png`,
-                            blob: blob
-                        });
-                        
-                        // Restore original display
-                        frame.style.display = originalDisplay;
-                        
-                    } catch (error) {
-                        console.error(`Failed to capture ${screenName}:`, error);
-                    }
-                }
-                
-                // Process remaining screens that aren't visible
+                // Process each HTML file
                 for (const screen of allScreens) {
-                    if (processedScreens.has(screen.name)) continue;
-                    
-                    const progress = Math.round(processedScreens.size / totalScreens * 100);
+                    processedCount++;
+                    const progress = Math.round(processedCount / totalScreens * 100);
                     document.getElementById('export-progress').textContent = 
-                        `Processing ${screen.name} (${processedScreens.size}/${totalScreens})`;
+                        `Processing ${screen.name} (${processedCount}/${totalScreens})`; 
                     document.getElementById('progress-fill').style.width = `${progress}%`;
                     
-                    // For non-visible screens, we'll add them to a temporary container
-                    const tempContainer = document.createElement('div');
-                    tempContainer.style.position = 'fixed';
-                    tempContainer.style.left = '-9999px';
-                    tempContainer.style.width = '240px';
-                    tempContainer.style.height = '520px';
-                    tempContainer.innerHTML = createScreenFrame(screen, screen.category);
-                    document.body.appendChild(tempContainer);
-                    
-                    // Wait a bit for rendering
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                    
                     try {
-                        const frame = tempContainer.querySelector('.screen-frame');
-                        const canvas = await html2canvas(frame, {
-                            backgroundColor: '#000',
-                            scale: 2,
-                            logging: false,
-                            width: 240,
-                            height: 520
-                        });
+                        // Determine folder from path
+                        let folderName = '';
+                        if (screen.path.includes('/auth/')) folderName = 'auth';
+                        else if (screen.path.includes('/dashboard/')) folderName = 'dashboard';
+                        else if (screen.path.includes('/health/')) folderName = 'health';
+                        else if (screen.path.includes('/rewards/')) folderName = 'rewards';
+                        else if (screen.path.includes('/profile/')) folderName = 'profile';
+                        else if (screen.path.includes('/errors/')) folderName = 'errors';
+                        else if (screen.path.includes('/legal/')) folderName = 'legal';
+                        else if (screen.path.includes('/insights/')) folderName = 'insights';
                         
-                        const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                        // Get filename from path
+                        const fileName = screen.path.split('/').pop();
                         
-                        exportFiles.push({
-                            name: `${screen.category}-${screen.name.replace(/[^a-zA-Z0-9]/g, '-')}.png`,
-                            blob: blob
-                        });
+                        // Fetch HTML content
+                        const response = await fetch(screen.path);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        const htmlContent = await response.text();
                         
-                        processedScreens.add(screen.name);
+                        // Add to appropriate folder
+                        if (folderName && folders[folderName]) {
+                            folders[folderName].file(fileName, htmlContent);
+                            console.log(`Added ${folderName}/${fileName}`);
+                        }
                         
                     } catch (error) {
-                        console.error(`Failed to process ${screen.name}:`, error);
+                        console.error(`Failed to fetch ${screen.name} from ${screen.path}:`, error);
                     }
-                    
-                    document.body.removeChild(tempContainer);
                 }
                 
-                // Create ZIP file
-                document.getElementById('export-progress').textContent = 'Creating ZIP file...';
-                
-                if (exportFiles.length > 0) {
-                    await downloadPNGsAsZip(exportFiles);
+                // Add base.css file
+                try {
+                    const cssResponse = await fetch('v1/styles/base.css');
+                    const cssContent = await cssResponse.text();
+                    htmlFolder.folder('styles').file('base.css', cssContent);
+                } catch (error) {
+                    console.error('Failed to fetch base.css:', error);
                 }
+                
+                // Add README file
+                const readme = `MindBuddy HTML Wireframes Export
+Generated on: ${new Date().toLocaleString()}
+Total screens: ${totalScreens}
+
+These HTML files are the source wireframes for the MindBuddy application.
+Each file is a complete HTML page with embedded CSS styling.
+
+To view:
+1. Open any HTML file in a web browser
+2. Set viewport to 393x852px (iPhone 14)
+3. The files reference '../styles/base.css' for common styles
+
+Categories included:
+- auth/ (11 files) - Onboarding & Authentication
+- dashboard/ (4 files) - Dashboard screens
+- health/ (6 files) - Health data screens
+- rewards/ (5 files) - Rewards screens
+- profile/ (9 files) - Profile & settings
+- errors/ (5 files) - Error states
+- legal/ (3 files) - Legal documents
+- insights/ (1 file) - Insights screen
+
+These files can be:
+- Opened directly in browser
+- Imported to Figma using HTML to Figma plugins
+- Used as reference for design implementation
+
+Design specifications:
+- Device: iPhone 14 (393x852px)
+- Font: Inter
+- Background: #F8F9FA
+- Primary color: #000000
+
+Visit https://github.com/emersonaidev/mindbuddy-wireframes for more information.`;
+                
+                htmlFolder.file('README.txt', readme);
+                
+                // Generate and download ZIP
+                document.getElementById('export-progress').textContent = 'Creating ZIP file with HTML files...';
+                
+                const content = await zip.generateAsync({ 
+                    type: 'blob',
+                    compression: 'DEFLATE',
+                    compressionOptions: { level: 9 }
+                });
+                
+                // Show file size
+                const fileSizeMB = (content.size / 1024 / 1024).toFixed(2);
+                document.getElementById('export-progress').textContent = `ZIP file ready (${fileSizeMB} MB)`;
+                
+                const url = URL.createObjectURL(content);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `mindbuddy-html-wireframes-${new Date().toISOString().split('T')[0]}.zip`;
+                a.click();
+                URL.revokeObjectURL(url);
                 
                 // Clean up
-                document.head.removeChild(script);
+                setTimeout(() => {
+                    document.head.removeChild(script);
+                }, 1000);
                 
             } catch (error) {
                 console.error('Export failed:', error);
