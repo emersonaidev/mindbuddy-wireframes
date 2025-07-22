@@ -424,16 +424,10 @@ class ProfessionalCommentsManager {
             <button class="export-btn clear-btn" title="Clear all comments" aria-label="Clear all comments">🗑️</button>
         `;
 
-        // In focus mode or mobile, append to body. Otherwise to nav
-        if (inFocusMode || window.innerWidth <= 640) {
+        // Export controls are now in the header for main page
+        // Only add floating controls on mobile
+        if (window.innerWidth <= 640) {
             document.body.appendChild(exportControls);
-        } else {
-            const categoryNav = document.querySelector('.category-nav');
-            if (categoryNav) {
-                categoryNav.appendChild(exportControls);
-            } else {
-                document.body.appendChild(exportControls);
-            }
         }
 
         // Add event listeners with proper error handling

@@ -43,9 +43,47 @@
             background: #000;
             color: white;
             padding: 24px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid #222;
             flex-shrink: 0;
+            position: relative;
+        }
+        
+        .header-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header-controls {
+            position: absolute;
+            right: 24px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        
+        .header-controls .export-btn {
+            padding: 6px 12px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .header-controls .export-btn:hover {
+            background: #333;
+            transform: translateY(-1px);
+        }
+        
+        .header-controls .log-count {
+            color: #666;
+            font-size: 12px;
+            margin-right: 8px;
         }
         
         .header h1 {
@@ -475,12 +513,38 @@
                 display: none; /* Hide floating bar on mobile */
             }
             
+            .header {
+                padding: 16px;
+            }
+            
             .header p {
                 font-size: 13px;
             }
             
             .header h1 {
                 font-size: 24px;
+            }
+            
+            .header-content {
+                text-align: left;
+            }
+            
+            .header-controls {
+                position: static;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 4px;
+                margin-top: 8px;
+            }
+            
+            .header-controls .log-count {
+                display: none;
+            }
+            
+            .header-controls .export-btn,
+            .header-controls .logout-btn {
+                padding: 4px 8px;
+                font-size: 11px;
             }
             
             .main-content {
@@ -532,8 +596,13 @@
         <div class="content-area">
             <!-- Header -->
     <div class="header">
-        <h1>MindBuddy V1 Wireframes</h1>
-        <p>Clean Minimalist Design • 393×852px • 47+ Screens</p>
+        <div class="header-content">
+            <h1>MindBuddy V1 Wireframes</h1>
+            <p>Clean Minimalist Design • 393×852px • 47+ Screens</p>
+        </div>
+        <div class="header-controls" id="header-controls">
+            <!-- Export controls will be added here by JS -->
+        </div>
     </div>
     
     <!-- Category Navigation -->
@@ -857,6 +926,57 @@
         let clickTimer = null;
         let chatHistory = {};
         
+        // Add export controls to header
+        function addHeaderExportControls() {
+            const container = document.getElementById('header-controls');
+            if (!container || container.querySelector('.log-count')) return;
+            
+            const count = window.professionalCommentsManager ? window.professionalCommentsManager.commentsLog.length : 0;
+            
+            container.innerHTML = `
+                <span class="log-count">${count} comments</span>
+                <button class="export-btn" title="Preview & Export Comments" onclick="showExportPreview()">📝</button>
+                <button class="export-btn clear-btn" title="Clear all comments" onclick="clearComments()">🗑️</button>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            `;
+        }
+        
+        // Export preview handler
+        function showExportPreview() {
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.showExportPreview();
+            }
+        }
+        
+        // Clear comments handler
+        function clearComments() {
+            if (window.professionalCommentsManager) {
+                window.professionalCommentsManager.clearLog();
+                addHeaderExportControls(); // Update count
+            }
+        }
+        
+        // Logout handler
+        function logout() {
+            if (window.authManager) {
+                window.authManager.logout();
+            }
+        }
+        
+        // Wait for comments manager to load
+        const checkCommentsManager = setInterval(() => {
+            if (window.professionalCommentsManager) {
+                addHeaderExportControls();
+                
+                // Listen for updates
+                window.professionalCommentsManager.events.addEventListener('uiUpdate', () => {
+                    addHeaderExportControls();
+                });
+                
+                clearInterval(checkCommentsManager);
+            }
+        }, 100);
+        
         // Handle wireframe clicks (single vs double)
         function handleWireframeClick(element, event) {
             event.stopPropagation();
@@ -890,21 +1010,28 @@
                 category: element.dataset.category
             };
             
-            // Update sidebar info
+            // Update sidebar using agent sidebar
+            if (window.agentSidebar) {
+                window.agentSidebar.setSelectedWireframe(selectedWireframe.name, selectedWireframe.path);
+                window.agentSidebar.loadChangeRequests();
+            }
+            
+            // Update sidebar info for backwards compatibility
             document.querySelector('.selected-screen-name').textContent = selectedWireframe.name;
             
             // Enable chat input
             const chatInput = document.getElementById('chatInput');
             const sendBtn = document.querySelector('.send-btn');
-            chatInput.disabled = false;
-            sendBtn.disabled = false;
-            chatInput.placeholder = `Add a change request for ${selectedWireframe.name}...`;
-            
-            // Load chat history for this wireframe
-            loadChatHistory();
+            if (chatInput) {
+                chatInput.disabled = false;
+                chatInput.placeholder = `Add a change request for ${selectedWireframe.name}...`;
+            }
+            if (sendBtn) {
+                sendBtn.disabled = false;
+            }
             
             // Focus input
-            chatInput.focus();
+            if (chatInput) chatInput.focus();
         }
         
         
@@ -939,26 +1066,10 @@
         
         // Send chat message
         function sendChatMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (!message || !selectedWireframe) return;
-            
-            // Add user message as a change request
-            addMessageToChat('user', message);
-            
-            // Save to comment log
-            if (window.professionalCommentsManager) {
-                window.professionalCommentsManager.addCommentToLog(
-                    selectedWireframe.name,
-                    selectedWireframe.path,
-                    message
-                );
+            // Delegate to agent sidebar
+            if (window.agentSidebar) {
+                window.agentSidebar.sendChangeRequest();
             }
-            
-            // Clear input
-            input.value = '';
-            input.style.height = 'auto';
         }
         
         // Make function globally available
@@ -1226,6 +1337,7 @@
     <!-- Authentication and Professional Comments Scripts -->
     <script src="auth.js"></script>
     <script src="comments-manager.js"></script>
+    <script src="agent-sidebar.js"></script>
     
 </body>
 </html>

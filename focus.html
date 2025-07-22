@@ -181,15 +181,6 @@
             display: none;
         }
         
-        /* Navigation Hints */
-        .nav-hints {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            color: #666;
-            font-size: 12px;
-            opacity: 0.6;
-        }
         
         /* Responsive */
         @media (max-width: 768px) {
@@ -248,10 +239,6 @@
             
             .comment-input-focus:focus {
                 width: 260px;
-            }
-            
-            .nav-hints {
-                display: none;
             }
         }
         
@@ -431,10 +418,6 @@
             </div>
             
             
-            <!-- Navigation Hints -->
-            <div class="nav-hints">
-                Press ESC to exit • Use arrow keys to navigate
-            </div>
         </div>
     </div>
     </div>
@@ -519,6 +502,12 @@
             if (sidebarName) {
                 sidebarName.textContent = screenName;
             }
+            
+            // Initialize agent sidebar with current screen
+            if (window.agentSidebar) {
+                window.agentSidebar.setSelectedWireframe(screenName, screenPath);
+                window.agentSidebar.loadChangeRequests();
+            }
         }
         
         // Add export controls to header
@@ -552,21 +541,26 @@
         
         // Initialize
         loadWireframe();
-        updateSidebarInfo();
         
-        // Add export controls after comments manager loads
-        const checkCommentsManager = setInterval(() => {
-            if (window.professionalCommentsManager) {
-                addHeaderExportControls();
-                
-                // Listen for updates
-                window.professionalCommentsManager.events.addEventListener('uiUpdate', () => {
+        // Wait for all managers to be ready
+        window.addEventListener('load', () => {
+            updateSidebarInfo();
+            
+            // Add export controls after comments manager loads
+            const checkManagers = setInterval(() => {
+                if (window.professionalCommentsManager && window.agentSidebar) {
                     addHeaderExportControls();
-                });
-                
-                clearInterval(checkCommentsManager);
-            }
-        }, 100);
+                    updateSidebarInfo(); // Update again after managers are ready
+                    
+                    // Listen for updates
+                    window.professionalCommentsManager.events.addEventListener('uiUpdate', () => {
+                        addHeaderExportControls();
+                    });
+                    
+                    clearInterval(checkManagers);
+                }
+            }, 100);
+        });
         
         // Export controls are now in the header, not added by comments manager
         

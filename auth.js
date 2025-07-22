@@ -102,15 +102,7 @@ class AuthManager {
         // Callback for when authentication is successful
         console.log('User authenticated');
         
-        // Add logout button to category nav
-        const categoryNav = document.querySelector('.category-nav');
-        if (categoryNav && !document.querySelector('.logout-btn')) {
-            const logoutBtn = document.createElement('button');
-            logoutBtn.className = 'logout-btn';
-            logoutBtn.textContent = 'Logout';
-            logoutBtn.onclick = () => this.logout();
-            categoryNav.appendChild(logoutBtn);
-        }
+        // Logout button is now in the header controls
     }
 
     init() {
