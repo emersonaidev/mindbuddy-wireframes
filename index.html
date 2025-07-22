@@ -635,6 +635,136 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+        
+        /* Authentication Styles */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10000;
+        }
+        
+        .auth-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+        }
+        
+        .auth-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .auth-box {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .auth-box h2 {
+            color: #fff;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .auth-box p {
+            color: #999;
+            font-size: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 16px;
+            font-family: inherit;
+            margin-bottom: 16px;
+            transition: all 0.2s;
+        }
+        
+        .password-input:focus {
+            outline: none;
+            border-color: #007AFF;
+            background: #333;
+        }
+        
+        .password-input::placeholder {
+            color: #666;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: #007AFF;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: #0051D5;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .auth-error {
+            color: #FF453A;
+            font-size: 14px;
+            margin-top: 16px;
+            display: none;
+        }
+        
+        .auth-note {
+            color: #666;
+            font-size: 14px;
+            margin-top: 24px;
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 640px) {
+            .auth-box {
+                padding: 32px 24px;
+            }
+            
+            .auth-box h2 {
+                font-size: 24px;
+            }
+            
+            .auth-box p {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -681,10 +811,10 @@
             All Screens <span class="category-count">44</span>
         </button>
         <button class="category-btn" data-category="onboarding">
-            Onboarding <span class="category-count">5</span>
+            Onboarding <span class="category-count">4</span>
         </button>
         <button class="category-btn" data-category="auth">
-            Authentication <span class="category-count">6</span>
+            Authentication <span class="category-count">7</span>
         </button>
         <button class="category-btn" data-category="dashboard">
             Dashboard <span class="category-count">3</span>
@@ -831,12 +961,12 @@
                 { name: 'Welcome', path: 'v1/screens/auth/welcome.html' },
                 { name: 'How It Works', path: 'v1/screens/auth/how-it-works.html' },
                 { name: 'Connect Your Data', path: 'v1/screens/auth/connect-data.html' },
-                { name: 'Choose What to Share', path: 'v1/screens/auth/choose-data.html' },
                 { name: 'Account Created', path: 'v1/screens/auth/success.html' }
             ],
             auth: [
                 { name: 'Login', path: 'v1/screens/auth/login.html' },
                 { name: 'Create Account', path: 'v1/screens/auth/create-account.html' },
+                { name: 'Choose What to Share', path: 'v1/screens/auth/choose-data.html' },
                 { name: 'Forgot Password', path: 'v1/screens/auth/forgot-password.html' },
                 { name: 'Email Verification', path: 'v1/screens/auth/email-verification.html' },
                 { name: 'Sign in with Google', path: 'v1/screens/auth/sso-google.html' },

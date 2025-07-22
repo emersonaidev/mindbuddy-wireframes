@@ -6,181 +6,210 @@
     <title>$MNDY Tokens - MindBuddy V1</title>
     <link rel="stylesheet" href="../../styles/base.css">
     <style>
+        /* Global styling based on partner specifications */
+        body {
+            background-color: #F8F9FA;
+        }
+        
         .rewards-container {
             height: 100%;
             display: flex;
             flex-direction: column;
-            background: var(--gray-50);
+            background-color: #F8F9FA;
         }
         
-        .rewards-header {
-            background: var(--gray-900);
-            color: var(--white);
-            padding: var(--space-xl);
-            padding-top: var(--space-2xl);
-            padding-bottom: var(--space-3xl);
+        /* Navigation */
+        .nav-header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: transparent;
         }
         
-        .balance-section {
-            text-align: center;
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #000;
+            text-decoration: none;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
         }
         
-        .balance-label {
-            font-size: var(--font-sm);
-            opacity: 0.8;
-            margin-bottom: var(--space-sm);
+        .back-arrow {
+            font-size: 20px;
         }
         
-        .balance-amount {
-            font-size: 48px;
+        /* Title Section */
+        .title-section {
+            padding: 0 20px 20px;
+        }
+        
+        .page-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
             font-weight: 700;
-            line-height: 1;
-            margin-bottom: var(--space-md);
+            color: #000;
+            margin: 0;
         }
         
-        .balance-usd {
-            font-size: var(--font-lg);
-            opacity: 0.8;
-        }
-        
-        .balance-actions {
-            display: flex;
-            gap: var(--space-md);
-            margin-top: var(--space-xl);
-        }
-        
-        .balance-action {
+        /* Content */
+        .content {
             flex: 1;
-            padding: var(--space-md);
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: var(--radius-lg);
-            color: var(--white);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 20px 20px;
+        }
+        
+        /* Token Earnings History Card */
+        .earnings-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .card-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
             font-weight: 500;
-            text-align: center;
-            cursor: pointer;
+            color: #000;
+            margin: 0 0 4px 0;
         }
         
-        .section {
-            padding: var(--space-lg) var(--space-xl);
+        .card-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0 0 20px 0;
         }
         
-        .section-title {
-            font-size: var(--font-lg);
-            font-weight: 600;
-            margin-bottom: var(--space-lg);
+        /* Day Section */
+        .day-section {
+            margin-bottom: 20px;
         }
         
-        .history-list {
+        .day-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .day-header {
             display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-        }
-        
-        .history-item {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-md);
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-        
-        .history-info {
-            display: flex;
             align-items: center;
-            gap: var(--space-md);
+            margin-bottom: 12px;
         }
         
-        .history-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gray-100);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .history-icon-inner {
-            width: 20px;
-            height: 20px;
-            background: var(--gray-400);
-            border-radius: var(--radius-sm);
-        }
-        
-        .history-details {
-            flex: 1;
-        }
-        
-        .history-title {
+        .day-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
             font-weight: 500;
-            margin-bottom: var(--space-xs);
+            color: #000;
         }
         
-        .history-time {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
+        .day-total {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000;
         }
         
-        .history-amount {
+        .activities-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+            padding-left: 16px;
+        }
+        
+        .activity-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000;
+        }
+        
+        .activity-value {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            color: #000;
             text-align: right;
         }
         
-        .amount-value {
-            font-weight: 600;
-            color: var(--gray-900);
+        .day-divider {
+            height: 1px;
+            background-color: #F0F0F0;
+            margin: 16px 0;
         }
         
-        .amount-label {
-            font-size: var(--font-xs);
-            color: var(--gray-600);
-        }
-        
-        .date-separator {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
-            font-weight: 600;
-            margin: var(--space-md) 0;
-        }
-        
+        /* Token Utility Section */
         .utility-section {
-            background: var(--white);
-            margin: var(--space-lg);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-        }
-        
-        .utility-item {
-            padding: var(--space-md) 0;
-            border-bottom: 1px solid var(--gray-100);
-        }
-        
-        .utility-item:last-child {
-            border-bottom: none;
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
         }
         
         .utility-title {
-            font-weight: 600;
-            margin-bottom: var(--space-sm);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #000;
+            margin: 0 0 4px 0;
         }
         
-        .utility-badge {
-            font-size: var(--font-xs);
-            padding: 2px var(--space-sm);
-            background: var(--gray-100);
-            border-radius: var(--radius-sm);
-            color: var(--gray-600);
+        .utility-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            margin: 0 0 16px 0;
         }
         
-        .utility-description {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
-            line-height: 1.5;
+        .utility-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .utility-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .utility-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .utility-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #666;
+            font-size: 16px;
+            line-height: 20px;
+        }
+        
+        .utility-header {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #000;
+            margin: 0 0 4px 0;
+        }
+        
+        .utility-subtext {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            line-height: 1.4;
+            margin: 0;
         }
     </style>
 </head>
@@ -188,127 +217,103 @@
     <div class="screen">
         <div class="rewards-container">
             <!-- Navigation -->
-            <div class="nav-header" style="background: var(--gray-900); border-bottom: none;">
-                <div class="nav-back" style="color: white;">
-                    <span style="font-size: 20px;">←</span>
-                </div>
-                <div class="nav-title" style="color: white;">$MNDY Tokens</div>
-                <div class="nav-action"></div>
+            <div class="nav-header">
+                <a href="#" class="nav-back">
+                    <span class="back-arrow">←</span>
+                    <span>Back</span>
+                </a>
             </div>
             
-            <!-- Balance Header -->
-            <div class="rewards-header">
-                <div class="balance-section">
-                    <div class="balance-label">Total Balance</div>
-                    <div class="balance-amount">174 $MNDY</div>
-                    <div class="balance-usd">≈ $87.00 USD</div>
-                    
-                    <div class="balance-actions">
-                        <div class="balance-action">Withdraw</div>
-                        <div class="balance-action">Exchange</div>
-                    </div>
-                </div>
+            <!-- Title Section -->
+            <div class="title-section">
+                <h1 class="page-title">$MNDY Tokens</h1>
             </div>
             
             <!-- Content -->
             <div class="content">
-                <!-- Recent Activity -->
-                <div class="section">
-                    <h2 class="section-title">Your recent activity</h2>
+                <!-- Token Earnings History Card -->
+                <div class="earnings-card">
+                    <h2 class="card-title">Token Earnings History</h2>
+                    <p class="card-subtitle">Your recent activity</p>
                     
-                    <div class="history-list">
-                        <div class="date-separator">Today</div>
-                        
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="history-icon">
-                                    <div class="history-icon-inner"></div>
-                                </div>
-                                <div class="history-details">
-                                    <div class="history-title">Sleep data</div>
-                                    <div class="history-time">2 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="history-amount">
-                                <div class="amount-value">+3</div>
-                                <div class="amount-label">$MNDY</div>
-                            </div>
+                    <!-- Today -->
+                    <div class="day-section">
+                        <div class="day-header">
+                            <span class="day-label">Today</span>
+                            <span class="day-total">+7 $MNDY</span>
                         </div>
-                        
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="history-icon">
-                                    <div class="history-icon-inner"></div>
-                                </div>
-                                <div class="history-details">
-                                    <div class="history-title">HRV data</div>
-                                    <div class="history-time">5 hours ago</div>
-                                </div>
-                            </div>
-                            <div class="history-amount">
-                                <div class="amount-value">+4</div>
-                                <div class="amount-label">$MNDY</div>
-                            </div>
+                        <div class="activities-grid">
+                            <span class="activity-label">Sleep</span>
+                            <span class="activity-value">+3</span>
+                            <span class="activity-label">HRV</span>
+                            <span class="activity-value">+4</span>
                         </div>
-                        
-                        <div class="date-separator">Yesterday</div>
-                        
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="history-icon">
-                                    <div class="history-icon-inner"></div>
-                                </div>
-                                <div class="history-details">
-                                    <div class="history-title">Daily check-in</div>
-                                    <div class="history-time">1 day ago</div>
-                                </div>
-                            </div>
-                            <div class="history-amount">
-                                <div class="amount-value">+2</div>
-                                <div class="amount-label">$MNDY</div>
-                            </div>
+                    </div>
+                    
+                    <div class="day-divider"></div>
+                    
+                    <!-- Yesterday -->
+                    <div class="day-section">
+                        <div class="day-header">
+                            <span class="day-label">Yesterday</span>
+                            <span class="day-total">+5 $MNDY</span>
                         </div>
-                        
-                        <div class="history-item">
-                            <div class="history-info">
-                                <div class="history-icon">
-                                    <div class="history-icon-inner"></div>
-                                </div>
-                                <div class="history-details">
-                                    <div class="history-title">Steps goal reached</div>
-                                    <div class="history-time">1 day ago</div>
-                                </div>
-                            </div>
-                            <div class="history-amount">
-                                <div class="amount-value">+3</div>
-                                <div class="amount-label">$MNDY</div>
-                            </div>
+                        <div class="activities-grid">
+                            <span class="activity-label">Sleep</span>
+                            <span class="activity-value">+3</span>
+                            <span class="activity-label">Screentime</span>
+                            <span class="activity-value">+2</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-divider"></div>
+                    
+                    <!-- 2 days ago -->
+                    <div class="day-section">
+                        <div class="day-header">
+                            <span class="day-label">2 days ago</span>
+                            <span class="day-total">+6 $MNDY</span>
+                        </div>
+                        <div class="activities-grid">
+                            <span class="activity-label">HRV</span>
+                            <span class="activity-value">+3</span>
+                            <span class="activity-label">Meditation</span>
+                            <span class="activity-value">+3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-divider"></div>
+                    
+                    <!-- 3 days ago -->
+                    <div class="day-section">
+                        <div class="day-header">
+                            <span class="day-label">3 days ago</span>
+                            <span class="day-total">+4 $MNDY</span>
+                        </div>
+                        <div class="activities-grid">
+                            <span class="activity-label">Sleep</span>
+                            <span class="activity-value">+2</span>
+                            <span class="activity-label">HRV</span>
+                            <span class="activity-value">+2</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Token Utility -->
+                <!-- Token Utility Section -->
                 <div class="utility-section">
-                    <h2 class="section-title">What can I use $MNDY for?</h2>
+                    <h2 class="utility-title">What can I use $MNDY for?</h2>
+                    <p class="utility-subtitle">Token utility</p>
                     
-                    <div class="utility-item">
-                        <div class="utility-title">
-                            Unlock future premium features
-                            <span class="utility-badge">Coming Soon</span>
-                        </div>
-                        <div class="utility-description">
-                            Access advanced analytics and exclusive wellness tools
-                        </div>
-                    </div>
-                    
-                    <div class="utility-item">
-                        <div class="utility-title">
-                            Exchange on supported platforms
-                        </div>
-                        <div class="utility-description">
-                            Trade your tokens on decentralised exchanges and supported platforms
-                        </div>
-                    </div>
+                    <ul class="utility-list">
+                        <li class="utility-item">
+                            <div class="utility-header">Unlock future premium features</div>
+                            <p class="utility-subtext">Access advanced analytics and exclusive wellness tools (coming soon)</p>
+                        </li>
+                        <li class="utility-item">
+                            <div class="utility-header">Exchange on supported platforms</div>
+                            <p class="utility-subtext">Trade your tokens on decentralised exchanges and supported platforms</p>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

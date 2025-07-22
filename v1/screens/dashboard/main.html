@@ -6,186 +6,291 @@
     <title>Dashboard - MindBuddy V1</title>
     <link rel="stylesheet" href="../../styles/base.css">
     <style>
+        /* Global styling based on partner specifications */
+        body {
+            background-color: #F8F9FA;
+        }
+        
         .dashboard-container {
             height: 100%;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            background-color: #F8F9FA;
         }
         
+        /* Header Section */
         .dashboard-header {
-            padding: var(--space-lg);
-            background: var(--white);
-            border-bottom: 1px solid var(--gray-100);
-        }
-        
-        .header-top {
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-md);
-        }
-        
-        .user-greeting {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
-            margin-bottom: var(--space-xs);
         }
         
         .page-title {
-            font-size: var(--font-2xl);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
             font-weight: 700;
+            color: #000;
+            margin: 0;
         }
         
-        .header-action {
-            width: 40px;
-            height: 40px;
-            background: var(--gray-100);
-            border-radius: var(--radius-full);
+        .menu-button {
+            width: 24px;
+            height: 24px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 5px 0;
+            cursor: pointer;
         }
         
-        .main-card {
-            background: var(--gray-900);
-            color: var(--white);
-            border-radius: var(--radius-lg);
-            padding: var(--space-xl);
-            margin-bottom: var(--space-lg);
+        .menu-line {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            border-radius: 1px;
         }
         
-        .balance-label {
-            font-size: var(--font-sm);
-            opacity: 0.8;
-            margin-bottom: var(--space-sm);
+        /* Card styling */
+        .card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        /* Content */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 0 20px 20px;
+        }
+        
+        /* $MNDY Balance Card */
+        .balance-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        
+        .balance-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0;
         }
         
         .balance-amount {
-            font-size: var(--font-3xl);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: var(--space-sm);
+            color: #000;
+            margin: 0;
         }
         
-        .balance-change {
-            font-size: var(--font-sm);
-            opacity: 0.8;
+        .earned-badge {
+            background-color: #F0F0F0;
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #000;
         }
         
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-md);
-            margin-bottom: var(--space-lg);
+        .earnings-breakdown {
+            margin-top: 20px;
         }
         
-        .metric-card {
-            text-align: center;
-            position: relative;
-        }
-        
-        .metric-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: var(--radius-full);
-            border: 8px solid var(--gray-100);
-            position: relative;
-            margin: 0 auto var(--space-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
-        .metric-circle::before {
-            content: '';
-            position: absolute;
-            top: -8px;
-            left: -8px;
-            right: -8px;
-            bottom: -8px;
-            border-radius: var(--radius-full);
-            border: 8px solid var(--gray-900);
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-            transform: rotate(45deg);
-        }
-        
-        .metric-value {
-            font-size: var(--font-2xl);
-            font-weight: 700;
-        }
-        
-        .metric-unit {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
-        }
-        
-        .metric-label {
-            font-weight: 600;
-            margin-bottom: var(--space-xs);
-        }
-        
-        .metric-link {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
-            text-decoration: none;
-        }
-        
-        .activity-section {
-            margin-bottom: var(--space-xl);
-        }
-        
-        .section-header {
+        .earning-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--space-md);
+            padding: 8px 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #000;
         }
         
-        .section-title {
-            font-size: var(--font-lg);
-            font-weight: 600;
+        .earning-item:not(:last-child) {
+            border-bottom: 1px solid #F0F0F0;
         }
         
-        .section-link {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
+        /* Resilience Score Card */
+        .resilience-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .resilience-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #000;
+            margin: 0 0 4px 0;
+        }
+        
+        .resilience-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #999;
+            margin: 0 0 20px 0;
+        }
+        
+        .resilience-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .resilience-ring {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .ring-background {
+            fill: none;
+            stroke: #E0E0E0;
+            stroke-width: 10;
+        }
+        
+        .ring-progress {
+            fill: none;
+            stroke: #666;
+            stroke-width: 10;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .ring-score {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        
+        .score-value {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            display: block;
+        }
+        
+        .score-max {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: #666;
+        }
+        
+        .resilience-right {
+            flex: 1;
+            margin-left: 20px;
+        }
+        
+        .resilience-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .level-dots {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+        
+        .level-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #E0E0E0;
+        }
+        
+        .level-dot.active {
+            background-color: #666;
+        }
+        
+        .resilience-link {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
             text-decoration: none;
         }
         
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: var(--space-md) 0;
-            border-bottom: 1px solid var(--gray-100);
+        /* Data Reputation Score Card */
+        .reputation-card {
+            background: #FFFFFF;
+            border-radius: 16px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 24px;
         }
         
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gray-100);
-            border-radius: var(--radius-full);
-            margin-right: var(--space-md);
-        }
-        
-        .activity-content {
-            flex: 1;
-        }
-        
-        .activity-title {
+        .reputation-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 14px;
             font-weight: 500;
-            margin-bottom: var(--space-xs);
+            color: #000;
+            margin: 0 0 4px 0;
         }
         
-        .activity-time {
-            font-size: var(--font-sm);
-            color: var(--gray-600);
+        .reputation-subtitle {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 12px;
+            font-weight: 400;
+            color: #666;
+            margin: 0 0 20px 0;
         }
         
-        .activity-amount {
-            font-weight: 600;
-            color: var(--gray-900);
+        .reputation-score {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            margin: 0 0 12px 0;
+        }
+        
+        .reputation-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #E0E0E0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .reputation-fill {
+            height: 100%;
+            background-color: #666;
+            width: 85%;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -194,88 +299,82 @@
         <div class="dashboard-container">
             <!-- Header -->
             <div class="dashboard-header">
-                <div class="header-top">
-                    <div>
-                        <div class="user-greeting">Good morning</div>
-                        <h1 class="page-title">Dashboard</h1>
-                    </div>
-                    <div class="header-action"></div>
+                <h1 class="page-title">Dashboard</h1>
+                <div class="menu-button">
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
+                    <div class="menu-line"></div>
                 </div>
             </div>
             
             <!-- Content -->
-            <div class="content" style="padding-bottom: 0;">
-                <div class="container" style="height: 100%; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: var(--space-xl);">
-                    <!-- Token Balance -->
-                    <div class="main-card">
-                        <div class="balance-label">$MNDY Balance</div>
-                        <div class="balance-amount">174 $MNDY</div>
-                        <div class="balance-change">+7 earned today</div>
+            <div class="content">
+                <!-- $MNDY Balance Card -->
+                <div class="balance-card">
+                    <div class="balance-header">
+                        <div>
+                            <h2 class="balance-title">$MNDY Balance</h2>
+                            <p class="balance-amount">174 $MNDY</p>
+                        </div>
+                        <div class="earned-badge">+7 earned today</div>
                     </div>
                     
-                    <!-- Metrics -->
-                    <div class="metrics-grid">
-                        <div class="metric-card">
-                            <div class="card">
-                                <div class="metric-circle">
-                                    <div class="metric-value">72</div>
-                                    <div class="metric-unit">/ 100</div>
-                                </div>
-                                <div class="metric-label">Resilience Score</div>
-                                <a href="#" class="metric-link">What does this mean?</a>
-                            </div>
+                    <div class="earnings-breakdown">
+                        <div class="earning-item">
+                            <span>Sleep</span>
+                            <span>+3</span>
                         </div>
-                        
-                        <div class="metric-card">
-                            <div class="card">
-                                <div class="metric-circle">
-                                    <div class="metric-value">85%</div>
-                                </div>
-                                <div class="metric-label">Data Reputation</div>
-                                <a href="#" class="metric-link">How to improve</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Recent Activity -->
-                    <div class="activity-section">
-                        <div class="section-header">
-                            <h2 class="section-title">Recent Activity</h2>
-                            <a href="#" class="section-link">See all</a>
-                        </div>
-                        
-                        <div class="activity-list">
-                            <div class="activity-item">
-                                <div class="activity-icon"></div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Sleep data synced</div>
-                                    <div class="activity-time">2 hours ago</div>
-                                </div>
-                                <div class="activity-amount">+3 $MNDY</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon"></div>
-                                <div class="activity-content">
-                                    <div class="activity-title">HRV data synced</div>
-                                    <div class="activity-time">5 hours ago</div>
-                                </div>
-                                <div class="activity-amount">+4 $MNDY</div>
-                            </div>
-                            
-                            <div class="activity-item">
-                                <div class="activity-icon"></div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Daily check-in</div>
-                                    <div class="activity-time">Yesterday</div>
-                                </div>
-                                <div class="activity-amount">+2 $MNDY</div>
-                            </div>
+                        <div class="earning-item">
+                            <span>HRV</span>
+                            <span>+4</span>
                         </div>
                     </div>
                 </div>
+                
+                <!-- Resilience Score Card -->
+                <div class="resilience-card">
+                    <h2 class="resilience-title">Resilience Score</h2>
+                    <p class="resilience-subtitle">Your daily stress recovery score</p>
+                    
+                    <div class="resilience-content">
+                        <div class="resilience-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle class="ring-background" cx="50" cy="50" r="40"></circle>
+                                <circle class="ring-progress" cx="50" cy="50" r="40" 
+                                        stroke-dasharray="251.2" 
+                                        stroke-dashoffset="70.336"></circle>
+                            </svg>
+                            <div class="ring-score">
+                                <span class="score-value">72</span>
+                                <span class="score-max">/ 100</span>
+                            </div>
+                        </div>
+                        
+                        <div class="resilience-right">
+                            <div class="resilience-label">High</div>
+                            <div class="level-dots">
+                                <div class="level-dot active"></div>
+                                <div class="level-dot active"></div>
+                                <div class="level-dot active"></div>
+                                <div class="level-dot"></div>
+                            </div>
+                            <a href="#" class="resilience-link">What does this mean?</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Data Reputation Score Card -->
+                <div class="reputation-card">
+                    <h2 class="reputation-title">Data Reputation Score</h2>
+                    <p class="reputation-subtitle">Based on consistency, completeness, and quality of your data</p>
+                    
+                    <p class="reputation-score">85%</p>
+                    
+                    <div class="reputation-bar">
+                        <div class="reputation-fill"></div>
+                    </div>
+                </div>
             </div>
-            
         </div>
     </div>
 </body>
