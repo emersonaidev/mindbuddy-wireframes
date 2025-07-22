@@ -644,7 +644,7 @@
                 <h2 class="section-title">All Screens</h2>
                 <p class="section-description">Complete collection of MindBuddy wireframes</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Onboarding -->
@@ -653,7 +653,7 @@
                 <h2 class="section-title">Onboarding</h2>
                 <p class="section-description">Welcome experience and initial user setup</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Authentication -->
@@ -662,7 +662,7 @@
                 <h2 class="section-title">Authentication</h2>
                 <p class="section-description">Login, account creation, and security flows</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Dashboard -->
@@ -671,7 +671,7 @@
                 <h2 class="section-title">Dashboard & Navigation</h2>
                 <p class="section-description">Main app screens and primary navigation</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Health Data -->
@@ -680,7 +680,7 @@
                 <h2 class="section-title">Health Data</h2>
                 <p class="section-description">Health metrics, tracking, and detailed views</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Rewards -->
@@ -689,7 +689,7 @@
                 <h2 class="section-title">Rewards & Tokens</h2>
                 <p class="section-description">$MNDY token management and transactions</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Profile -->
@@ -698,7 +698,7 @@
                 <h2 class="section-title">Profile & Settings</h2>
                 <p class="section-description">Account management and app configuration</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Errors -->
@@ -707,7 +707,7 @@
                 <h2 class="section-title">Error States</h2>
                 <p class="section-description">Error handling, loading, and empty states</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
         
         <!-- Legal -->
@@ -716,26 +716,26 @@
                 <h2 class="section-title">Legal Documents</h2>
                 <p class="section-description">Terms, privacy policy, and compliance information</p>
             </div>
-            <div class="screens-grid double"></div>
+            <div class="screens-grid quad"></div>
         </div>
     </div>
             
             <!-- View Options -->
     <div class="view-options">
-        <button class="view-btn" data-view="single">
+        <button class="view-btn" data-view="single" title="Single column view (Shift+1)">
             <div class="view-icon single">
                 <span></span>
             </div>
             <span>1</span>
         </button>
-        <button class="view-btn active" data-view="double">
+        <button class="view-btn" data-view="double" title="Double column view (Shift+2)">
             <div class="view-icon double">
                 <span></span>
                 <span></span>
             </div>
             <span>2</span>
         </button>
-        <button class="view-btn" data-view="triple">
+        <button class="view-btn" data-view="triple" title="Triple column view (Shift+3)">
             <div class="view-icon triple">
                 <span></span>
                 <span></span>
@@ -743,7 +743,7 @@
             </div>
             <span>3</span>
         </button>
-        <button class="view-btn" data-view="quad">
+        <button class="view-btn active" data-view="quad" title="Quad column view (Shift+4)">
             <div class="view-icon quad">
                 <span></span>
                 <span></span>
@@ -1318,8 +1318,28 @@
             }
         }
         
+        // Function to set the best initial view based on screen size
+        function setInitialView() {
+            const viewportWidth = window.innerWidth;
+            const availableWidth = viewportWidth - 48;
+            const screenWidth = 240;
+            const gap = 25;
+            const maxColumns = Math.floor((availableWidth + gap) / (screenWidth + gap));
+            
+            // Try to use 4 columns if possible, otherwise use the maximum available
+            const targetColumns = Math.min(4, maxColumns);
+            if (targetColumns > 0) {
+                const viewBtns = document.querySelectorAll('.view-btn');
+                const targetBtn = viewBtns[targetColumns - 1];
+                if (targetBtn && !targetBtn.classList.contains('active')) {
+                    targetBtn.click();
+                }
+            }
+        }
+        
         // Update on load and resize
         updateGridViewButtons();
+        setInitialView();
         window.addEventListener('resize', updateGridViewButtons);
         
         // Keyboard navigation
@@ -1334,8 +1354,8 @@
                 categoryBtnsArray[currentIndex + 1].click();
             }
             
-            // View switching with number keys
-            if (e.key >= '1' && e.key <= '4') {
+            // View switching with Shift + number keys
+            if (e.shiftKey && e.key >= '1' && e.key <= '4') {
                 const viewIndex = parseInt(e.key) - 1;
                 const viewBtnArray = Array.from(viewBtns);
                 if (viewBtnArray[viewIndex]) {
