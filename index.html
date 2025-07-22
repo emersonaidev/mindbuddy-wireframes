@@ -639,32 +639,19 @@
         /* Simple category divider for All Screens */
         .category-simple-divider {
             grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            margin: 32px 0;
-            position: relative;
+            margin: 40px 0 24px 0;
+            padding: 0 20px;
         }
         
-        .category-simple-divider::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: #333;
-            opacity: 0.15;
+        .category-simple-divider:first-child {
+            margin-top: 0;
         }
         
         .category-simple-divider span {
-            background: #fafafa;
-            padding: 0 16px;
-            font-size: 12px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #666;
-            position: relative;
-            z-index: 1;
+            font-size: 18px;
+            color: #888;
+            font-weight: 400;
+            display: block;
         }
         
         /* Authentication Styles */
@@ -1129,17 +1116,13 @@
                             legal: 'Legal'
                         };
                         
-                        let isFirstCategory = true;
-                        Object.entries(screens).forEach(([cat, categoryScreens]) => {
-                            // Add divider between categories (not before the first one)
-                            if (!isFirstCategory) {
-                                const divider = document.createElement('div');
-                                divider.className = 'category-simple-divider';
-                                divider.innerHTML = `<span>${categoryNames[cat] || cat}</span>`;
-                                divider.style.gridColumn = '1 / -1'; // Span all columns
-                                grid.appendChild(divider);
-                            }
-                            isFirstCategory = false;
+                        Object.entries(screens).forEach(([cat, categoryScreens], index) => {
+                            // Add section label for each category
+                            const divider = document.createElement('div');
+                            divider.className = 'category-simple-divider';
+                            divider.innerHTML = `<span>${categoryNames[cat] || cat}</span>`;
+                            divider.style.gridColumn = '1 / -1'; // Span all columns
+                            grid.appendChild(divider);
                             
                             // Add screens directly to the main grid
                             categoryScreens.forEach(screen => {
