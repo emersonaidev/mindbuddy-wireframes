@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test iPhone Centering</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #222;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        .test-container {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+        }
+        
+        .test-frame {
+            width: 433px;
+            height: 882px;
+            background: #c9b17a;
+            border-radius: 69px;
+            padding: 3px;
+            position: relative;
+        }
+        
+        .test-inner {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 66px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .test-screen {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            background: white;
+            border-radius: 54px;
+            overflow: hidden;
+        }
+        
+        .test-iframe {
+            width: 393px;
+            height: 852px;
+            border: none;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Testing iPhone Frame Centering</h2>
+    <div class="test-container">
+        <div class="test-frame">
+            <div class="test-inner">
+                <div class="test-screen">
+                    <iframe src="v1/screens/auth/choose-data.html" class="test-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-frame">
+            <div class="test-inner">
+                <div class="test-screen">
+                    <iframe src="v1/screens/auth/connect-data.html" class="test-iframe"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBuddy V1 Wireframes - Category View</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            background: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        .header {
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Category Navigation */
+        .category-nav {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .category-btn {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        
+        .category-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .category-btn.active {
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        .category-count {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+        
+        .category-btn.active .category-count {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .category-btn:not(.active) .category-count {
+            background: rgba(0,0,0,0.1);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        /* Category Section */
+        .category-section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .category-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-header {
+            margin-bottom: 24px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .section-description {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        /* Screen Grid */
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        /* Screen Card */
+        .screen-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .screen-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-2px);
+        }
+        
+        .screen-preview {
+            width: 100%;
+            height: 450px;
+            border: none;
+            pointer-events: none;
+            transform: scale(0.47);
+            transform-origin: top left;
+            overflow: hidden;
+        }
+        
+        .screen-info {
+            padding: 16px 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .screen-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .screen-path {
+            font-size: 12px;
+            color: #999;
+            font-family: 'SF Mono', monospace;
+        }
+        
+        /* View Options */
+        .view-options {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 8px;
+        }
+        
+        .view-btn {
+            padding: 8px 12px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .view-btn:hover {
+            background: #e0e0e0;
+        }
+        
+        .view-btn.active {
+            background: #1a1a1a;
+            color: white;
+        }
+        
+        /* Responsive Grid Adjustments */
+        .screens-grid.compact {
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        .screens-grid.compact .screen-preview {
+            height: 350px;
+            transform: scale(0.37);
+        }
+        
+        .screens-grid.large {
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 32px;
+        }
+        
+        .screens-grid.large .screen-preview {
+            height: 550px;
+            transform: scale(0.57);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .screens-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .view-options {
+                display: none;
+            }
+        }
+        
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>MindBuddy V1 Wireframes</h1>
+        <p>Clean Minimalist Design System • iPhone 15 Pro (393×852px)</p>
+    </div>
+    
+    <!-- Category Navigation -->
+    <div class="category-nav">
+        <button class="category-btn active" data-category="all">
+            All Screens <span class="category-count">45</span>
+        </button>
+        <button class="category-btn" data-category="auth">
+            Authentication <span class="category-count">11</span>
+        </button>
+        <button class="category-btn" data-category="dashboard">
+            Dashboard <span class="category-count">5</span>
+        </button>
+        <button class="category-btn" data-category="health">
+            Health Data <span class="category-count">5</span>
+        </button>
+        <button class="category-btn" data-category="rewards">
+            Rewards <span class="category-count">5</span>
+        </button>
+        <button class="category-btn" data-category="profile">
+            Profile & Settings <span class="category-count">6</span>
+        </button>
+        <button class="category-btn" data-category="errors">
+            Error States <span class="category-count">5</span>
+        </button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- All Screens -->
+        <div class="category-section active" data-category="all">
+            <div class="section-header">
+                <h2 class="section-title">All Screens</h2>
+                <p class="section-description">Complete collection of V1 wireframes</p>
+            </div>
+            <div class="screens-grid">
+                <!-- All screens will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Authentication -->
+        <div class="category-section" data-category="auth">
+            <div class="section-header">
+                <h2 class="section-title">Authentication</h2>
+                <p class="section-description">User onboarding, login, and account creation flows</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+        
+        <!-- Dashboard -->
+        <div class="category-section" data-category="dashboard">
+            <div class="section-header">
+                <h2 class="section-title">Dashboard & Navigation</h2>
+                <p class="section-description">Main app screens and primary navigation</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+        
+        <!-- Health Data -->
+        <div class="category-section" data-category="health">
+            <div class="section-header">
+                <h2 class="section-title">Health Data</h2>
+                <p class="section-description">Health metrics, tracking, and detailed views</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+        
+        <!-- Rewards -->
+        <div class="category-section" data-category="rewards">
+            <div class="section-header">
+                <h2 class="section-title">Rewards & Tokens</h2>
+                <p class="section-description">$MNDY token management and transactions</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+        
+        <!-- Profile -->
+        <div class="category-section" data-category="profile">
+            <div class="section-header">
+                <h2 class="section-title">Profile & Settings</h2>
+                <p class="section-description">Account management and app configuration</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+        
+        <!-- Errors -->
+        <div class="category-section" data-category="errors">
+            <div class="section-header">
+                <h2 class="section-title">Error States</h2>
+                <p class="section-description">Error handling, loading, and empty states</p>
+            </div>
+            <div class="screens-grid"></div>
+        </div>
+    </div>
+    
+    <!-- View Options -->
+    <div class="view-options">
+        <button class="view-btn" data-view="compact">Compact</button>
+        <button class="view-btn active" data-view="default">Default</button>
+        <button class="view-btn" data-view="large">Large</button>
+    </div>
+    
+    <script>
+        // Screen data organized by category
+        const screens = {
+            auth: [
+                { name: 'Welcome', path: 'v1/screens/auth/welcome.html' },
+                { name: 'Login', path: 'v1/screens/auth/login.html' },
+                { name: 'How It Works', path: 'v1/screens/auth/how-it-works.html' },
+                { name: 'Create Account', path: 'v1/screens/auth/create-account.html' },
+                { name: 'Connect Your Data', path: 'v1/screens/auth/connect-data.html' },
+                { name: 'Choose What to Share', path: 'v1/screens/auth/choose-data.html' },
+                { name: 'Forgot Password', path: 'v1/screens/auth/forgot-password.html' },
+                { name: 'Email Verification', path: 'v1/screens/auth/email-verification.html' },
+                { name: 'Account Created', path: 'v1/screens/auth/success.html' },
+                { name: 'Sign in with Google', path: 'v1/screens/auth/sso-google.html' },
+                { name: 'Sign in with Apple', path: 'v1/screens/auth/sso-apple.html' }
+            ],
+            dashboard: [
+                { name: 'Dashboard', path: 'v1/screens/dashboard/main.html' },
+                { name: '$MNDY Tokens', path: 'v1/screens/rewards/main.html' },
+                { name: 'Health Data Overview', path: 'v1/screens/health/main.html' },
+                { name: 'Profile', path: 'v1/screens/profile/main.html' },
+                { name: 'Insights', path: 'v1/screens/insights/main.html' }
+            ],
+            health: [
+                { name: 'Health Data Main', path: 'v1/screens/health/main.html' },
+                { name: 'Heart Rate Detail', path: 'v1/screens/health/heart-rate-detail.html' },
+                { name: 'Sleep Analysis', path: 'v1/screens/health/sleep-detail.html' },
+                { name: 'HRV Detail', path: 'v1/screens/health/hrv-detail.html' },
+                { name: 'Activity Detail', path: 'v1/screens/health/activity-detail.html' }
+            ],
+            rewards: [
+                { name: 'Rewards Overview', path: 'v1/screens/rewards/main.html' },
+                { name: 'Withdraw $MNDY', path: 'v1/screens/rewards/withdraw.html' },
+                { name: 'Exchange Tokens', path: 'v1/screens/rewards/exchange.html' },
+                { name: 'Transaction History', path: 'v1/screens/rewards/history.html' },
+                { name: 'Earn More $MNDY', path: 'v1/screens/rewards/earn-more.html' }
+            ],
+            profile: [
+                { name: 'Profile Main', path: 'v1/screens/profile/main.html' },
+                { name: 'Personal Information', path: 'v1/screens/profile/personal-info.html' },
+                { name: 'Security Settings', path: 'v1/screens/profile/security.html' },
+                { name: 'Connected Devices', path: 'v1/screens/profile/connected-devices.html' },
+                { name: 'Notification Settings', path: 'v1/screens/profile/notifications.html' },
+                { name: 'Subscription Plans', path: 'v1/screens/profile/subscription.html' }
+            ],
+            errors: [
+                { name: 'Network Error', path: 'v1/screens/errors/network-error.html' },
+                { name: 'Empty State', path: 'v1/screens/errors/empty-state.html' },
+                { name: 'Permission Denied', path: 'v1/screens/errors/permission-denied.html' },
+                { name: 'Loading States', path: 'v1/screens/errors/loading.html' },
+                { name: 'Generic Error', path: 'v1/screens/errors/generic-error.html' }
+            ]
+        };
+        
+        // Create screen card HTML
+        function createScreenCard(screen) {
+            return `
+                <div class="screen-card">
+                    <iframe src="${screen.path}" class="screen-preview"></iframe>
+                    <div class="screen-info">
+                        <h3 class="screen-name">${screen.name}</h3>
+                        <p class="screen-path">${screen.path}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Populate screens for a category
+        function populateScreens(category) {
+            const sections = document.querySelectorAll('.category-section');
+            
+            sections.forEach(section => {
+                const sectionCategory = section.dataset.category;
+                const grid = section.querySelector('.screens-grid');
+                
+                if (sectionCategory === category || (category === 'all' && sectionCategory === 'all')) {
+                    grid.innerHTML = '';
+                    
+                    if (sectionCategory === 'all') {
+                        // Show all screens
+                        Object.values(screens).forEach(categoryScreens => {
+                            categoryScreens.forEach(screen => {
+                                grid.innerHTML += createScreenCard(screen);
+                            });
+                        });
+                    } else {
+                        // Show specific category
+                        screens[sectionCategory].forEach(screen => {
+                            grid.innerHTML += createScreenCard(screen);
+                        });
+                    }
+                }
+            });
+        }
+        
+        // Category navigation
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const categorySections = document.querySelectorAll('.category-section');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+                
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Show corresponding section
+                categorySections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.dataset.category === category) {
+                        section.classList.add('active');
+                        populateScreens(category);
+                    }
+                });
+            });
+        });
+        
+        // View size options
+        const viewBtns = document.querySelectorAll('.view-btn');
+        const grids = document.querySelectorAll('.screens-grid');
+        
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const view = btn.dataset.view;
+                
+                // Update active button
+                viewBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update grid class
+                grids.forEach(grid => {
+                    grid.classList.remove('compact', 'large');
+                    if (view === 'compact') grid.classList.add('compact');
+                    if (view === 'large') grid.classList.add('large');
+                });
+            });
+        });
+        
+        // Initialize with all screens
+        populateScreens('all');
+    </script>
+</body>
+</html>

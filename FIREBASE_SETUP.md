@@ -1,61 +1,96 @@
-# Firebase Setup Instructions
+# Firebase Setup Guide - MindBuddy Wireframes
 
-## Setting up Firebase for MindBuddy Wireframes
+## ⚠️ Erro Atual: "auth/invalid-api-key"
 
-### 1. Create a Firebase Project
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Create a project" 
-3. Name your project (e.g., "mindbuddy-wireframes")
-4. Follow the setup wizard
+O erro que está aparecendo indica que a configuração do Firebase está incorreta. O arquivo `firebase-config.js` estava usando uma chave privada ao invés da API Key pública do Firebase.
 
-### 2. Enable Google Authentication
-1. In Firebase Console, go to "Authentication" → "Sign-in method"
-2. Enable "Google" provider
-3. Add your project name and support email
-4. Save the configuration
+## Como Corrigir
 
-### 3. Configure Authorized Domains
-1. In Authentication → Settings → Authorized domains
-2. Add your domain (e.g., `yourdomain.com`)
-3. For local testing, `localhost` is already authorized
+### 1. Criar Projeto no Firebase (se ainda não tiver)
+1. Acesse [Firebase Console](https://console.firebase.google.com/)
+2. Clique em "Criar um projeto"
+3. Nome: "mindbuddy-wireframes" (ou outro de sua preferência)
+4. Desative o Google Analytics (não é necessário)
+5. Clique em "Criar projeto"
 
-### 4. Get Your Firebase Configuration
-1. Go to Project Settings (gear icon)
-2. Under "Your apps", click "Web" (</>)
-3. Register your app with a nickname
-4. Copy the Firebase configuration object
+### 2. Ativar Autenticação Google
+1. No painel do Firebase, clique em **Authentication**
+2. Clique em **Começar**
+3. Vá para a aba **Método de login**
+4. Clique em **Google**
+5. Ative o toggle **Ativar**
+6. Adicione seu email em **E-mail de suporte do projeto**
+7. Clique em **Salvar**
 
-### 5. Update firebase-config.js
-Replace the placeholder values in `firebase-config.js` with your actual Firebase configuration:
+### 3. Obter Configuração Correta
+1. Clique no ícone de engrenagem ⚙️ ao lado de "Visão geral do projeto"
+2. Selecione **Configurações do projeto**
+3. Role até **Seus aplicativos**
+4. Clique no ícone **</>** (Web)
+5. Registre o app com um apelido (ex: "MindBuddy Wireframes")
+6. Clique em **Registrar app**
+7. **IMPORTANTE**: Copie a configuração que aparece
 
+A configuração correta deve parecer com isto:
 ```javascript
 const firebaseConfig = {
-    apiKey: "YOUR_ACTUAL_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDtLk2Fz3...", // Começa com AIza
+    authDomain: "mindbuddy-wireframes.firebaseapp.com",
+    projectId: "mindbuddy-wireframes",
+    storageBucket: "mindbuddy-wireframes.appspot.com",
+    messagingSenderId: "123456789012",
+    appId: "1:123456789012:web:abcdef123456"
 };
 ```
 
-### 6. Configure User Access (Optional)
-To restrict access to specific users:
-1. In Firebase Console, go to "Authentication" → "Users"
-2. You can manually add authorized users
-3. Or implement a whitelist in your code checking `user.email`
+### 4. Atualizar firebase-config.js
+1. Abra o arquivo `firebase-config.js`
+2. Substitua TODO o conteúdo da `const firebaseConfig` com a configuração copiada
+3. Salve o arquivo
 
-### 7. Deploy to Your Domain
-1. Make sure your domain is added to authorized domains
-2. Deploy all files to your web server
-3. Test the Google Sign-In flow
+### 5. Adicionar Domínios Autorizados
+1. No Firebase Console, vá para **Authentication** → **Settings**
+2. Clique na aba **Domínios autorizados**
+3. Adicione (se necessário):
+   - `localhost` (já está por padrão)
+   - `127.0.0.1`
+   - `emersonaidev.github.io` (se usar GitHub Pages)
 
-## Security Notes
-- Never commit your Firebase configuration to public repositories
-- Use environment variables or secure configuration management
-- Consider implementing additional access control based on email domains or specific user lists
+### 6. Testar
+1. Abra o `index.html` no navegador
+2. Deve aparecer o botão "Sign in with Google"
+3. Clique e faça login
+4. Após autenticar, você terá acesso aos wireframes
 
-## Testing Locally
-1. Use a local web server (e.g., `python -m http.server 8000`)
-2. Access via `http://localhost:8000`
-3. Firebase auth works on localhost by default
+## Solução de Problemas
+
+### Erro: "auth/invalid-api-key"
+- **Causa**: A API Key está no formato errado
+- **Solução**: A API Key deve começar com `AIza...`, NÃO deve ser uma chave privada com `-----BEGIN PRIVATE KEY-----`
+
+### Erro: "auth/unauthorized-domain"
+- **Causa**: O domínio não está autorizado
+- **Solução**: Adicione seu domínio em Authentication → Settings → Domínios autorizados
+
+### Erro: "Failed to load authentication system"
+- **Causa**: Configuração do Firebase incorreta
+- **Solução**: Verifique se copiou a configuração correta do Firebase Console
+
+## Exemplo de Configuração Correta
+
+```javascript
+// firebase-config.js
+const firebaseConfig = {
+    apiKey: "AIzaSyDtLk2Fz3bCwPm9wF5vB6nH8jK4lM2oP3q", // Exemplo
+    authDomain: "meu-projeto.firebaseapp.com",
+    projectId: "meu-projeto",
+    storageBucket: "meu-projeto.appspot.com",
+    messagingSenderId: "987654321098",
+    appId: "1:987654321098:web:fedcba9876543210"
+};
+```
+
+## Notas de Segurança
+- A API Key do Firebase é pública (é restrita por domínio)
+- NUNCA use chaves privadas de service account no código cliente
+- A configuração do Firebase pode ser commitada no GitHub (é pública)
