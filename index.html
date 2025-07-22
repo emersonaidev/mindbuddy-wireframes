@@ -636,6 +636,45 @@
             transition: width 0.3s ease;
         }
         
+        /* Category sections within All Screens */
+        .all-screens-category {
+            margin-bottom: 48px;
+        }
+        
+        .all-screens-category:last-child {
+            margin-bottom: 0;
+        }
+        
+        .category-divider {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 16px;
+        }
+        
+        .category-divider-line {
+            flex: 1;
+            height: 1px;
+            background: #333;
+            opacity: 0.2;
+        }
+        
+        .category-divider-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            padding: 0 8px;
+        }
+        
+        .category-divider-count {
+            font-size: 12px;
+            font-weight: 400;
+            color: #999;
+            margin-left: 8px;
+        }
+        
         /* Authentication Styles */
         .auth-modal {
             position: fixed;
@@ -808,7 +847,7 @@
     <!-- Category Navigation -->
     <div class="category-nav">
         <button class="category-btn active" data-category="all">
-            All Screens <span class="category-count">44</span>
+            All Screens <span class="category-count">46</span>
         </button>
         <button class="category-btn" data-category="onboarding">
             Onboarding <span class="category-count">4</span>
@@ -817,7 +856,7 @@
             Authentication <span class="category-count">7</span>
         </button>
         <button class="category-btn" data-category="dashboard">
-            Dashboard <span class="category-count">3</span>
+            Dashboard <span class="category-count">5</span>
         </button>
         <button class="category-btn" data-category="health">
             Health Data <span class="category-count">1</span>
@@ -974,6 +1013,8 @@
             ],
             dashboard: [
                 { name: 'Dashboard', path: 'v1/screens/dashboard/main.html' },
+                { name: 'Resilience Score', path: 'v1/screens/dashboard/resilience-score.html' },
+                { name: 'Data Reputation Score', path: 'v1/screens/dashboard/data-reputation-score.html' },
                 { name: '$MNDY Tokens', path: 'v1/screens/rewards/main.html' },
                 { name: 'Profile', path: 'v1/screens/profile/main.html' }
             ],
@@ -1084,11 +1125,46 @@
                     grid.innerHTML = '';
                     
                     if (sectionCategory === 'all') {
-                        // Show all screens
+                        // Show all screens organized by category
+                        const categoryNames = {
+                            onboarding: 'Onboarding',
+                            auth: 'Authentication',
+                            dashboard: 'Dashboard & Navigation',
+                            health: 'Health Data',
+                            rewards: 'Rewards & Tokens',
+                            profile: 'Profile & Settings',
+                            errors: 'Error States',
+                            legal: 'Legal'
+                        };
+                        
                         Object.entries(screens).forEach(([cat, categoryScreens]) => {
+                            const categoryContainer = document.createElement('div');
+                            categoryContainer.className = 'all-screens-category';
+                            
+                            // Create category divider
+                            const divider = document.createElement('div');
+                            divider.className = 'category-divider';
+                            divider.innerHTML = `
+                                <div class="category-divider-line"></div>
+                                <div class="category-divider-title">
+                                    ${categoryNames[cat] || cat}
+                                    <span class="category-divider-count">${categoryScreens.length}</span>
+                                </div>
+                                <div class="category-divider-line"></div>
+                            `;
+                            categoryContainer.appendChild(divider);
+                            
+                            // Create grid for this category
+                            const categoryGrid = document.createElement('div');
+                            categoryGrid.className = `screens-grid ${grid.className.split(' ').find(c => ['single', 'double', 'triple', 'quad'].includes(c)) || 'quad'}`;
+                            
+                            // Add screens to category grid
                             categoryScreens.forEach(screen => {
-                                grid.innerHTML += createScreenFrame(screen, cat);
+                                categoryGrid.innerHTML += createScreenFrame(screen, cat);
                             });
+                            
+                            categoryContainer.appendChild(categoryGrid);
+                            grid.appendChild(categoryContainer);
                         });
                     } else {
                         // Show specific category
@@ -1151,10 +1227,19 @@
                 // Update all grids
                 const grids = document.querySelectorAll('.screens-grid');
                 grids.forEach(grid => {
-                    // Remove all view classes
-                    grid.classList.remove('single', 'double', 'triple', 'quad');
-                    // Add the selected view class
-                    grid.classList.add(view);
+                    // Skip the main container grid in all screens view
+                    if (grid.children.length > 0 && grid.children[0].classList.contains('all-screens-category')) {
+                        // Update nested grids within categories
+                        const nestedGrids = grid.querySelectorAll('.screens-grid');
+                        nestedGrids.forEach(nestedGrid => {
+                            nestedGrid.classList.remove('single', 'double', 'triple', 'quad');
+                            nestedGrid.classList.add(view);
+                        });
+                    } else {
+                        // Update regular grids
+                        grid.classList.remove('single', 'double', 'triple', 'quad');
+                        grid.classList.add(view);
+                    }
                 });
             });
         });
