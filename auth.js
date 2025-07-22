@@ -78,6 +78,9 @@ class AuthManager {
             
             if (this.authenticate(password)) {
                 modal.remove();
+                // Restore scrolling after authentication
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
                 this.onAuthenticated();
             } else {
                 errorDiv.textContent = 'Incorrect password. Please try again.';
@@ -116,6 +119,9 @@ class AuthManager {
             document.body.style.overflow = 'hidden';
         } else {
             this.onAuthenticated();
+            // Ensure body is scrollable after authentication
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
         }
     }
 }

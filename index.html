@@ -14,8 +14,8 @@
         }
         
         html {
-            overflow-x: hidden;
             scroll-behavior: smooth;
+            height: 100%;
         }
         
         body {
@@ -23,7 +23,10 @@
             background: #0a0a0a;
             min-height: 100vh;
             color: #333;
+            margin: 0;
+            padding: 0;
             overflow-x: hidden;
+            overflow-y: auto;
         }
         
         /* Header */
@@ -194,6 +197,13 @@
             transform: scale(1);
         }
         
+        /* Enable scrolling within iframes */
+        .screen-frame.scrollable {
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        
         .screen-frame:hover {
             transform: translateY(-5px);
             box-shadow: 
@@ -210,6 +220,12 @@
             background: white;
             transform: scale(0.61);
             transform-origin: top left;
+            pointer-events: auto;
+        }
+        
+        /* Allow iframe interaction on hover */
+        .screen-frame:hover .screen-iframe {
+            pointer-events: auto;
         }
         
         /* Loading state */
@@ -636,6 +652,12 @@
         // Create screen frame
         function createScreenFrame(screen) {
             const screenId = `screen-${Math.random().toString(36).substr(2, 9)}`;
+            // Check if this screen needs scrolling (legal docs, help center, etc)
+            const needsScroll = screen.path.includes('legal/') || 
+                               screen.path.includes('help-center') || 
+                               screen.path.includes('data-permissions') ||
+                               screen.path.includes('security-compliance');
+            
             return `
                 <div class="screen-container">
                     <div class="screen-info">
@@ -651,13 +673,14 @@
                         ></textarea>
                         <button class="comment-send-btn">➤</button>
                     </div>
-                    <div class="screen-frame">
+                    <div class="screen-frame ${needsScroll ? 'scrollable' : ''}">
                         <div class="loading-container" id="loading-${screenId}">
                             <div class="loading-spinner"></div>
                         </div>
                         <iframe 
                             src="${screen.path}" 
                             class="screen-iframe"
+                            ${needsScroll ? 'scrolling="yes"' : 'scrolling="no"'}
                             onload="document.getElementById('loading-${screenId}').style.display='none'"
                             onerror="document.getElementById('loading-${screenId}').innerHTML='<div class=\"error-message\">Failed to load screen</div>'"
                         ></iframe>
@@ -783,12 +806,6 @@
         // Notify that screens are loaded
         window.dispatchEvent(new Event('screensLoaded'));
         
-        // Fix initial scroll issue
-        setTimeout(() => {
-            document.body.style.overflow = 'visible';
-            document.documentElement.style.overflow = 'visible';
-        }, 100);
-        
         // Handle responsive grid view buttons
         function updateGridViewButtons() {
             const viewportWidth = window.innerWidth;
@@ -888,5 +905,27 @@
     <!-- Authentication and Professional Comments Scripts -->
     <script src="auth.js"></script>
     <script src="comments-manager.js"></script>
+    
+    <!-- Ensure scrolling works on load -->
+    <script>
+        // Force enable scrolling after all resources load
+        window.addEventListener('load', function() {
+            document.body.style.overflow = 'auto';
+            document.documentElement.style.overflow = 'auto';
+            // Also ensure main content is scrollable
+            const mainContent = document.querySelector('.main-content');
+            if (mainContent) {
+                mainContent.style.overflow = 'visible';
+            }
+        });
+        
+        // Backup in case load event doesn't fire properly
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
+            }, 500);
+        });
+    </script>
 </body>
 </html>
