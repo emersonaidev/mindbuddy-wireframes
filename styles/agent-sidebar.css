@@ -138,6 +138,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+    position: relative;
 }
 
 .request-number {
@@ -152,6 +153,37 @@
 .request-time {
     font-size: 12px;
     color: #666;
+    flex: 1;
+    text-align: left;
+    margin-left: 8px;
+}
+
+/* Delete Comment Button */
+.delete-comment-btn {
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #666;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+}
+
+.change-request-item:hover .delete-comment-btn {
+    opacity: 1;
+}
+
+.delete-comment-btn:hover {
+    background: #ff4444;
+    border-color: #ff4444;
+    color: white;
 }
 
 /* Request Content */

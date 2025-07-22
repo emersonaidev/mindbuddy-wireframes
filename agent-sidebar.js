@@ -109,10 +109,12 @@ class AgentSidebar {
         // Create change request item
         const requestItem = document.createElement('div');
         requestItem.className = 'change-request-item';
+        requestItem.dataset.commentId = request.id;
         requestItem.innerHTML = `
             <div class="request-header">
                 <span class="request-number">#${chatHistory.querySelectorAll('.change-request-item').length + 1}</span>
                 <span class="request-time">${new Date().toLocaleTimeString()}</span>
+                <button class="delete-comment-btn" onclick="window.agentSidebar.deleteComment('${request.id}')" title="Delete comment">×</button>
             </div>
             <div class="request-content">${this.escapeHtml(request.comment)}</div>
         `;
@@ -147,6 +149,23 @@ class AgentSidebar {
         div.textContent = text;
         return div.innerHTML;
     }
+    
+    deleteComment(commentId) {
+        if (!window.professionalCommentsManager || !confirm('Are you sure you want to delete this comment?')) return;
+        
+        // Remove from comments log
+        const index = window.professionalCommentsManager.commentsLog.findIndex(c => c.id === commentId);
+        if (index > -1) {
+            window.professionalCommentsManager.commentsLog.splice(index, 1);
+            window.professionalCommentsManager.saveCommentsLog();
+            
+            // Reload the display
+            this.loadChangeRequests();
+            
+            // Update UI
+            window.professionalCommentsManager.updateUI();
+        }
+    }
 
     loadChangeRequests() {
         if (!window.professionalCommentsManager || !this.selectedWireframe) return;
@@ -159,23 +178,36 @@ class AgentSidebar {
             comment => comment.screenName === this.selectedWireframe.name
         );
 
+        // Always clear the history first
+        chatHistory.innerHTML = '';
+
         if (wireframeComments.length > 0) {
-            // Clear and add header
+            // Add header
             chatHistory.innerHTML = `<div class="change-requests-header"><h4>Change Requests</h4></div>`;
             
             // Add each comment
             wireframeComments.forEach((comment, index) => {
                 const requestItem = document.createElement('div');
                 requestItem.className = 'change-request-item';
+                requestItem.dataset.commentId = comment.id;
                 requestItem.innerHTML = `
                     <div class="request-header">
                         <span class="request-number">#${index + 1}</span>
                         <span class="request-time">${new Date(comment.timestamp).toLocaleTimeString()}</span>
+                        <button class="delete-comment-btn" onclick="window.agentSidebar.deleteComment('${comment.id}')" title="Delete comment">×</button>
                     </div>
                     <div class="request-content">${this.escapeHtml(comment.comment)}</div>
                 `;
                 chatHistory.appendChild(requestItem);
             });
+        } else {
+            // Show welcome message if no comments
+            chatHistory.innerHTML = `
+                <div class="chat-welcome">
+                    <p>👋 Welcome!</p>
+                    <p style="color: #ccc;">Single click to add change requests. Double click for focus mode.</p>
+                </div>
+            `;
         }
     }
 }
